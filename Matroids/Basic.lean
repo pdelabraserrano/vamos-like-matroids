@@ -80,3 +80,13 @@ def length : List Nat → Nat
 #eval length [1, 7, 3, 4, 5]
 #eval length [1, 2, 3, 4, 5]
 #eval length [123423, 25, 1334, 190, 35, 1, 0]
+
+
+def determineSame : List Nat → List Nat → Bool
+  | [], [] => true
+  | [], a2 :: l2 => false
+  | a1 :: l1, [] => false
+  | a1 :: l1, a2 :: l2 =>
+   a1-a2=0 && determineSame l1 l2
+
+#eval determineSame [1, 7, 3, 4, 5] [1, 7, 3, 4, 5]
