@@ -1,6 +1,6 @@
 -- check if two ordered lists of the same length differ by at most one entry
 -- This function is not complete. We need to figure out how to give each list one "free pass" (two total)
-partial def NearlySameAux : List Nat → List Nat → (Bool × Bool × Bool)
+def NearlySameAux : List Nat → List Nat → (Bool × Bool × Bool)
   | [], [] => (true, false, false)
   | [], [h2] => (true, false, true)
   | [], h2 :: m2 :: t2 => (false, false, true)
@@ -27,7 +27,15 @@ partial def NearlySameAux : List Nat → List Nat → (Bool × Bool × Bool)
           (b, leftFreePassUsed,  true)
 
 
-partial def NearlySame : List Nat → List Nat → Bool
+def NearlySame : List Nat → List Nat → Bool
   | l1, l2 =>
     let (a, b, c) := NearlySameAux l1 l2
     a
+
+def elimNearlySame (l : List Nat) : List (List Nat) → List (List Nat)
+  | [] => []
+  | h1 :: t1 =>
+    if (NearlySame l h1) then
+      elimNearlySame l t1
+    else
+      h1 :: elimNearlySame l t1
