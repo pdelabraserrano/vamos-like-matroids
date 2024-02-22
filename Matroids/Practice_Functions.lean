@@ -73,38 +73,52 @@ def same : List Nat → List Nat → Bool
 
 -- check if two ordered lists of the same length differ by at most one entry
 -- This function is not complete. We need to figure out how to give each list one "free pass" (two total)
-partial def NearlySameAux : List Nat → List Nat → (Bool × Bool)
-  | [], [] => (true, false)
-  | [], [h2] => (true, true)
-  | [], h2 :: m2 :: t2 => (false, true)
-  | [h1], [] => (true, true)
-  | h1 :: m1 :: t1, [] => (false, true)
+partial def NearlySameAux : List Nat → List Nat → (Bool × Bool × Bool)
+  | [], [] => (true, false, false)
+  | [], [h2] => (true, false, true)
+  | [], h2 :: m2 :: t2 => (false, false, true)
+  | [h1], [] => (true, true, false)
+  | h1 :: m1 :: t1, [] => (false, true, false)
   | h1 :: t1, h2 :: t2 =>
     if h1 = h2 then
       NearlySameAux t1 t2
     else
-      let (b, freePassUsed) :=
-        if h1 < h2 then
-          NearlySameAux t1 (h2 :: t2)
+      if h1 < h2 then
+        let (b, leftFreePassUsed,  rightFreePassUsed) :=
+          NearlySameAux t1 (h2::t2)
+        if (leftFreePassUsed == true) then
+          (false, true, rightFreePassUsed)
         else
+          (b, true,  rightFreePassUsed)
+      else -- h1 > h2
+        -- use the right free pass
+        let (b, leftFreePassUsed,  rightFreePassUsed) :=
           NearlySameAux (h1 :: t1) t2
-      if freePassUsed == true then
-        (false, true)
-      else
-        (b, true)
+        if (rightFreePassUsed == true) then
+          (false, leftFreePassUsed, true)
+        else
+          (b, leftFreePassUsed,  true)
 
-#eval NearlySameAux [] [] -- true
-#eval NearlySameAux [] [1] -- true
-#eval NearlySameAux [] [1, 2] -- true
-#eval NearlySameAux [1, 2, 3] [1, 2, 3] -- true
-#eval NearlySameAux [1, 2, 5] [1, 5] -- false
-#eval NearlySameAux  [1, 5] [1, 2, 5] -- false
 
-#eval NearlySameAux [1, 2, 5, 7, 9] [1, 2, 3, 5, 9] -- true
-#eval NearlySameAux [1, 2, 5, 7, 9] [1, 2, 3, 7, 10] -- false
+partial def NearlySame : List Nat → List Nat → Bool
+  | l1, l2 =>
+    let (a, b, c) := NearlySameAux l1 l2
+    a
 
-#eval NearlySameAux [1, 2, 3] [1, 4] -- can return whatever is convenient -- we don't care about the output on lists of different lengths
-#eval NearlySameAux [1, 2, 3] [3, 2, 1] -- can return whatever is convenient -- we don't care about the output on non-ordered lists
+#eval NearlySame [] [] -- true
+#eval NearlySame [] [1] -- true
+#eval NearlySame [] [1, 2] -- false
+#eval NearlySame [1, 2, 3] [1, 2, 3] -- true
+#eval NearlySame [1, 2, 5] [1, 5] -- true
+#eval NearlySame  [1, 5] [1, 2, 5] -- true
+
+#eval NearlySame [1, 2, 5, 7, 9] [1, 2, 3, 5, 9] -- true
+#eval NearlySame [1, 2, 5, 7, 9] [1, 2, 3, 7, 10] -- false
+#eval NearlySame [1,2,3,5,7] [2,3,5,7,8] -- true
+
+
+#eval NearlySame [1, 2, 3] [1, 4] -- can return whatever is convenient -- we don't care about the output on lists of different lengths
+#eval NearlySame [1, 2, 3] [3, 2, 1] -- can return whatever is convenient -- we don't care about the output on non-ordered lists
 
 
 -- insert a number in a list immediately before the first entry bigger than it
