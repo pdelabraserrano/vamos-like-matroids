@@ -18,10 +18,14 @@ abbrev A : PartialMatroid where
   matroid := []
   remainingOptions := combinations 7 3
 
+
+#eval A
+
 abbrev B1 : PartialMatroid := augment [0, 1, 2] A
 abbrev C1 : PartialMatroid := augment [0, 3, 4] B1
 abbrev D1 : PartialMatroid := augment [1, 3, 5] C1
 abbrev E1 := augment [2, 4, 5] D1
 
-
+#eval D1
+#eval D1.remainingOptions
 #eval D1.remainingOptions.map (augment · D1)
