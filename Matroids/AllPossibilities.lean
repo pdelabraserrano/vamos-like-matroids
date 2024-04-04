@@ -16,6 +16,7 @@ def augmentationsTwo (A : PartialMatroid) : List PartialMatroid :=
 
 def augmentationsThree (A : PartialMatroid) : List PartialMatroid :=
    ((augmentations A).map augmentationsTwo).join
+--
 
 def augmentationsFour (A : PartialMatroid) : List PartialMatroid :=
    ((augmentations A).map augmentationsThree).join
@@ -29,9 +30,16 @@ def augmentationsFive (A : PartialMatroid) : List PartialMatroid :=
 #eval augmentationsFour D1
 #eval augmentationsFive D1
 
-def augmentationsMany (n : Nat) (A : PartialMatroid) : List PartialMatroid :=
-   sorry
 
-def augmentationsFinal (A : PartialMatroid) : List PartialMatroid
-   | h1::t1,[] => A.join
-   | h2::t2,h3::t3 => (augmentations A).map augmentations
+def augmentationsFinal : Nat → PartialMatroid → List PartialMatroid
+   | 0, A => [A]
+   | n + 1, A =>
+      let addNEdges : PartialMatroid → List PartialMatroid := augmentationsFinal n
+      ((augmentations A).map addNEdges).join
+
+
+#eval (augmentationsFinal 3 E1)
+-- #eval augmentationsFour D1
+#eval (augmentationsFinal 7 A73).length
+
+#eval (augmentationsFinal 2 A84).length
