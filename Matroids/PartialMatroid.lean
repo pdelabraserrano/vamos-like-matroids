@@ -10,7 +10,7 @@ namespace PartialMatroid
 def elimSmaller (l : List Nat) : List (List Nat) → List (List Nat)
   | [] => []
   | h1 :: t1 =>
-    if h1 < l then
+    if h1 > l then
       elimSmaller l t1
     else
       h1 :: elimSmaller l t1
@@ -29,9 +29,12 @@ abbrev A73 : PartialMatroid where
   matroid := []
   remainingOptions := combinations 7 3
 
-
 #eval A73
 
+
+abbrev A63 : PartialMatroid where
+  matroid := []
+  remainingOptions := combinations 6 3
 
 abbrev A84 : PartialMatroid where
   matroid := []
@@ -50,3 +53,4 @@ abbrev E1 := augment [2, 4, 5] D1
 
 
 #eval [1, 0, 2] < [1, 0, 3]
+#eval [3, 4, 5] < [3, 5, 6]
