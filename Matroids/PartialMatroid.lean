@@ -31,10 +31,17 @@ abbrev A73 : PartialMatroid where
 
 #eval A73
 
+abbrev A53 : PartialMatroid where
+  matroid := []
+  remainingOptions := combinations 5 3
 
 abbrev A63 : PartialMatroid where
   matroid := []
   remainingOptions := combinations 6 3
+
+abbrev A74 : PartialMatroid where
+  matroid := []
+  remainingOptions := combinations 7 4
 
 abbrev A84 : PartialMatroid where
   matroid := []

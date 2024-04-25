@@ -42,6 +42,10 @@ def augmentationsFinal : Nat → PartialMatroid → List PartialMatroid
 -- #eval augmentationsFour D1
 #eval (augmentationsFinal 4 A73)
 
+#eval (augmentationsFinal 4 A63)
+
+#eval (augmentationsFinal 4 A73)
+
 #eval (augmentationsFinal 2 A84).length
 
 #eval (augmentationsFinal 4 A63)
@@ -50,3 +54,5 @@ def fact : Nat → Nat
    | 0 => 1
    |n + 1 => (n +1)* fact n
 #eval fact 7
+
+def findBucket : PartialMatroid → List Nat := sorry
