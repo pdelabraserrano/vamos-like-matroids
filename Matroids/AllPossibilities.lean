@@ -65,19 +65,28 @@ def fact : Nat → Nat
    |n + 1 => (n +1)* fact n
 #eval fact 7
 
+-- countBuckets does the same thing we did here, in a single function
 def findBucket (A: PartialMatroid) : List Nat := count A.matroid.join.sort
 
 abbrev A73Bucket := (augmentationsFinal 4 A73).map findBucket
 
+#eval A73Bucket
+
 abbrev A73BucketSorted := A73Bucket.sort
 
 #eval count A73BucketSorted
+
+#eval A73BucketSorted
+
 
 def countBuckets (A: List PartialMatroid) : List Nat :=
    count ((A.map findBucket).sort)
 
 #eval countBuckets (augmentationsFinal 2 A84)
 
+-- (augmentationsFinal 4 A73) -> How many combinations of 4 triangles (3) can we make with seven points
 #eval countBuckets (augmentationsFinal 4 A73)
 
 #eval countBuckets (augmentationsFinal 5 A73)
+
+def groupByBucket (A: List PartialMatroid) : List (List PartialMatroid) :=
