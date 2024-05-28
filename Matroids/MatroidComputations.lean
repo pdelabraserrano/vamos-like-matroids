@@ -1,9 +1,50 @@
 import Matroids.NearlySame
+import Mathlib.Data.List.Basic
 
 def combinations : Nat → Nat → List (List Nat)
   | _, 0 => [[]]
   | 0, _ + 1 => []
   | n + 1, k + 1 => (combinations n (k + 1)) ++ ((combinations n k).map (· ++ [n]))
+
+#eval combinations 5 3
+-- built from `combinations 4 3` and `combinations 4 2`
+
+#eval combinations 4 3
+-- [[0, 1, 2], [0, 1, 3], [0, 2, 3], [1, 2, 3]]
+
+#eval combinations 4 2
+-- [[0, 1], [0, 2], [1, 2], [0, 3], [1, 3], [2, 3]]
+-- add 4 at the end of each one
+-- [[0, 1, 4], [0, 2, 4], [1, 2, 4], [0, 3, 4], [1, 3, 4], [2, 3, 4]]
+
+/-- Every list appearing in the list-of-lists `combinations n k` has length `k`. -/
+theorem combinations_entries_lengths (n k : Nat) :
+    (combinations n k).all (fun l ↦ l.length = k) := by
+  match n, k with
+  | _, 0 => simp [combinations]
+  | 0, _ + 1 => simp [combinations]
+  | n + 1, k + 1 =>
+    simp [combinations]
+    intro l hl
+    obtain hl1 | hl2 := hl
+    · have H := combinations_entries_lengths n (k + 1) -- inductive hypothesis
+      simp at H
+      -- exact H l hl1
+      apply H
+      apply hl1
+    · obtain ⟨l2, hl2, hl3⟩ := hl2
+      rw [← hl3]
+      simp
+      have H := combinations_entries_lengths n k -- inductive hypothesis
+      simp at H
+      apply H
+      apply hl2
+
+
+/-- Every entry in each of the lists in `combinations n k` is less than n. -/
+theorem combinations_entries_bounds (n k : Nat) :
+    (combinations n k).all (fun l ↦ l.all (fun i ↦ i < n)) := by
+  sorry
 
 -- Initial list of possible combinations
 abbrev A := combinations 7 3
