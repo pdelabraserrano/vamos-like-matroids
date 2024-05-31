@@ -99,21 +99,6 @@ def countBuckets (A: List PartialMatroid) : List Nat :=
 def groupByBucket (A: List PartialMatroid) : List (List PartialMatroid) :=
    groupByValue (A.mergeSort (fun l1 l2 => findBucket l1 < findBucket l2)) findBucket
 
--- A.sort((A.map findBucket).sort)
-
-
--- def list_length (l : List Nat) : List Nat :=
---   count l.sort
-
--- def compare_lists_by_length : List Nat → List Nat → Ordering
--- | l1, l2 =>
---   if list_length l1 < list_length l2 then Ordering.lt
---   else if list_length l1 = list_length l2 then Ordering.eq
---   else Ordering.gt
-
--- def sort_lists_by_length (l : List (List ℕat)) : List (List Nat) :=
---   list.sort (λ l1 l2↦ compare_lists_by_length l1 l2) l
-
 #eval [[1,2,3],[1,2],[1]]
 
 --#eval groupByBucket (augmentationsFinal 4 A73)
@@ -121,4 +106,18 @@ def groupByBucket (A: List PartialMatroid) : List (List PartialMatroid) :=
 #eval groupByValue ((augmentationsFinal 4 A73).mergeSort (fun l1 l2 => findBucket l1 < findBucket l2)) findBucket
 #eval countBuckets (augmentationsFinal 4 A73)
 
+-- To find where a list begins and ends simply cmd + f "}]"
 #eval groupByBucket (augmentationsFinal 4 A73)
+
+
+-- Test with six points, 4 triangles
+abbrev A63Bucket := (augmentationsFinal 4 A63).map findBucket
+#eval A63Bucket
+
+abbrev A63BucketSorted := A63Bucket.sort
+
+#eval count A63BucketSorted
+
+#eval A63BucketSorted
+
+#eval groupByBucket (augmentationsFinal 4 A63)
