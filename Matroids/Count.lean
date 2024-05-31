@@ -30,3 +30,24 @@ def count (l: List X) : List Nat  :=
    (c::finishedCount).sort
 
 #eval count [0,0,1,1,2,2,2,3,4,5,5]
+#eval count [0,0,1,1,2,0,2,3,4,5,5]
+
+example : List ℤ × ℕ := ([-2, 0, 2, 3], 2)
+example : ℕ × List ℤ := (2, [-2, 0, 2, 3])
+example : List (ℤ × ℕ) := [(2, 3), (4, 6), (10, 24)]
+
+
+
+def groupByValueAux (f: PartialMatroid → X) : List PartialMatroid → (List PartialMatroid) × List (List PartialMatroid)
+   | [] => ([], []) -- check
+   | [pm] => ([pm], []) -- check
+   | a :: b :: t =>
+      let (c, finishedCount) := groupByValueAux f (b :: t)
+      if f a == f b then
+         (a :: c, finishedCount)
+      else
+         ([a], c :: finishedCount)
+
+def groupByValue (l: List PartialMatroid) (f: PartialMatroid → X): List (List PartialMatroid) :=
+   let (c, finishedCount) := groupByValueAux f l
+   (c::finishedCount)
