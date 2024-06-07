@@ -4,6 +4,7 @@ import Matroids.Count
 import Init.Data.Ord
 
 
+
 #eval [1,1,1,2,2,2,3] < [1,1,2,2,2,2]
 #eval [1,1,2,2,2,2] < [2,2,2,2,2,2]
 
@@ -37,7 +38,7 @@ def augmentationsFive (A : PartialMatroid) : List PartialMatroid :=
 #eval augmentationsFour D1
 #eval augmentationsFive D1
 
-
+-- allows us to see all the partial matroids possible when we want to add x figures
 def augmentationsFinal : Nat → PartialMatroid → List PartialMatroid
    | 0, A => [A]
    | n + 1, A =>
@@ -71,7 +72,9 @@ def fact : Nat → Nat
    |n + 1 => (n +1)* fact n
 #eval fact 7
 
--- countBuckets does the same thing we did here, in a single function
+-- shows us the bucket each partial matroid belongs to
+-- sort allows the bucket to be sorted, so that [1,2,3] is the same as [1,3,2]
+-- count allows us to look at the number of figures each point touches.
 def findBucket (A: PartialMatroid) : List Nat := count A.matroid.join.sort
 
 abbrev A73Bucket := (augmentationsFinal 4 A73).map findBucket
@@ -86,6 +89,7 @@ abbrev A73BucketSorted := A73Bucket.sort
 
 #eval ((augmentationsFinal 4 A73).map findBucket)
 
+-- shws us the number of each distinct bucket
 def countBuckets (A: List PartialMatroid) : List Nat :=
    count ((A.map findBucket).sort)
 
@@ -96,6 +100,8 @@ def countBuckets (A: List PartialMatroid) : List Nat :=
 
 #eval countBuckets (augmentationsFinal 5 A73)
 
+--we sort based on bucket, and then every time the bucket changes, we create a new list
+--it is ordered based on bucket, but we display the original partial matroid from which the bucket was derived
 def groupByBucket (A: List PartialMatroid) : List (List PartialMatroid) :=
    groupByValue (A.mergeSort (fun l1 l2 => findBucket l1 < findBucket l2)) findBucket
 
@@ -121,3 +127,17 @@ abbrev A63BucketSorted := A63Bucket.sort
 #eval A63BucketSorted
 
 #eval groupByBucket (augmentationsFinal 4 A63)
+
+#eval groupByBucket (augmentationsFinal 5 Vamos)
+
+#eval countBuckets (augmentationsFinal 8 Vamos)--2
+#eval countBuckets (augmentationsFinal 7 Vamos)--16
+#eval countBuckets (augmentationsFinal 6 Vamos) -- 8,8,8,32
+#eval countBuckets (augmentationsFinal 5 Vamos) --32,32,64
+#eval countBuckets (augmentationsFinal 4 Vamos) -- 8, 8, 16, 16, 16, 32, 32, 36, 64
+#eval countBuckets (augmentationsFinal 3 Vamos) --32, 32, 144
+#eval countBuckets (augmentationsFinal 2 Vamos) --8, 8, 8, 16, 16, 32
+#eval countBuckets (augmentationsFinal 1 Vamos) --16
+#eval countBuckets (augmentationsFinal 0 Vamos) --1
+
+abbrev Vamos7 := groupByBucket (augmentationsFinal 7 Vamos)
