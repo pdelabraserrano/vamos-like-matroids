@@ -48,7 +48,7 @@ abbrev A84 : PartialMatroid where
   remainingOptions := combinations 8 4
 
 abbrev paa : PartialMatroid where
-  matroid := [[1,2,3,4], [1,2,5,6], [0,1,2,7], [3,4,5,6], [0,3,4,7]]
+  matroid := [[0,1,2,7], [0,3,4,7], [1,2,3,4], [1,2,5,6], [3,4,5,6]]
   remainingOptions := []
 
 abbrev Vamos : PartialMatroid where
