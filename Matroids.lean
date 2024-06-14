@@ -3,3 +3,4 @@
 -- import «Matroids».Basic
 import Matroids.AllPossibilities
 import Matroids.PartialMatroid
+import Matroids.Relabelling
