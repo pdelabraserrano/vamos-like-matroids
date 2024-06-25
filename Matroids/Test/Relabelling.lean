@@ -27,3 +27,5 @@ abbrev pa2 : PartialMatroid where
 #eval permutationsComparison 4 pa1 pa2 -- returns true
 
 #eval permutationsComparison 8 PartialMatroid.paa PartialMatroid.Vamos -- returns true
+
+#eval (pruning [PartialMatroid.Vamos, PartialMatroid.paa]).length
