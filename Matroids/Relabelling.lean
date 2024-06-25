@@ -57,30 +57,7 @@ def permutationsComparison (n : Nat) (A B : PartialMatroid) : Bool :=
 
 
 def pruning : List PartialMatroid → List PartialMatroid
-  | [] => sorry
-  | h :: t => sorry
-  --use permutationsComparison
-
-def pruning' (A : List PartialMatroid) : List PartialMatroid :=
-  sorry
-
- -- Take the B and relabel it using relabellingByPerm function and permutation g
- -- Sorting (which one?)
- -- See if it agrees with A (true if it agrees, false if it does not)
-
--- i.e. function f swaps 1 to 0 and leaves everything else the same
--- A: [[1,2,3],[4,5,6]]
--- Output: [[0,2,3],[4,5,6]]
-
---i.e. suppose function adds one to everything and 6 goes to 0, function f
--- A: same as earlier
--- Output: [[2,3,4],[5,6,0]]
-
--- What we want
--- a function that takes in two partial matroids (A, B of type partial matroid)
--- output should be a boolean
-
-def addOne : List Nat → List Nat
   | [] => []
-  | head :: tail =>
-    (head + 96) :: addOne (tail)
+  | h :: t =>
+  if (permutationsComparison 8 h (t.head)) then pruning t
+  else h :: pruning t
