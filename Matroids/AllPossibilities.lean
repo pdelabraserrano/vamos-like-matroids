@@ -3,8 +3,6 @@ import Mathlib.Data.List.Sort
 import Matroids.Count
 import Init.Data.Ord
 
-
-
 #eval [1,1,1,2,2,2,3] < [1,1,2,2,2,2]
 #eval [1,1,2,2,2,2] < [2,2,2,2,2,2]
 

@@ -1,3 +1,6 @@
+/-- Implementation of differnet relabelling Auxiliary functions to
+explore different syntax -/
+
 def relabellingAux (g : Nat → Nat) (B : List Nat) : List Nat :=
   (B.map) g
 
