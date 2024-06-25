@@ -44,7 +44,7 @@ When getting relabelled, the function also sorts the list and the elements of th
 Both the lists within the lists and the natural numbers within that list are sorted.
 The function only looks at one permutation. It is a boolean statemen within the function-/
 def sameUpToRelabelling (A B : PartialMatroid) (g : Nat → Nat) : Bool :=
-  ((relabelling B.matroid g).map List.sort).sort = A.matroid
+  ((relabelling B.matroid g).map List.sort).sort = ((A.matroid).map List.sort).sort
 
 
 def any : List α -> (α → Bool) -> Bool

@@ -1,4 +1,8 @@
 import Matroids.Relabelling
+import Matroids.Test.AllPossibilities
+open List
+
+instance : Inhabited PartialMatroid := ⟨[],[]⟩
 
 #eval (permutation 3).map (fun f ↦ (List.range 3).map f) -- returns [[1, 2, 0], [2, 1, 0], [2, 0, 1], [0, 2, 1], [1, 0, 2], [0, 1, 2]]
 
@@ -27,3 +31,38 @@ abbrev pa2 : PartialMatroid where
 #eval permutationsComparison 8 PartialMatroid.paa PartialMatroid.Vamos -- returns true
 
 #eval (pruning [PartialMatroid.Vamos, PartialMatroid.paa]).length
+
+abbrev test1 : PartialMatroid := (take 2 Vamos1.head!).head!
+abbrev test2 : PartialMatroid := (take 2 Vamos1.head!).getLast!
+
+def swapSixAndSeven (N : Nat) : Nat :=
+  if N == 6 then
+    7
+  else if N == 7 then
+    6
+  else
+    N
+
+#eval sameUpToRelabelling test1 test2 swapSixAndSeven
+
+#eval let B := test2 ; let g := swapSixAndSeven ; ((relabelling B.matroid g).map List.sort).sort -- returns [[0, 1, 2, 3], [0, 1, 4, 5], [0, 1, 6, 7], [1, 3, 5, 7], [2, 3, 4, 5], [2, 3, 6, 7]]
+#eval let A := test1 ; A.matroid -- returns [[1, 3, 5, 7], [0, 1, 2, 3], [0, 1, 4, 5], [0, 1, 6, 7], [2, 3, 4, 5], [2, 3, 6, 7]]
+
+
+#eval test2
+
+#eval permutationsComparison 8 test1 test2
+
+
+--#time
+--#eval (pruning (Vamos1.head!)).length
+
+def sizeOfPrunedBucket (l : List PartialMatroid) : Nat := (pruning l).length
+
+#time -- 49.753 sec
+#eval (Vamos1.map sizeOfPrunedBucket) -- returns [1]
+#time
+#eval pruning (FourTrianglesOnSixPoints.head!)
+
+#time
+#eval (pruning ((take 4 Vamos7.head!))).length

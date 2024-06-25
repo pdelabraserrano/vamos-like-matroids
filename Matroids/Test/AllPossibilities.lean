@@ -84,4 +84,10 @@ abbrev A63BucketSorted := A63Bucket.sort
 #eval countBuckets (augmentationsFinal 1 Vamos) --16
 #eval countBuckets (augmentationsFinal 0 Vamos) --1
 
+abbrev FourTrianglesOnSixPoints := groupByBucket (augmentationsFinal 4 A63)
 abbrev Vamos7 := groupByBucket (augmentationsFinal 7 Vamos)
+abbrev Vamos1 := groupByBucket (augmentationsFinal 1 Vamos)
+
+
+#check Vamos7
+#eval Vamos7.head!
