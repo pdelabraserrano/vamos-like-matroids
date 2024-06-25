@@ -26,8 +26,7 @@ def Even' (N : Nat) : Bool :=
 
 open Equiv
 
-#check Perm (Fin 8)
---#eval @Finset.univ (Perm (Fin 3)) _
+
 
 variable  (A : List (List Nat))
 #check List.map _ A
@@ -58,6 +57,8 @@ def permutationsComparison (n : Nat) (A B : PartialMatroid) : Bool :=
 
 def pruning : List PartialMatroid → List PartialMatroid
   | [] => []
-  | h :: t =>
-  if (permutationsComparison 8 h (t.head)) then pruning t
-  else h :: pruning t
+  | h :: t => let T := pruning t
+  if (any (T) (permutationsComparison 8 h)) then
+    T
+  else
+    h :: T

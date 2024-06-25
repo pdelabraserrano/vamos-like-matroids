@@ -8,8 +8,6 @@ import Matroids.Relabelling
 
 #eval Nat.factorial 4 -- returns 24
 
-#eval @Finset.univ (Perm (Fin 2)) -- !!! returns an error
-
 #eval (permutation 8).head! 0 -- returns 1
 
 #eval sameUpToRelabelling PartialMatroid.paa PartialMatroid.Vamos (permutation 8).head! -- returns true
