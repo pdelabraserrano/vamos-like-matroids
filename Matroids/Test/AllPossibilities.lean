@@ -1,10 +1,11 @@
 import Matroids.AllPossibilities
+open PartialMatroid
 
 #eval [1,1,1,2,2,2,3] < [1,1,2,2,2,2] -- returns true
 
 #eval [1,1,2,2,2,2] < [2,2,2,2,2,2] -- returns true
 
-#eval D1 -- returns { matroid := [[1, 3, 5], [0, 3, 4], [0, 1, 2]], remainingOptions := [] }
+-- #eval D1 -- returns { matroid := [[1, 3, 5], [0, 3, 4], [0, 1, 2]], remainingOptions := [] }
 
 #eval augmentations D1 -- returns []
 
