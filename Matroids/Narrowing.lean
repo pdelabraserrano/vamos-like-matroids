@@ -1,5 +1,7 @@
 import Matroids.MatroidComputations
+--unused
 
+/--
 -- First possibility (7 Triangles): [0, 1, 2], [0, 3, 4], [1, 3, 5], [2, 4, 5], [2, 3, 6], [1, 4, 6], [0, 5, 6]
 def narrowing (l : List (List Nat)) : List (List Nat) → List (List Nat)
   | [], [] => []
@@ -10,3 +12,4 @@ def narrowing (l : List (List Nat)) : List (List Nat) → List (List Nat)
     elimNearlySame h2 h1::t2
 
 #eval narrowing [[0, 1, 2], [0, 3, 4], [1, 3, 5], [2, 4, 5], [2, 3, 6], [1, 4, 6], [0, 5, 6]] A
+--/

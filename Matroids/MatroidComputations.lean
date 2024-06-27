@@ -1,6 +1,8 @@
 import Matroids.NearlySame
 import Mathlib.Data.List.Basic
 
+/--takes in two natural numbers n and k and returns a series of lists containing every combination 
+of length k containing elements in n. -/
 def combinations : Nat → Nat → List (List Nat)
   | _, 0 => [[]]
   | 0, _ + 1 => []

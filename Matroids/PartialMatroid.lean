@@ -15,7 +15,8 @@ def elimSmaller (l : List Nat) : List (List Nat) → List (List Nat)
     else
       h1 :: elimSmaller l t1
 
--- eventually we want to make this fail if l does not belong to remainingOptions
+/--Adds an additional figure to the partial matroid and then eliminates any figure/option from the
+remaining options that share all or all but one point with the figure that was just added -/
 def augment (l : List Nat) (M : PartialMatroid) : PartialMatroid :=
   -- if !(l ∈ M.remainingOptions) then fail "can't add this" else
   { matroid := l :: M.matroid, remainingOptions := elimSmaller l (elimNearlySame l M.remainingOptions) }

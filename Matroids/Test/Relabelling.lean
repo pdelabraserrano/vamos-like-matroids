@@ -61,6 +61,35 @@ def sizeOfPrunedBucket (l : List PartialMatroid) : Nat := (pruning l).length
 
 #time -- 49.753 sec
 #eval (Vamos1.map sizeOfPrunedBucket) -- returns [1]
+
+#time -- 84ms
+#eval (Vamos0.map sizeOfPrunedBucket) -- returns [1]
+
+#time --  4064179ms
+#eval (Vamos2.map sizeOfPrunedBucket) -- returns [1,1,1,1,1,1]
+
+#time --  sec
+#eval (Vamos3.map sizeOfPrunedBucket) -- returns []
+
+#time --  sec
+#eval (Vamos4.map sizeOfPrunedBucket) -- returns []
+
+#time --  sec
+#eval (Vamos5.map sizeOfPrunedBucket) -- returns []
+
+#time --  sec
+#eval (Vamos6.map sizeOfPrunedBucket) -- returns []
+
+#time --  sec
+#eval (Vamos7.map sizeOfPrunedBucket) -- returns []
+
+#time --  sec
+#eval (Vamos8.map sizeOfPrunedBucket) -- returns []
+
+
+
+
+#exit
 #time
 #eval pruning (FourTrianglesOnSixPoints.head!)
 
