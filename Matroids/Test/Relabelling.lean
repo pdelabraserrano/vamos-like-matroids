@@ -56,13 +56,3 @@ def swapSixAndSeven (N : Nat) : Nat :=
 
 --#time
 --#eval (pruning (Vamos1.head!)).length
-
-def sizeOfPrunedBucket (l : List PartialMatroid) : Nat := (pruning l).length
-
-#time -- 49.753 sec
-#eval (Vamos1.map sizeOfPrunedBucket) -- returns [1]
-#time
-#eval pruning (FourTrianglesOnSixPoints.head!)
-
-#time
-#eval (pruning ((take 4 Vamos7.head!))).length
