@@ -93,7 +93,7 @@ abbrev Vamos8 := groupByBucket (augmentationsFinal 8 Vamos)
 
 #check Vamos0
 
-
+#exit
 
 #time -- 0.018 sec
 #eval List.sum (Vamos0.map sizeOfPrunedBucket) -- returns [1] -- 1
