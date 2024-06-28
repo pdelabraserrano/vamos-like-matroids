@@ -7,6 +7,8 @@ structure PartialMatroid where
 
 namespace PartialMatroid
 
+/-- Goes through the remaining options and ensures that we add new things in an increasing
+order Eg. keeps (x ,y , z) eliminates (y, x, z)-/
 def elimSmaller (l : List Nat) : List (List Nat) → List (List Nat)
   | [] => []
   | h1 :: t1 =>
