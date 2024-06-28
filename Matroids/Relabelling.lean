@@ -1,11 +1,5 @@
 import Matroids.PartialMatroid
 import Matroids.Count
-import Init.Prelude
-import Mathlib.Logic.Equiv.Defs
-import Mathlib.Data.Fintype.Basic
-import Mathlib.Data.Fintype.Perm
-import Mathlib.GroupTheory.Perm.Cycle.Concrete
-import Mathlib.Logic.Equiv.Basic
 import Mathlib.Util.Time
 
 -- Function that generates permutations of a list
