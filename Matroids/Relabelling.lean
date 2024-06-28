@@ -20,14 +20,6 @@ def all : List α → (α → Bool) → Bool
   | h :: t, p => p h && all t p
 
 
-def Even' (N : Nat) : Bool :=
-  N % 2 == 0
-
-
-open Equiv
-
-
-
 variable  (A : List (List Nat))
 #check List.map _ A
 
@@ -81,8 +73,3 @@ def pruning : List PartialMatroid → List PartialMatroid
     h :: T
 
 def sizeOfPrunedBucket (l : List PartialMatroid) : Nat := (pruning l).length
-
-def sum : List Nat → Nat
-  | [] => 0
-  | head :: tail =>
-    head + sum tail
