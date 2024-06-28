@@ -1,7 +1,5 @@
 import Matroids.PartialMatroid
-import Mathlib.Data.List.Sort
 import Matroids.Count
-import Init.Data.Ord
 
 namespace PartialMatroid
 
