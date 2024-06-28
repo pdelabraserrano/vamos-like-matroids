@@ -2,9 +2,11 @@ import Matroids.AllPossibilities
 import Matroids.Buckets
 import Matroids.Combinations
 import Matroids.Count
+import Matroids.MainComputation
 import Matroids.NearlySame
 import Matroids.PartialMatroid
 import Matroids.Relabelling
+import Matroids.Vamos
 import Matroids.Verification.Basic
 import Matroids.Verification.Combinations
 import Matroids.Verification.Miscellaneous

@@ -1,9 +1,6 @@
 import Matroids.Verification.Miscellaneous
-import Matroids.Relabelling
-import Matroids.AllPossibilities
-import Matroids.Buckets
+import Matroids.MainComputation
 import Mathlib.Data.Matrix.Notation
-import Matroids.Vamos
 
 structure LawfulSparsePavingMatroid (n r : ℕ) (l : List (List ℕ)) : Prop :=
   (mem_range : l.Forall (List.Forall fun i ↦ i < n))
@@ -26,22 +23,6 @@ def List.NormalizedVamosLike (l : List (List ℕ)) : Prop :=
   ∀ i j : Fin 4, i < j → (P i).append (P j) ∈ l ↔ (i, j) ≠ (2, 3)
 
 /-! ## Main computation -/
-
-def mainComputationAux : List (List (List ℕ)) :=
-  -- take the augmentations by `i` quadrangles of the Vamos sparse paving matroid, and group
-  --("bucket") by basic numeric statistics
-  let Vamos (i : ℕ) : List (List PartialMatroid) :=
-    PartialMatroid.groupByBucket (PartialMatroid.augmentationsFinal i Vamos)
-  -- eliminate duplicates within each bucket
-  let prunedVamos (i : ℕ) : List (List PartialMatroid) := (Vamos i).map pruning
-  -- concatenate buckets and then concatenate over all `i`
-  let joinedPrunedVamos : List PartialMatroid :=
-    ((List.range 9).map fun i ↦ (prunedVamos i).join).join
-  -- forget the information about what more could be augmented to each and just present the
-  -- quadrangle information
-  joinedPrunedVamos.map PartialMatroid.matroid
-
-irreducible_def mainComputation : List (List (List ℕ)) := mainComputationAux
 
 /-- The main computation produces only `List (List ℕ)` objects which are valid ("lawful") sparse
 paving matroids. -/

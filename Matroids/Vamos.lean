@@ -1,4 +1,4 @@
-import Matroids.Relabelling
+import Matroids.PartialMatroid
 
 open PartialMatroid
 
