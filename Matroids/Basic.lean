@@ -3,10 +3,6 @@ def sum : List Nat → Nat
   | head :: tail =>
     head + sum tail
 
-
-#eval sum []
-#eval sum [1, 7, 12]
-
 def max : List Nat → Nat
   | [] => 0
   | head :: tail =>
@@ -17,13 +13,11 @@ def max : List Nat → Nat
       head
 
 
-#eval max [12, 20, 200]
-
 def fac : Nat → Nat
   | 0 => 1
   | n + 1 => (n + 1) * fac n
 
-#eval fac 6
+
 
 def additional_triangles (m: Nat) : Nat :=
   (fac (m))/(3* fac 3 * fac (m-3))
@@ -39,7 +33,7 @@ def addOne : List Nat → List Nat
 
 example : 3 :: [] = [3] := rfl
 
-#eval addOne [1, 7, 2] -- [2, 8, 3]
+
 
 
 #eval parsing [1, 2, 3, 4, 5] --[2, 4]

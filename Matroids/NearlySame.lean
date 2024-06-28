@@ -1,4 +1,5 @@
--- check if two ordered lists of the same length differ by at most one entry
+/-- Check if two ordered lists of the same length differ by at most one entry-/
+
 def NearlySameAux : List Nat → List Nat → (Bool × Bool × Bool)
   | [], [] => (true, false, false)
   | [], [h2] => (true, false, true)
