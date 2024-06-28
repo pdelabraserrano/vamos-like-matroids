@@ -8,7 +8,7 @@ instance : Inhabited PartialMatroid := ⟨[],[]⟩
 
 #eval (List.range 8).map (permutation 8).head! -- returns [1, 2, 3, 4, 5, 6, 7, 0]
 
-#eval all [0, 2, 10] Even' -- returns true
+--#eval all [0, 2, 10] Even' -- returns true
 
 #eval Nat.factorial 4 -- returns 24
 

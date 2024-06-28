@@ -16,16 +16,16 @@ abbrev Vamos8 := groupByBucket (augmentationsFinal 8 Vamos)
 
 #check Vamos0
 
-#exit
+
 
 #time -- 0.018 sec
-#eval (Vamos0.map sizeOfPrunedBucket) -- returns [1] -- 1
+#eval List.sum (Vamos0.map sizeOfPrunedBucket) -- returns [1] -- 1
 
 #time -- 49.753 sec
-#eval (Vamos1.map sizeOfPrunedBucket) -- returns [1] -- 2
+#eval List.sum (Vamos1.map sizeOfPrunedBucket) -- returns [1] -- 2
 
 #time --339.491 sec / 6 min
-#eval (Vamos2.map sizeOfPrunedBucket) -- returns [1, 1, 1, 1, 1, 1] -- 8
+#eval List.sum (Vamos2.map sizeOfPrunedBucket) -- returns [1, 1, 1, 1, 1, 1] -- 8
 
 #time -- 3538.507 sec / 1hr
 #eval (Vamos3.map sizeOfPrunedBucket) -- returns [1, 1, 5] -- 15
