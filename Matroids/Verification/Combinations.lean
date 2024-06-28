@@ -1,4 +1,5 @@
 import Matroids.Combinations
+import Std
 
 /-- Every list appearing in the list-of-lists `combinations n k` has length `k`. -/
 theorem combinations_entries_lengths (n k : Nat) :
