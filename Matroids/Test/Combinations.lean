@@ -1,4 +1,5 @@
 import Matroids.Combinations
+import Matroids.NearlySame
 
 #eval combinations 5 3
 -- built from `combinations 4 3` and `combinations 4 2`
