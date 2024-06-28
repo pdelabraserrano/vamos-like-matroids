@@ -2,10 +2,10 @@
 
 def NearlySameAux : List Nat → List Nat → (Bool × Bool × Bool)
   | [], [] => (true, false, false)
-  | [], [h2] => (true, false, true)
-  | [], h2 :: m2 :: t2 => (false, false, true)
-  | [h1], [] => (true, true, false)
-  | h1 :: m1 :: t1, [] => (false, true, false)
+  | [], [_] => (true, false, true)
+  | [], _ :: _ :: _ => (false, false, true)
+  | [_], [] => (true, true, false)
+  | _ :: _ :: _, [] => (false, true, false)
   | h1 :: t1, h2 :: t2 =>
     if h1 = h2 then
       NearlySameAux t1 t2
@@ -29,7 +29,7 @@ def NearlySameAux : List Nat → List Nat → (Bool × Bool × Bool)
 
 def NearlySame : List Nat → List Nat → Bool
   | l1, l2 =>
-    let (a, b, c) := NearlySameAux l1 l2
+    let (a, _, _) := NearlySameAux l1 l2
     a
 
 def elimNearlySame (l : List Nat) : List (List Nat) → List (List Nat)
