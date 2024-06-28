@@ -7,3 +7,4 @@ import Matroids.Count
 import Matroids.NearlySame
 import Matroids.PartialMatroid
 import Matroids.Relabelling
+import Matroids.Combinations
