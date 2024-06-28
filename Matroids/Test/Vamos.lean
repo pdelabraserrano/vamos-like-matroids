@@ -1,9 +1,6 @@
-import Matroids.Relabelling
-import Matroids.AllPossibilities
 import Matroids.Buckets
-import Vamos
+import Matroids.Vamos
 
-open List
 open PartialMatroid
 
 abbrev Vamos0 := groupByBucket (augmentationsFinal 0 Vamos)
