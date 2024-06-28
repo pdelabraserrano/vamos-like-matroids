@@ -79,3 +79,10 @@ def pruning : List PartialMatroid → List PartialMatroid
     T
   else
     h :: T
+
+def sizeOfPrunedBucket (l : List PartialMatroid) : Nat := (pruning l).length
+
+def sum : List Nat → Nat
+  | [] => 0
+  | head :: tail =>
+    head + sum tail
