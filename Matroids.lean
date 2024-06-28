@@ -8,3 +8,6 @@ import Matroids.NearlySame
 import Matroids.PartialMatroid
 import Matroids.Relabelling
 import Matroids.Combinations
+import Matroids.Verification.Basic
+import Matroids.Verification.Combinations
+import Matroids.Verification.Miscellaneous
