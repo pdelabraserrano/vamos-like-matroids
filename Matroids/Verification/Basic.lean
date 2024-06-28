@@ -61,9 +61,8 @@ theorem nonisomorphic_mainComputationFinset :
     mainComputationFinset.Pairwise (fun s t ↦ ¬ FinsetFinsetIsomorphic s t) :=
   sorry
 
-/-- Any "normalized Vámos-like" `Finset (Finset (Fin 8))` object which is valid as an (8, 4) sparse
-paving matroid is isomorphic to one of the `Finset (Finset (Fin 8))` objects on the list provided by
-the main computation. -/
+/-- Any "normalized Vámos-like" `List (List ℕ)` object which is valid as an (8, 4) sparse paving
+matroid is isomorphic to one of the objects on the list provided by the main computation. -/
 theorem mainComputationFinset_exhausts {l : List (List ℕ)} (hl₁ : LawfulSparsePavingMatroid 8 4 l)
     (hl₂ : l.NormalizedVamosLike) :
     ∃ s ∈ mainComputationFinset, FinsetFinsetIsomorphic hl₁.nonbases s := by
