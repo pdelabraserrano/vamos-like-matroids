@@ -1,7 +1,9 @@
 import Matroids.Verification.Miscellaneous
 import Matroids.Relabelling
 import Matroids.AllPossibilities
+import Matroids.Buckets
 import Mathlib.Data.Matrix.Notation
+import Matroids.Test.Vamos
 
 structure LawfulSparsePavingMatroid (n r : ℕ) (l : List (List ℕ)) : Prop :=
   (mem_range : l.Forall (List.Forall fun i ↦ i < n))
@@ -29,7 +31,7 @@ def mainComputationAux : List (List (List ℕ)) :=
   -- take the augmentations by `i` quadrangles of the Vamos sparse paving matroid, and group
   --("bucket") by basic numeric statistics
   let Vamos (i : ℕ) : List (List PartialMatroid) :=
-    PartialMatroid.groupByBucket (PartialMatroid.augmentationsFinal i PartialMatroid.Vamos)
+    PartialMatroid.groupByBucket (PartialMatroid.augmentationsFinal i Vamos)
   -- eliminate duplicates within each bucket
   let prunedVamos (i : ℕ) : List (List PartialMatroid) := (Vamos i).map pruning
   -- concatenate buckets and then concatenate over all `i`
