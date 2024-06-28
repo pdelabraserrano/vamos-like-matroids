@@ -7,9 +7,11 @@ statistics: how many vertices there are touched by one, two, three, etc. circuit
 
 ## Main definitions
 
-* `findBucket`:
-* `countBuckets`
-* `groupByBucket`
+* `findBucket`: counts the number of figures touched by each point and sorts them (by counting how
+   many times each point appears)
+* `countBuckets`: counts the number of distinct `findBucket` combos (sorted)
+* `groupByBucket`: allows us to sort partial matroids by their distinct bucket (i.e. category bucket
+   1, bucket 2, etc.); utilizes `groupByValue`
 
 -/
 namespace PartialMatroid
@@ -19,11 +21,12 @@ sort allows the bucket to be sorted, so that [1,2,3] is the same as [1,3,2]
 count allows us to look at the number of figures each point touches-/
 def findBucket (A: PartialMatroid) : List Nat := count A.matroid.join.sort
 
--- shws us the number of each distinct bucket
+/-- Shows us the number of each distinct bucket. -/
 def countBuckets (A: List PartialMatroid) : List Nat :=
    count ((A.map findBucket).sort)
 
---we sort based on bucket, and then every time the bucket changes, we create a new list
---it is ordered based on bucket, but we display the original partial matroid from which the bucket was derived
+/-- We sort based on bucket, and then every time the bucket changes, we create a new list. It is
+ordered based on bucket, but we display the original partial matroid from which the bucket was
+derived. -/
 def groupByBucket (A: List PartialMatroid) : List (List PartialMatroid) :=
    groupByValue (A.mergeSort (fun l1 l2 => findBucket l1 < findBucket l2)) findBucket
