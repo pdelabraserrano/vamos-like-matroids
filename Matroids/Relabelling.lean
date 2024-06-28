@@ -2,7 +2,29 @@ import Matroids.PartialMatroid
 import Matroids.Count
 import Mathlib.Util.Time
 
--- Function that generates permutations of a list
+/-! # Code to group check for repeat PartialMatroids based on permutations
+
+This file provides functions to check if there are any duplicate partial matroids in each bucket.
+Because different buckets indicates a different series of connections, we assume that different
+buckets indicate a different partial matroid.
+
+## Main definitions
+
+* `permutation`: allows us to get all permutations of magnitude n (should be number of points)
+* `relabelling`: allows us to apply conditions to the partial matroids (minus remaining options)
+* `sameUpToRelabelling`: check if a permutation of B is the same as A based on relabelling; utilizes
+  `relabelling`
+* `Any`: applies a condition to each lement in a list and returns true if there is at least one true
+* `permutationsComparison`: checks if two partial matroids are the same; utilizes `any`,
+  `permutation`, and `sameUpToRelabelling`
+* `Pruning`: sees if there are any repeats in a list of partial matroids and eliminates repeat
+  partial matroids; utilizes `permutationsComparison`
+* `sizeOfPrunedBucket`: gives us the length of each pruned bucket. We input matroids already
+already separated by bucket to save computational power; utilizes `Pruning`
+-/
+
+
+/-- Function that generates permutations of a given magnitude (in the input)-/
 def permutation : Nat → List (Nat → Nat)
   | 0 => [id]
   | n + 1 => ((List.range (n + 1)).map (fun i => (permutation n).map (Function.comp (Equiv.swapCore i n)))).join
@@ -43,7 +65,7 @@ def any : List α -> (α → Bool) -> Bool
   | [], _ => false
   | h :: t, p => p h || any t p
 
-/--Takes the number of permutes we want to permutate. Takes the partial matroids we want to apply
+/--Takes the magnitude of permutations we want to apply. Takes the partial matroids we want to apply
 the permutations to. We use the any function to see if there are any repeat partial matroids. If
 there are repeats, that means that thse are the same partial matroid. It compares two partial
 matroids but evaluates every single permutation of the second partial matroid and compares it to the
@@ -66,4 +88,10 @@ def pruning : List PartialMatroid → List PartialMatroid
   else
     h :: T
 
+/--we begin with the list of partial matroids separated into a list of lists and the lists are
+categorized by buckets. We apply the pruning to each of the buckets based on the idea that different
+buckets cannot contain the same matroid because the set of paths/connections are different. As a
+result, Lean would only have to check for similarities in the buckets (reducing computational power)
+and prune from there. We only care about the number of partial matroids so we want to see the length
+of each bucket-/
 def sizeOfPrunedBucket (l : List PartialMatroid) : Nat := (pruning l).length
