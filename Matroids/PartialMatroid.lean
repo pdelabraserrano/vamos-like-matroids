@@ -1,4 +1,4 @@
-import Matroids.Combinations
+import Matroids.NearlySame
 
 structure PartialMatroid where
   matroid : List (List Nat)
