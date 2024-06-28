@@ -10,21 +10,6 @@ partial matroid A. Looks at the possibilities from remaining options and adds on
 def augmentations (A : PartialMatroid) : List PartialMatroid := A.remainingOptions.map  (augment · A)
 
 
-#check List.concat
-
-def augmentationsTwo (A : PartialMatroid) : List PartialMatroid :=
-  ((augmentations A).map augmentations).join
-
-def augmentationsThree (A : PartialMatroid) : List PartialMatroid :=
-   ((augmentations A).map augmentationsTwo).join
-
-def augmentationsFour (A : PartialMatroid) : List PartialMatroid :=
-   ((augmentations A).map augmentationsThree).join
-
-def augmentationsFive (A : PartialMatroid) : List PartialMatroid :=
-   ((augmentations A).map augmentationsFour).join
-
-
 /-- Function that allows us to see all the partial matroids possible when we want to add x figures.
 Takes in a natural number x and a partial matroid containing remaning options. -/
 def augmentationsFinal : Nat → PartialMatroid → List PartialMatroid

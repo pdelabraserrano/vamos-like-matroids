@@ -5,7 +5,24 @@ open PartialMatroid
 
 #eval [1,1,2,2,2,2] < [2,2,2,2,2,2] -- returns true
 
+
+#check List.concat
+
+def augmentationsTwo (A : PartialMatroid) : List PartialMatroid :=
+  ((augmentations A).map augmentations).join
+
+def augmentationsThree (A : PartialMatroid) : List PartialMatroid :=
+   ((augmentations A).map augmentationsTwo).join
+
+def augmentationsFour (A : PartialMatroid) : List PartialMatroid :=
+   ((augmentations A).map augmentationsThree).join
+
+def augmentationsFive (A : PartialMatroid) : List PartialMatroid :=
+   ((augmentations A).map augmentationsFour).join
+
+
 -- #eval D1 -- returns { matroid := [[1, 3, 5], [0, 3, 4], [0, 1, 2]], remainingOptions := [] }
+
 
 #eval augmentations D1 -- returns []
 
