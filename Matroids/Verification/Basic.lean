@@ -3,7 +3,7 @@ import Matroids.Relabelling
 import Matroids.AllPossibilities
 import Matroids.Buckets
 import Mathlib.Data.Matrix.Notation
-import Matroids.Test.Vamos
+import Matroids.Vamos
 
 structure LawfulSparsePavingMatroid (n r : ℕ) (l : List (List ℕ)) : Prop :=
   (mem_range : l.Forall (List.Forall fun i ↦ i < n))
