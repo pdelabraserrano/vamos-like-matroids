@@ -1,5 +1,17 @@
 import Matroids.AllPossibilities
 
+/-! # Code to group PartialMatroids by their basic combinatorial statistics
+
+This file provides functions to group ("bucket") sparse paving matroids by their basic combinatorial
+statistics: how many vertices there are touched by one, two, three, etc. circuit-hyperplanes.
+
+## Main definitions
+
+* `findBucket`:
+* `countBuckets`
+* `groupByBucket`
+
+-/
 namespace PartialMatroid
 
 /-- Function that shows us the bucket each partial matroid belongs to.
