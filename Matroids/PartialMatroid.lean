@@ -1,4 +1,4 @@
-import Matroids.MatroidComputations
+import Matroids.Combinations
 
 structure PartialMatroid where
   matroid : List (List Nat)
