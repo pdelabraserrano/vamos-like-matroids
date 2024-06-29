@@ -1,5 +1,4 @@
 import Matroids.PartialMatroid
-import Matroids.Count
 
 namespace PartialMatroid
 

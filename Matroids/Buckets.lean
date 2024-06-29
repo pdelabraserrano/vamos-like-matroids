@@ -1,4 +1,5 @@
-import Matroids.AllPossibilities
+import Matroids.PartialMatroid
+import Matroids.Count
 
 /-! # Code to group PartialMatroids by their basic combinatorial statistics
 
