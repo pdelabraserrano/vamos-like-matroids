@@ -10,4 +10,4 @@ build of the project. -/
 
 /-- info: 39 -/
 #guard_msgs in
-#eval mainComputationAux.length
+#eval mainComputation.length

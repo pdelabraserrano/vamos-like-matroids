@@ -3,7 +3,7 @@ import Matroids.Relabelling
 import Matroids.Vamos
 import Matroids.AllPossibilities
 
-def mainComputationAux : List (List (List ℕ)) :=
+irreducible_def mainComputation : List (List (List ℕ)) :=
   -- take the augmentations by `i` quadrangles of the Vamos sparse paving matroid, and group
   --("bucket") by basic numeric statistics
   let Vamos (i : ℕ) : List (List PartialMatroid) :=
@@ -16,5 +16,3 @@ def mainComputationAux : List (List (List ℕ)) :=
   -- forget the information about what more could be augmented to each and just present the
   -- quadrangle information
   joinedPrunedVamos.map PartialMatroid.matroid
-
-irreducible_def mainComputation : List (List (List ℕ)) := mainComputationAux
