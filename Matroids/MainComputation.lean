@@ -1,6 +1,7 @@
 import Matroids.Buckets
 import Matroids.Relabelling
 import Matroids.Vamos
+import Matroids.AllPossibilities
 
 def mainComputationAux : List (List (List ℕ)) :=
   -- take the augmentations by `i` quadrangles of the Vamos sparse paving matroid, and group
