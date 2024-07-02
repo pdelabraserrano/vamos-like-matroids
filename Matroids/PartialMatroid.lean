@@ -1,4 +1,5 @@
 import Matroids.NearlySame
+import Matroids.Count
 
 /-! # Code to create a PartialMatroid structure and
 
@@ -37,7 +38,7 @@ def elimSmaller (l : List Nat) : List (List Nat) → List (List Nat)
 remaining options that share all or all but one point with the figure that was just added -/
 def augment (l : List Nat) (M : PartialMatroid) : PartialMatroid :=
   -- if !(l ∈ M.remainingOptions) then fail "can't add this" else
-  { matroid := l :: M.matroid, remainingOptions := elimSmaller l (elimNearlySame l M.remainingOptions) }
+  { matroid := (l :: M.matroid).sort, remainingOptions := elimSmaller l (elimNearlySame l M.remainingOptions) }
 
 -- old version with duplication
   -- { matroid := l :: M.matroid, remainingOptions := elimNearlySame l M.remainingOptions }
