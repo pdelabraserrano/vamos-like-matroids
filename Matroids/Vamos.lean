@@ -2,6 +2,15 @@ import Matroids.PartialMatroid
 
 open PartialMatroid
 
+/-! # Code to ---
+
+This file provides functions ----
+
+## Main definitions
+
+* `Vamos`: ---
+-/
+
 abbrev Vamos : PartialMatroid where
   matroid := [[0,1,2,3], [0,1,4,5], [0,1,6,7], [2,3,4,5], [2,3,6,7]]
   -- should redo

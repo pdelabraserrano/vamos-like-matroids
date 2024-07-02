@@ -2,6 +2,19 @@ import Mathlib.Data.List.Sort
 
 variable {X : Type*} [LT X] [DecidableRel ((·:X) < · )] [BEq X ]
 
+/-! # Code to ---
+
+This file provides functions ----
+
+## Main definitions
+
+* `List.sort`: ---
+* `countAux`: ---
+* `count`: ---
+* `groupByValueAux`: ---
+* `groupByValue`: ---
+-/
+
 -- Function that sorts, outside PartialMatroid namespace
 def List.sort (l :  List X) : List X :=
    l.mergeSort (· < · )

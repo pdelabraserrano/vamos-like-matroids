@@ -3,6 +3,15 @@ import Matroids.Relabelling
 import Matroids.Vamos
 import Matroids.AllPossibilities
 
+/-! # Code to ---
+
+This file provides functions ----
+
+## Main definitions
+
+* `mainComputation`: ---
+-/
+
 irreducible_def mainComputation : List (List (List ℕ)) :=
   -- take the augmentations by `i` quadrangles of the Vamos sparse paving matroid, and group
   --("bucket") by basic numeric statistics
