@@ -82,7 +82,8 @@ were just analyzed and kept. We repeat this process until we have reached the fi
 matroid-/
 def pruning : List PartialMatroid → List PartialMatroid
   | [] => []
-  | h :: t => let T := pruning t
+  | h :: t =>
+  let T := pruning t
   if (any (T) (permutationsComparison 8 h)) then
     T
   else
