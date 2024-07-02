@@ -2,12 +2,15 @@ import Matroids.PartialMatroid
 
 /-! # Code to ---
 
-This file provides functions ----
+This file provides functions begin adding things from the remaining options. It only produces
+qualified partial matroids. From here, we still need to check whether or not there are repeat
+partial matroids
 
 ## Main definitions
 
-* `augmentations`: ---
-* `augmentationsFinal`: ---
+* `augmentations`: augments elements from remaining options (only one at a time); utilizes `augment`
+* `augmentationsFinal`: allows us to augment a set number of things from remaining options. Finds
+all combinations of size n to augment to the partial matroid; utilizes `augmentations `
 -/
 
 namespace PartialMatroid

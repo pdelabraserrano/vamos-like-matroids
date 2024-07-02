@@ -1,13 +1,17 @@
 
 /-! # Code to ---
 
-This file provides functions ----
+This file provides functions to identify within a list of list of natural numbers whether or not
+there is a list of natural numbers with
 
 ## Main definitions
 
-* `NearlySameAux`: ---
-* `NearlySame`: ---
-* `elimNearlySame`: ---
+* `NearlySameAux`: checks if there is more than one different element between two lists.
+* `NearlySame`: returns a boolean on whether or not there is more than one different element between
+two lists
+* `elimNearlySame`: Looks at a list of lists of natural numbers and see if there are any existing
+lists in the list of lists that has at most one different element between them and eliminates items
+from the list of lists that have a most one different element between it and the new list.
 -/
 
 /-- Check if two ordered lists of the same length differ by at most one entry-/

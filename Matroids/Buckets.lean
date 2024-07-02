@@ -12,7 +12,7 @@ statistics: how many vertices there are touched by one, two, three, etc. circuit
    many times each point appears)
 * `countBuckets`: counts the number of distinct `findBucket` combos (sorted)
 * `groupByBucket`: allows us to sort partial matroids by their distinct bucket (i.e. category bucket
-   1, bucket 2, etc.); utilizes `groupByValue`
+   1, bucket 2, etc.); utilizes `groupByValue` and `findBucket`
 -/
 
 namespace PartialMatroid

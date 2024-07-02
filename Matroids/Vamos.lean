@@ -8,7 +8,8 @@ This file provides functions ----
 
 ## Main definitions
 
-* `Vamos`: ---
+* `Vamos`: THE Vamos matroid put within the partial matriod structure (because it is a partial
+matroid)
 -/
 
 abbrev Vamos : PartialMatroid where
