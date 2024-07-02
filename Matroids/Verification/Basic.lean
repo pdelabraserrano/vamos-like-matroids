@@ -1,4 +1,3 @@
-import Matroids.Verification.Miscellaneous
 import Matroids.NearlySame
 import Mathlib.Data.Matrix.Notation
 
@@ -10,15 +9,6 @@ structure LawfulSparsePavingMatroid (n r : ℕ) (l : List (List ℕ)) : Prop :=
   (sorted_of_mem : ∀ m ∈ l, m.Sorted (· < ·))
   (sorted : l.Sorted (· < ·))
   (pairwise_not_nearlySame : l.Pairwise (fun l₁ l₂ ↦ ¬ NearlySame l₁ l₂))
-
-def LawfulSparsePavingMatroid.nonbases {n r : ℕ} {l : List (List ℕ)}
-    (hl : LawfulSparsePavingMatroid n r l) :
-    Finset (Finset (Fin n)) :=
-  let a : List (List (Fin n)) := l.dependentMap (List.dependentMap Fin.mk) hl.mem_range
-  (a.map List.toFinset).toFinset
-
-def FinsetFinsetIsomorphic (s : Finset (Finset α)) (t : Finset (Finset β)) : Prop :=
-  ∃ e : α ≃ β, e.finsetCongr.finsetCongr s = t
 
 /-- Property of a list of lists, that it contain `[0, 1, 2, 3]`, `[0, 1, 4, 5]`, `[0, 1, 6, 7]`,
 `[2, 3, 4, 5]`, `[2, 3, 6, 7]`, and not contain `[4, 5, 6, 7]`. -/

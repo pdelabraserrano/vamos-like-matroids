@@ -4,9 +4,7 @@ import Matroids.Verification.Buckets
 import Matroids.Verification.Relabelling
 import Matroids.MainComputation
 
-open PartialMatroid
-
-/-! ## Main computation -/
+/-! # Verifying that the main computation has the desired properties -/
 
 /-- The main computation produces only `List (List ℕ)` objects which are valid ("lawful") sparse
 paving matroids.
@@ -19,22 +17,17 @@ Informally: Theorem 2 -/
 lemma mainComputation_normalizedVamosLike: mainComputation.Forall List.NormalizedVamosLike :=
   sorry
 
-/-- The main computation, considered as a list of `Finset (Finset (Fin 8))` objects rather than a
-list of `List (List ℕ)` objects. -/
-def mainComputationFinset : List (Finset (Finset (Fin 8))) :=
-  mainComputation.dependentMap (fun _ ↦ LawfulSparsePavingMatroid.nonbases) mainComputation_lawful
-
-/-- The list of `Finset (Finset (Fin 8))` objects provided by the main computation are mutually
-non-isomorphic (up to permutation of the underlying `Fin 8`).
+/-- The list of `List (List ℕ)` objects provided by the main computation are mutually
+non-isomorphic (up to permutation of 0, 1, 2, ... 7).
 Informally: Theorem 3 -/
-theorem nonisomorphic_mainComputationFinset :
-    mainComputationFinset.Pairwise (fun s t ↦ ¬ FinsetFinsetIsomorphic s t) :=
+theorem nonisomorphic_mainComputation :
+    mainComputation.Pairwise (fun l₁ l₂ ↦ ¬ permutationsComparison 8 l₁ l₂) :=
   sorry
 
 /-- Any "normalized Vámos-like" `List (List ℕ)` object which is valid as an (8, 4) sparse paving
 matroid is isomorphic to one of the objects on the list provided by the main computation.
 Informally: Theorem 4 -/
-theorem mainComputationFinset_exhausts {l : List (List ℕ)} (hl₁ : LawfulSparsePavingMatroid 8 4 l)
+theorem mainComputation_exhausts {l : List (List ℕ)} (hl₁ : LawfulSparsePavingMatroid 8 4 l)
     (hl₂ : l.NormalizedVamosLike) :
-    ∃ s ∈ mainComputationFinset, FinsetFinsetIsomorphic hl₁.nonbases s := by
+    ∃ l' ∈ mainComputation, permutationsComparison 8 l l' := by
   sorry

@@ -54,8 +54,8 @@ relabelled partial matroid and the partial matroid being comapred to. Only looks
 by only relabelling one partial matroid once and comparing it to the first partial matroid to see if
 it is a match. The permutation is applied to the second partial matroid. It is a boolean statement
 within the function. --/
-def sameUpToRelabelling (A B : PartialMatroid) (g : Nat → Nat) : Bool :=
-  ((relabelling B.matroid g).map List.sort).sort = ((A.matroid).map List.sort).sort
+def sameUpToRelabelling (A B : List (List Nat)) (g : Nat → Nat) : Bool :=
+  ((relabelling B g).map List.sort).sort = (A.map List.sort).sort
 
 /--Takes a list of elements. Evaluates the list of elements and compares each element to a
 condition and creates a list of booleans. Fulfilling the condition would give a true, not fulfilling
@@ -70,7 +70,7 @@ the permutations to. We use the any function to see if there are any repeat part
 there are repeats, that means that thse are the same partial matroid. It compares two partial
 matroids but evaluates every single permutation of the second partial matroid and compares it to the
 first. --/
-def permutationsComparison (n : Nat) (A B : PartialMatroid) : Bool :=
+def permutationsComparison (n : Nat) (A B : List (List Nat)) : Bool :=
   any (permutation n) (sameUpToRelabelling A B)
 
 /-- checks for any repeat partial matroids in a list of partial matroids. Repeat partial matroids
@@ -84,7 +84,7 @@ def pruning : List PartialMatroid → List PartialMatroid
   | [] => []
   | h :: t =>
   let T := pruning t
-  if (any (T) (permutationsComparison 8 h)) then
+  if (any (T.map PartialMatroid.matroid) (permutationsComparison 8 h.matroid)) then
     T
   else
     h :: T
