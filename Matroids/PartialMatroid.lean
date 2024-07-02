@@ -1,5 +1,16 @@
 import Matroids.NearlySame
 
+/-! # Code to create a PartialMatroid structure and
+
+This file provides functions
+
+## Main definitions
+
+* `PartialMatroid`: ---
+* `elimSmaller`: ---
+* `augment`: ---
+-/
+
 structure PartialMatroid where
   matroid : List (List Nat)
   remainingOptions : List (List Nat)

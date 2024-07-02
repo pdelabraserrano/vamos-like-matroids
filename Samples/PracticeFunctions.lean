@@ -87,3 +87,8 @@ def determineSame : List Nat → List Nat → Bool
    a1-a2=0 && determineSame l1 l2
 
 #eval determineSame [1, 7, 3, 4, 5] [1, 7, 3, 4, 5]
+
+/-- Function that calculates the factorial of a given number-/
+def fact : Nat → Nat
+   | 0 => 1
+   |n + 1 => (n +1)* fact n

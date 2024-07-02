@@ -1,5 +1,15 @@
 import Matroids.PartialMatroid
 
+/-! # Code to ---
+
+This file provides functions ----
+
+## Main definitions
+
+* `augmentations`: ---
+* `augmentationsFinal`: ---
+-/
+
 namespace PartialMatroid
 
 /-- all the partial matroids which can be obtained by adding one figure to the
@@ -14,9 +24,3 @@ def augmentationsFinal : Nat → PartialMatroid → List PartialMatroid
    | n + 1, A =>
       let addNEdges : PartialMatroid → List PartialMatroid := augmentationsFinal n
       ((augmentations A).map addNEdges).join
-
-
-/-- Function that calculates the factorial of a given number-/
-def fact : Nat → Nat
-   | 0 => 1
-   |n + 1 => (n +1)* fact n
