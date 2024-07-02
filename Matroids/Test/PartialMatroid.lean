@@ -1,4 +1,7 @@
 import Matroids.PartialMatroid
+import Matroids.Combinations
+
+open PartialMatroid
 
 -- Initial list of possible combinations
 abbrev A73 : PartialMatroid where

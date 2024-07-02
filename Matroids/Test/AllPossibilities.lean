@@ -1,4 +1,5 @@
 import Matroids.AllPossibilities
+import Matroids.Test.PartialMatroid
 open PartialMatroid
 
 #eval [1,1,1,2,2,2,3] < [1,1,2,2,2,2] -- returns true
@@ -38,7 +39,7 @@ def augmentationsFive (A : PartialMatroid) : List PartialMatroid :=
 
 #eval (augmentationsFinal 4 A73) -- returns (to long to comment)
 
-#eval (augmentationsFinal 4 A63) -- returns (to long to comment)
+#eval (augmentationsFinal 2 A63) -- returns (to long to comment)
 
 #eval (augmentationsFinal 4 A73) -- returns (to long to comment)
 
