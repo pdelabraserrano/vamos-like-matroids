@@ -44,16 +44,4 @@ abbrev A63BucketSorted := A63Bucket.sort
 
 #eval groupByBucket (augmentationsFinal 4 A63) -- returns (to long to comment)
 
-#eval groupByBucket (augmentationsFinal 5 Vamos) -- returns (to long to comment)
-
-#eval countBuckets (augmentationsFinal 8 Vamos)--2
-#eval countBuckets (augmentationsFinal 7 Vamos)--16
-#eval countBuckets (augmentationsFinal 6 Vamos) -- 8,8,8,32
-#eval countBuckets (augmentationsFinal 5 Vamos) --32,32,64
-#eval countBuckets (augmentationsFinal 4 Vamos) -- 8, 8, 16, 16, 16, 32, 32, 36, 64
-#eval countBuckets (augmentationsFinal 3 Vamos) --32, 32, 144
-#eval countBuckets (augmentationsFinal 2 Vamos) --8, 8, 8, 16, 16, 32
-#eval countBuckets (augmentationsFinal 1 Vamos) --16
-#eval countBuckets (augmentationsFinal 0 Vamos) --1
-
 abbrev FourTrianglesOnSixPoints := groupByBucket (augmentationsFinal 4 A63)
