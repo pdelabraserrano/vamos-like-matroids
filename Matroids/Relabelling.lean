@@ -29,12 +29,6 @@ def permutation : Nat → List (Nat → Nat)
   | 0 => [id]
   | n + 1 => ((List.range (n + 1)).map (fun i => (permutation n).map (Function.comp (Equiv.swapCore i n)))).join
 
-#check List.all
-
-def all : List α → (α → Bool) → Bool
-  | [], _ => true
-  | h :: t, p => p h && all t p
-
 
 variable  (A : List (List Nat))
 #check List.map _ A
