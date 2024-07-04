@@ -11,18 +11,26 @@ abbrev A73Bucket := (augmentationsFinal 4 A73).map findBucket
 
 abbrev A73BucketSorted := A73Bucket.sort
 
-#eval count A73BucketSorted -- returns [210, 840, 1260]
+/-- info: [210, 840, 1260] -/
+#guard_msgs in
+#eval count A73BucketSorted
 
 #eval A73BucketSorted -- returns (to long to comment)
 
 #eval ((augmentationsFinal 4 A73).map findBucket) -- returns (to long to comment)
 
-#eval countBuckets (augmentationsFinal 2 A84) -- returns [35, 560, 1260]
+/-- info: [35, 560, 1260] -/
+#guard_msgs in
+#eval countBuckets (augmentationsFinal 2 A84)
 
 -- (augmentationsFinal 4 A73) -> How many combinations of 4 triangles (3) can we make with seven points
-#eval countBuckets (augmentationsFinal 4 A73) -- returns [210, 840, 1260]
+/-- info: [210, 840, 1260] -/
+#guard_msgs in
+#eval countBuckets (augmentationsFinal 4 A73)
 
-#eval countBuckets (augmentationsFinal 5 A73) -- returns [420, 630]
+/-- info: [420, 630] -/
+#guard_msgs in
+#eval countBuckets (augmentationsFinal 5 A73)
 
 #eval groupByBucket (augmentationsFinal 4 A73) -- returns (to long to comment)
 
@@ -38,7 +46,9 @@ abbrev A63Bucket := (augmentationsFinal 4 A63).map findBucket
 
 abbrev A63BucketSorted := A63Bucket.sort
 
-#eval count A63BucketSorted -- returns [30]
+/-- info: [30] -/
+#guard_msgs in
+#eval count A63BucketSorted
 
 #eval A63BucketSorted -- returns (to long to comment)
 
