@@ -22,12 +22,12 @@ sort allows the bucket to be sorted, so that [1,2,3] is the same as [1,3,2]
 count allows us to look at the number of figures each point touches-/
 def findBucket (A: PartialMatroid) : List Nat := count A.matroid.join.sort
 
-/-- Shows us the number of each distinct bucket. -/
-def countBuckets (A: List PartialMatroid) : List Nat :=
-   count ((A.map findBucket).sort)
-
 /-- We sort based on bucket, and then every time the bucket changes, we create a new list. It is
 ordered based on bucket, but we display the original partial matroid from which the bucket was
 derived. -/
 def groupByBucket (A: List PartialMatroid) : List (List PartialMatroid) :=
    groupByValue (A.mergeSort (fun l1 l2 => findBucket l1 < findBucket l2)) findBucket
+
+/-- NOT USED IN FINAL COMPUTATION. Shows us the number of each distinct bucket. -/
+def countBuckets (A: List PartialMatroid) : List Nat :=
+   count ((A.map findBucket).sort)
