@@ -1,8 +1,9 @@
+import Matroids.AllPossibilities
 import Matroids.Buckets
-import Matroids.Test.AllPossibilities
+import Matroids.Test.PartialMatroid
 
+open PartialMatroid
 
-#eval fact 7 -- returns 5040
 
 abbrev A73Bucket := (augmentationsFinal 4 A73).map findBucket
 
