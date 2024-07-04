@@ -23,3 +23,9 @@ lemma groupByBucket_lawful (A : List PartialMatroid)
     simp[PartialMatroid.findBucket] at *
     simp[count] at *
     sorry
+
+/- Lemma for countBuckets (related to Theorem 1): If the input is an list partial matroids
+(order does matter, for both the lists and for the members) with range i < n and lenght = r, then
+the output will be a lawful sparse paving matroid -/
+/- After rethinking, we might not need to prove anything about countBuckets since it is not used
+directly in the main computation.-/
