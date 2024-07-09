@@ -1,8 +1,12 @@
 import Matroids.Verification.Basic
 import Matroids.Buckets
 import Matroids.Verification.Relabelling
+import Matroids.Verification.Count
 
 open PartialMatroid
+
+lemma List.forall_mergeSort (r : α → α → Prop) [DecidableRel r] {l : List α} {P : α → Prop } (h : l.Forall P) : (l.mergeSort (r)).Forall P := by
+sorry
 
 /-- If `A` is a list of `PartialMatroid`s, all of which are valid (n, r)-sparse paving matroids,
 then when the `groupByBucket` operation is performed, every `PartialMatroid` in the the resulting
@@ -11,21 +15,15 @@ lemma groupByBucket_lawful (A : List PartialMatroid)
     (hA : A.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) :
     (groupByBucket A).Forall
     (fun l ↦ l.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) := by
-  induction A with
-  | nil => simp
-  | cons h t IH =>
-    simp at hA
-    obtain ⟨h_ok, t_ok⟩ := hA
-    apply IH at t_ok
-    simp at IH
+  unfold groupByBucket
+  apply groupByValue_lawful
+  apply List.forall_mergeSort
+  apply hA
 
 
-    obtain ⟨h_ok1, h_ok2, h_ok3, h_ok4, h_ok5⟩ := h_ok
 
-    simp[PartialMatroid.groupByBucket] at *
-    simp[PartialMatroid.findBucket] at *
-    simp[count] at *
-    sorry
+
+
 
 /- Lemma for countBuckets (related to Theorem 1): If the input is an list partial matroids
 (order does matter, for both the lists and for the members) with range i < n and lenght = r, then
