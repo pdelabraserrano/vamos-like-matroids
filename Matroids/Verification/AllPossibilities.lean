@@ -11,5 +11,5 @@ lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
     -- (remainingOptions_sorted : M.remainingOptions.Sorted (· < ·))
     (remainingOptions_not_nearlySame :
       M.matroid.Forall fun l₁ ↦ M.remainingOptions.Forall fun l₂ ↦ ¬ NearlySame l₁ l₂) :
-    (augmentationsFinal i M).Forall (fun M' ↦ LawfulSparsePavingMatroid n r M'.matroid) :=
-  sorry
+    (augmentationsFinal i M).Forall (fun M' ↦ LawfulSparsePavingMatroid n r M'.matroid) := by
+      unfold augmentationsFinal
