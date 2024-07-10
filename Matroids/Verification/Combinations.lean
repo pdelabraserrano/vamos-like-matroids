@@ -4,6 +4,7 @@ import Std
 /-- Every list appearing in the list-of-lists `combinations n k` has length `k`. -/
 theorem combinations_entries_lengths (n k : Nat) :
     (combinations n k).all (fun l ↦ l.length = k) := by
+  unfold combinations
   match n, k with
   | _, 0 => simp [combinations]
   | 0, _ + 1 => simp [combinations]
