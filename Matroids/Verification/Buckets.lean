@@ -5,8 +5,11 @@ import Matroids.Verification.Count
 
 open PartialMatroid
 
-lemma List.forall_mergeSort (r : α → α → Prop) [DecidableRel r] {l : List α} {P : α → Prop } (h : l.Forall P) : (l.mergeSort (r)).Forall P := by
-sorry
+lemma List.forall_mergeSort (r : α → α → Prop) [DecidableRel r] {l : List α} {P : α → Prop }
+  (h : l.Forall P) : (l.mergeSort (r)).Forall P := by
+    rw [List.forall_iff_forall_mem]
+    intro i hi
+    sorry
 
 /-- If `A` is a list of `PartialMatroid`s, all of which are valid (n, r)-sparse paving matroids,
 then when the `groupByBucket` operation is performed, every `PartialMatroid` in the the resulting
