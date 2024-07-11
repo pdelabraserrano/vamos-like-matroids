@@ -12,7 +12,10 @@ import Matroids.MainComputation
 -- probably an induction
 lemma List.Forall.join {L : List (List α)} {P : α → Prop} (hl : L.Forall fun l ↦ l.Forall P) :
     L.join.Forall P := by
-  sorry
+    rw [List.forall_iff_forall_mem]
+    intro i hi
+    rw [List.forall_iff_forall_mem] at hl
+    sorry
 
 /-! ## Main argument -/
 
