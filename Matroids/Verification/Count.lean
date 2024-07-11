@@ -23,9 +23,14 @@ lemma groupByValueAux_lawful (f: PartialMatroid → List ℕ) (A : List PartialM
    | a :: b :: t =>
       simp [groupByValueAux]
       simp at hA
+      constructor
       obtain ⟨h_ok, t_ok⟩ := hA
       obtain ⟨th_ok, tt_ok⟩ := t_ok
-      constructor
+      · have H := groupByValueAux_lawful f t (n := n) (r := r)
+        apply H at tt_ok
+        obtain ⟨tth_ok, ttt_ok⟩ := tt_ok
+        sorry
+
 
 
   sorry
