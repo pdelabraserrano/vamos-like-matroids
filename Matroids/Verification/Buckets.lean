@@ -11,7 +11,7 @@ lemma List.forall_mergeSort (r : α → α → Prop) [DecidableRel r] {l : List 
     intro i hi
     rw [List.forall_iff_forall_mem] at h
     apply h
-    rw[List.Perm.mem_iff]
+    rw [List.Perm.mem_iff]
     sorry
     sorry
     apply l
