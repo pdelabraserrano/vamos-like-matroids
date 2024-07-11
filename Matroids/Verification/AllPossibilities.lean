@@ -14,8 +14,7 @@ lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
     (augmentationsFinal i M).Forall (fun M' ↦ LawfulSparsePavingMatroid n r M'.matroid) := by
       unfold augmentationsFinal
       match i, M with
-      | 0, A =>
-        sorry
+      | 0, A => simp [hM]
       | n + 1, A =>
         simp [augmentationsFinal]
         sorry
