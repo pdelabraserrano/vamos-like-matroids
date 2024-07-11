@@ -26,19 +26,18 @@ lemma groupByValueAux_lawful (f: PartialMatroid → List ℕ) (A : List PartialM
       constructor
       obtain ⟨h_ok, t_ok⟩ := hA
       obtain ⟨th_ok, tt_ok⟩ := t_ok
-      · have H := groupByValueAux_lawful f t (n := n) (r := r)
+      sorry
+      /-· have H := groupByValueAux_lawful f t (n := n) (r := r)
         apply H at tt_ok
         obtain ⟨tth_ok, ttt_ok⟩ := tt_ok
         split_ifs
         simp
         constructor
         exact h_ok
+        sorry-/
+      sorry
 
-        sorry
 
-
-
-  sorry
   -- induction A with
   -- | nil => simp
   -- | cons h t IH =>
