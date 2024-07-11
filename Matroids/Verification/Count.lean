@@ -14,8 +14,34 @@ lemma groupByValueAux_lawful (f: PartialMatroid → List ℕ) (A : List PartialM
     (hA : A.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)):
     (groupByValueAux f A).1.Forall  (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)
      ∧  (groupByValueAux f A).2.Forall (fun l ↦ l.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) := by
-     unfold groupByValueAux
-     sorry
+    unfold groupByValueAux
+    match A with
+   | [] => simp [groupByValueAux]
+   | [pm] =>
+      simp [groupByValueAux]
+      apply hA
+   | a :: b :: t =>
+      simp [groupByValueAux]
+      simp at hA
+      obtain ⟨h_ok, t_ok⟩ := hA
+      obtain ⟨th_ok, tt_ok⟩ := t_ok
+      constructor
+
+
+  sorry
+  -- induction A with
+  -- | nil => simp
+  -- | cons h t IH =>
+  --   simp at hA
+  --   obtain ⟨h_ok, t_ok⟩ := hA
+  --   apply IH at t_ok
+  --   constructor
+  --   exact t_ok
+  -- | cons h ht t IH =>
+  --   simp at hA
+
+
+  --    sorry
 
 
 /- If the operation `groupByValue` is performed on a list of `PartialMatroids` which are valid
