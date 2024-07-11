@@ -9,7 +9,12 @@ lemma List.forall_mergeSort (r : α → α → Prop) [DecidableRel r] {l : List 
   (h : l.Forall P) : (l.mergeSort (r)).Forall P := by
     rw [List.forall_iff_forall_mem]
     intro i hi
+    rw [List.forall_iff_forall_mem] at h
+    apply h
+    rw[List.Perm.mem_iff]
     sorry
+    sorry
+    apply l
 
 /-- If `A` is a list of `PartialMatroid`s, all of which are valid (n, r)-sparse paving matroids,
 then when the `groupByBucket` operation is performed, every `PartialMatroid` in the the resulting
