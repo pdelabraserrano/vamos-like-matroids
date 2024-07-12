@@ -9,4 +9,9 @@ import Matroids.Relabelling
 import Matroids.Vamos
 import Matroids.Verification.Basic
 import Matroids.Verification.Combinations
+import Matroids.Verification.Count
+import Matroids.Verification.MainComputation
+import Matroids.Verification.MainComputationFinset
 import Matroids.Verification.Miscellaneous
+import Matroids.Verification.Relabelling
+import Matroids.Verification.Vamos

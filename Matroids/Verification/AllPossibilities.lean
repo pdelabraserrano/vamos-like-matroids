@@ -8,10 +8,16 @@ open PartialMatroid
 -- probably an induction
 lemma List.Forall.join {L : List (List α)} {P : α → Prop} (hl : L.Forall fun l ↦ l.Forall P) :
     L.join.Forall P := by
-    rw [List.forall_iff_forall_mem]
-    intro i hi
-    rw [List.forall_iff_forall_mem] at hl
-    sorry
+    unfold join
+    match L with
+    | []      => simp [join]
+    | a :: as =>
+      simp [join]
+      rw [List.forall_iff_forall_mem]
+      intro i hi
+      rw [List.forall_iff_forall_mem] at hl
+      have H := List.Forall.join (L := as) (P := P)
+      sorry
 
 lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
     (hM : LawfulSparsePavingMatroid n r M.matroid)
