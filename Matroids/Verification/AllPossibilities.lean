@@ -3,6 +3,16 @@ import Matroids.Verification.Basic
 
 open PartialMatroid
 
+/-! ## Prerequisites -/
+-- to be contributed to the main library
+-- probably an induction
+lemma List.Forall.join {L : List (List α)} {P : α → Prop} (hl : L.Forall fun l ↦ l.Forall P) :
+    L.join.Forall P := by
+    rw [List.forall_iff_forall_mem]
+    intro i hi
+    rw [List.forall_iff_forall_mem] at hl
+    sorry
+
 lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
     (hM : LawfulSparsePavingMatroid n r M.matroid)
     (remainingOptions_mem_range : M.remainingOptions.Forall (List.Forall fun i ↦ i < n))
@@ -17,6 +27,10 @@ lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
       | 0, A => simp [hM]
       | N + 1, A =>
         simp [augmentationsFinal]
-        rw [List.forall_iff_forall_mem]
+        apply List.Forall.join
+        /-rw [List.forall_iff_forall_mem]
         intro a ha
+        rw [List.forall_iff_forall_mem]
+        intro b hb-/
+
         sorry
