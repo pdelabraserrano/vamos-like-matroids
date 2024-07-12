@@ -15,6 +15,8 @@ lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
       unfold augmentationsFinal
       match i, M with
       | 0, A => simp [hM]
-      | n + 1, A =>
+      | N + 1, A =>
         simp [augmentationsFinal]
+        rw [List.forall_iff_forall_mem]
+        intro a ha
         sorry
