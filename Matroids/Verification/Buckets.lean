@@ -24,7 +24,7 @@ lemma groupByBucket_lawful (A : List PartialMatroid)
     (groupByBucket A).Forall
     (fun l ↦ l.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) := by
   unfold groupByBucket
-  apply groupByValue_lawful
+  apply forall_groupByValue
   apply List.forall_mergeSort
   apply hA
 

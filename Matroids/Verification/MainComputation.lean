@@ -6,6 +6,24 @@ import Matroids.MainComputation
 
 /-! # Verifying that the main computation has the desired properties -/
 
+/-! ## Prerequisites -/
+
+-- to be contributed to the main library
+-- probably an induction
+lemma List.Forall.join {L : List (List α)} {P : α → Prop} (hl : L.Forall fun l ↦ l.Forall P) :
+    L.join.Forall P := by
+    unfold join
+    match L with
+    | []      => simp [join]
+    | a :: as =>
+      simp [join]
+      rw [List.forall_iff_forall_mem]
+      intro i hi
+      rw [List.forall_iff_forall_mem] at hl
+      · have H := List.Forall.join P
+
+    sorry
+
 /-! ## Main argument -/
 
 lemma augmentedVamos_lawful (i : ℕ) :

@@ -10,67 +10,50 @@ paving matroids-/
 #eval count ([[0, 1], [0, 1], [1, 0], [0, 1, 3,2], [0, 1, 9], [0, 1], [0,2]]) /- Note, this is not
 a list of partial matroids-/
 
-lemma groupByValueAux_lawful (f: PartialMatroid → List ℕ) (A : List PartialMatroid)
-    (hA : A.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)):
-    (groupByValueAux f A).1.Forall  (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)
-     ∧  (groupByValueAux f A).2.Forall (fun l ↦ l.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) := by
-    unfold groupByValueAux
-    match A with
-   | [] => simp [groupByValueAux]
-   | [pm] =>
-      simp [groupByValueAux]
-      apply hA
-   | a :: b :: t =>
-      simp [groupByValueAux]
-      simp at hA
+lemma forall_groupByValueAux (f : α → List ℕ) (A : List α) (hA : A.Forall P) :
+    (groupByValueAux f A).1.Forall P ∧ (groupByValueAux f A).2.Forall (fun l ↦ l.Forall P) := by
+  match A with
+  | [] => simp [groupByValueAux]
+  | [pm] =>
+    simp [groupByValueAux]
+    apply hA
+  | a :: b :: t =>
+    simp [groupByValueAux]
+    simp at hA
+    obtain ⟨h_ok, t_ok⟩ := hA
+    obtain ⟨th_ok, tt_ok⟩ := t_ok
+    have H := forall_groupByValueAux f (b :: t) (P := P)
+    have tt_ok1 : List.Forall P (b :: t)
+    · simp
       constructor
-      obtain ⟨h_ok, t_ok⟩ := hA
-      obtain ⟨th_ok, tt_ok⟩ := t_ok
-      · have H := groupByValueAux_lawful f (b::t) (n := n) (r := r)
-        have tt_ok1 : List.Forall (fun M => LawfulSparsePavingMatroid n r M.matroid) (b::t)
-        · simp
-          constructor
-          exact th_ok
-          exact tt_ok
-        apply H at tt_ok1
-        obtain ⟨tth_ok1, _⟩ := tt_ok1
-        split_ifs
-        simp
+      · exact th_ok
+      · exact tt_ok
+    apply H at tt_ok1
+    obtain ⟨tth_ok1, ttt_ok1⟩ := tt_ok1
+    constructor
+    . split_ifs
+      · simp
         constructor
+        · exact h_ok
+        · apply tth_ok1
+      · simp
         exact h_ok
-        apply tth_ok1
-        simp
-        exact h_ok
-      · have H := groupByValueAux_lawful f (b::t) (n := n) (r := r)
-        have tt_ok1 : List.Forall (fun M => LawfulSparsePavingMatroid n r M.matroid) (b::t)
-        · simp
-          constructor
-          obtain ⟨_, t_ok⟩ := hA
-          obtain ⟨th_ok, _⟩ := t_ok
-          exact th_ok
-          obtain ⟨_, t_ok⟩ := hA
-          obtain ⟨_, tt_ok⟩ := t_ok
-          exact tt_ok
-        apply H at tt_ok1
-        obtain ⟨tth_ok1, ttt_ok1⟩ := tt_ok1
-        split_ifs
-        simp
+    · split_ifs
+      · simp
         exact ttt_ok1
-        simp
+      · simp
         constructor
-        apply tth_ok1
-        exact ttt_ok1
+        · apply tth_ok1
+        · exact ttt_ok1
 
 
-/- If the operation `groupByValue` is performed on a list of `PartialMatroids` which are valid
-(n, r) sparse paving matroids then the `PartialMatroid`s in the output list of lists will all be
-valid (n, r) sparse paving matroids.
+/- If the operation `groupByValue` is performed on a list of objects of type `α`, all of which have
+a certain property `P`, then the objects of type `α`'s in the output list of lists will all have
+poperty `P`.
 (will probably get used for Theorem 1) -/
-lemma groupByValue_lawful (f : PartialMatroid → List ℕ) (A : List PartialMatroid)
-    (hA : A.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) :
-    (groupByValue A f).Forall
-    (fun l ↦ l.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) := by
+lemma forall_groupByValue (f : α → List ℕ) (A : List α) (hA : A.Forall P) :
+    (groupByValue A f).Forall (fun l ↦ l.Forall P) := by
   unfold groupByValue
   simp
-  apply groupByValueAux_lawful
+  apply forall_groupByValueAux
   exact hA
