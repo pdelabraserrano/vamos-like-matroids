@@ -26,31 +26,41 @@ lemma groupByValueAux_lawful (f: PartialMatroid → List ℕ) (A : List PartialM
       constructor
       obtain ⟨h_ok, t_ok⟩ := hA
       obtain ⟨th_ok, tt_ok⟩ := t_ok
-      sorry
-      /-· have H := groupByValueAux_lawful f t (n := n) (r := r)
-        apply H at tt_ok
-        obtain ⟨tth_ok, ttt_ok⟩ := tt_ok
+      · have H := groupByValueAux_lawful f (b::t) (n := n) (r := r)
+        have tt_ok1 : List.Forall (fun M => LawfulSparsePavingMatroid n r M.matroid) (b::t)
+        · simp
+          constructor
+          exact th_ok
+          exact tt_ok
+        apply H at tt_ok1
+        obtain ⟨tth_ok1, _⟩ := tt_ok1
         split_ifs
         simp
         constructor
         exact h_ok
-        sorry-/
-      sorry
+        apply tth_ok1
+        simp
+        exact h_ok
+      · have H := groupByValueAux_lawful f (b::t) (n := n) (r := r)
+        have tt_ok1 : List.Forall (fun M => LawfulSparsePavingMatroid n r M.matroid) (b::t)
+        · simp
+          constructor
+          obtain ⟨_, t_ok⟩ := hA
+          obtain ⟨th_ok, _⟩ := t_ok
+          exact th_ok
+          obtain ⟨_, t_ok⟩ := hA
+          obtain ⟨_, tt_ok⟩ := t_ok
+          exact tt_ok
+        apply H at tt_ok1
+        obtain ⟨tth_ok1, ttt_ok1⟩ := tt_ok1
+        split_ifs
+        simp
+        exact ttt_ok1
+        simp
+        constructor
+        apply tth_ok1
+        exact ttt_ok1
 
-
-  -- induction A with
-  -- | nil => simp
-  -- | cons h t IH =>
-  --   simp at hA
-  --   obtain ⟨h_ok, t_ok⟩ := hA
-  --   apply IH at t_ok
-  --   constructor
-  --   exact t_ok
-  -- | cons h ht t IH =>
-  --   simp at hA
-
-
-  --    sorry
 
 
 /- If the operation `groupByValue` is performed on a list of `PartialMatroids` which are valid
