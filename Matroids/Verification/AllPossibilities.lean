@@ -1,7 +1,8 @@
 import Matroids.AllPossibilities
 import Matroids.Verification.Basic
 
-open PartialMatroid
+open PartialMatroid List
+set_option pp.unicode.fun true
 
 /-! ## Prerequisites -/
 -- to be contributed to the main library
@@ -19,9 +20,31 @@ lemma List.Forall.join {L : List (List α)} {P : α → Prop} (hl : L.Forall fun
       have H := List.Forall.join (L := as) (P := P)
       sorry
 
+lemma augmentations_lawful (A : PartialMatroid)
+    (hM : LawfulSparsePavingMatroid n r A.matroid)
+    (remainingOptions_mem_range : A.remainingOptions.Forall (List.Forall fun j ↦ j < n))
+    (remainingOptions_length_eq_rank : A.remainingOptions.Forall (fun l ↦ l.length = r))
+    (remainingOptions_sorted_of_mem : A.remainingOptions.Forall fun m ↦ m.Sorted (· < ·))
+    -- (remainingOptions_sorted : M.remainingOptions.Sorted (· < ·))
+    (remainingOptions_not_nearlySame :
+      A.matroid.Forall fun l₁ ↦ A.remainingOptions.Forall fun l₂ ↦ ¬ NearlySame l₁ l₂) :
+    (augmentations A).Forall (fun M' ↦ LawfulSparsePavingMatroid n r M'.matroid):=
+  sorry
+
+lemma augmentations_remainingOptions (A : PartialMatroid) :
+    Forall (fun B ↦ ∀ l, l ∈ B.remainingOptions → l ∈ A.remainingOptions) (augmentations A) := by
+  sorry
+
+lemma augmentations_not_nearlySame (A : PartialMatroid)
+    (hA : A.matroid.Forall (fun l₁ ↦ A.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂))):
+    (augmentations A).Forall (fun B ↦ B.matroid.Forall
+      (fun l₁ ↦ B.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂)))  := by
+  sorry
+
+
 lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
     (hM : LawfulSparsePavingMatroid n r M.matroid)
-    (remainingOptions_mem_range : M.remainingOptions.Forall (List.Forall fun i ↦ i < n))
+    (remainingOptions_mem_range : M.remainingOptions.Forall (List.Forall fun j ↦ j < n))
     (remainingOptions_length_eq_rank : M.remainingOptions.Forall (fun l ↦ l.length = r))
     (remainingOptions_sorted_of_mem : M.remainingOptions.Forall fun m ↦ m.Sorted (· < ·))
     -- (remainingOptions_sorted : M.remainingOptions.Sorted (· < ·))
@@ -31,12 +54,70 @@ lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
       unfold augmentationsFinal
       match i, M with
       | 0, A => simp [hM]
-      | N + 1, A =>
+      | k + 1, A =>
+        change Forall (fun M' ↦ LawfulSparsePavingMatroid n r M'.matroid) (augmentationsFinal (k + 1) A)
         simp [augmentationsFinal]
         apply List.Forall.join
-        /-rw [List.forall_iff_forall_mem]
-        intro a ha
+        rw [List.forall_map_iff]
         rw [List.forall_iff_forall_mem]
-        intro b hb-/
-
-        sorry
+        intro B hB
+        simp
+        apply augmentationsFinal_lawful
+        · have hB₂ := augmentations_lawful A (n := n) (r := r)
+          apply hB₂ at hM
+          clear hB₂
+          apply hM at remainingOptions_mem_range
+          clear hM
+          apply remainingOptions_mem_range at remainingOptions_length_eq_rank
+          clear remainingOptions_mem_range
+          apply remainingOptions_length_eq_rank at remainingOptions_sorted_of_mem
+          clear remainingOptions_length_eq_rank
+          apply remainingOptions_sorted_of_mem at remainingOptions_not_nearlySame
+          clear remainingOptions_sorted_of_mem
+          rw [List.forall_iff_forall_mem] at remainingOptions_not_nearlySame
+          apply remainingOptions_not_nearlySame
+          exact hB
+        · have hAB := augmentations_remainingOptions A
+          rw [List.forall_iff_forall_mem] at hAB
+          apply hAB at hB
+          rw [List.forall_iff_forall_mem]
+          clear hAB
+          clear remainingOptions_length_eq_rank remainingOptions_sorted_of_mem
+            remainingOptions_not_nearlySame hM
+          rw [List.forall_iff_forall_mem] at remainingOptions_mem_range
+          intro l hl
+          apply remainingOptions_mem_range
+          apply hB
+          apply hl
+        · clear hM remainingOptions_mem_range remainingOptions_sorted_of_mem
+            remainingOptions_not_nearlySame
+          have hAB := augmentations_remainingOptions A
+          rw [List.forall_iff_forall_mem] at hAB
+          apply hAB at hB
+          rw [List.forall_iff_forall_mem]
+          clear hAB
+          rw [List.forall_iff_forall_mem] at remainingOptions_length_eq_rank
+          intro l hl
+          apply remainingOptions_length_eq_rank
+          apply hB
+          apply hl
+        · clear hM remainingOptions_mem_range remainingOptions_length_eq_rank
+            remainingOptions_not_nearlySame
+          have hAB := augmentations_remainingOptions A
+          rw [List.forall_iff_forall_mem] at hAB
+          apply hAB at hB
+          rw [List.forall_iff_forall_mem]
+          clear hAB
+          rw [List.forall_iff_forall_mem] at remainingOptions_sorted_of_mem
+          intro l hl
+          apply remainingOptions_sorted_of_mem
+          apply hB
+          apply hl
+        · clear hM remainingOptions_mem_range remainingOptions_length_eq_rank
+            remainingOptions_sorted_of_mem
+          have hAB := augmentations_not_nearlySame A
+          apply hAB at remainingOptions_not_nearlySame
+          clear hAB
+          rw [List.forall_iff_forall_mem] at remainingOptions_not_nearlySame
+          apply remainingOptions_not_nearlySame
+          apply hB
