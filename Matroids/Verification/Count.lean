@@ -62,7 +62,6 @@ lemma groupByValueAux_lawful (f: PartialMatroid → List ℕ) (A : List PartialM
         exact ttt_ok1
 
 
-
 /- If the operation `groupByValue` is performed on a list of `PartialMatroids` which are valid
 (n, r) sparse paving matroids then the `PartialMatroid`s in the output list of lists will all be
 valid (n, r) sparse paving matroids.
