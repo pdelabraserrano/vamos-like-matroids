@@ -1,5 +1,6 @@
 import Matroids.AllPossibilities
 import Matroids.Verification.Basic
+import Matroids.Verification.Miscellaneous
 
 open PartialMatroid List
 set_option pp.unicode.fun true
@@ -7,55 +8,6 @@ set_option pp.unicode.fun true
 /-! ## Prerequisites -/
 -- to be contributed to the main library
 -- probably an induction
-lemma List.forall_append_iff {L1 L2 : List α} {P : α → Prop} :
-     List.Forall P (L1 ++ L2) ↔ (List.Forall P L1) ∧ (List.Forall P L2) := by
-  induction L1 with
-  | nil =>
-    simp
-  | cons h t IH =>
-    simp
-    constructor
-    · intro h1
-      obtain ⟨th1, hh1⟩ := h1
-      obtain ⟨IH1, _⟩ := IH
-      apply IH1 at hh1
-      obtain ⟨thh1, hhh1⟩ := hh1
-      constructor
-      · constructor
-        · exact th1
-        · exact thh1
-      · exact hhh1
-    · intro h1
-      obtain ⟨th1, hh1⟩ := h1
-      obtain ⟨_, IH2⟩ := IH
-      obtain ⟨tth1, hth1⟩ := th1
-      constructor
-      · exact tth1
-      · apply IH2
-        constructor
-        · exact hth1
-        · exact hh1
-
-
-lemma List.Forall.join {L : List (List α)} {P : α → Prop} (hl : L.Forall fun l ↦ l.Forall P) :
-    L.join.Forall P := by
-    unfold join
-    match L with
-    | []      => simp [join]
-    | a :: as =>
-      simp [join]
-      have IH := List.Forall.join (L := as) (P := P)
-      have h1 : Forall (fun l => Forall P l) as
-      · simp at hl
-        obtain ⟨th1, hh1⟩ := hl
-        exact hh1
-      apply IH at h1
-      simp at hl
-      obtain ⟨th1, hh1⟩ := hl
-      rw [forall_append_iff]
-      constructor
-      · exact th1
-      · exact h1
 
 
 

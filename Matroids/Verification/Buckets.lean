@@ -2,19 +2,11 @@ import Matroids.Verification.Basic
 import Matroids.Buckets
 import Matroids.Verification.Relabelling
 import Matroids.Verification.Count
+import Matroids.Verification.Miscellaneous
 
 open PartialMatroid
 
-lemma List.forall_mergeSort (r : α → α → Prop) [h: DecidableRel r] {l : List α} {P : α → Prop }
-  (h1 : l.Forall P) : (l.mergeSort (r)).Forall P := by
-    rw [List.forall_iff_forall_mem]
-    intro i hi
-    rw [List.forall_iff_forall_mem] at h1
-    apply h1
-    rw [List.Perm.mem_iff]
-    apply hi
-    apply List.Perm.symm
-    apply List.perm_mergeSort
+
 
 /-- If `A` is a list of `PartialMatroid`s, all of which are valid (n, r)-sparse paving matroids,
 then when the `groupByBucket` operation is performed, every `PartialMatroid` in the the resulting
