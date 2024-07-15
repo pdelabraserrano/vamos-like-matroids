@@ -18,8 +18,14 @@ lemma augmentations_lawful (A : PartialMatroid)
     (remainingOptions_sorted_of_mem : A.remainingOptions.Forall fun m ↦ m.Sorted (· < ·))
     (remainingOptions_not_nearlySame :
       A.matroid.Forall fun l₁ ↦ A.remainingOptions.Forall fun l₂ ↦ ¬ NearlySame l₁ l₂) :
-    (augmentations A).Forall (fun M' ↦ LawfulSparsePavingMatroid n r M'.matroid):=
-  sorry
+    (augmentations A).Forall (fun M' ↦ LawfulSparsePavingMatroid n r M'.matroid) := by
+      unfold augmentations
+      rw [List.forall_map_iff]
+      rw [List.forall_iff_forall_mem]
+      intro l hl
+
+      sorry
+
 
 lemma augmentations_remainingOptions (A : PartialMatroid) :
     Forall (fun B ↦ ∀ l, l ∈ B.remainingOptions → l ∈ A.remainingOptions) (augmentations A) := by
@@ -29,7 +35,16 @@ lemma augmentations_not_nearlySame (A : PartialMatroid)
     (hA : A.matroid.Forall (fun l₁ ↦ A.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂))):
     (augmentations A).Forall (fun B ↦ B.matroid.Forall
       (fun l₁ ↦ B.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂)))  := by
-  sorry
+        unfold augmentations
+        rw [List.forall_iff_forall_mem] at hA ⊢
+        intro M hM
+        rw [List.forall_iff_forall_mem]
+        intro l1 hl1
+        rw [List.forall_iff_forall_mem]
+        intro l2 hl2
+        intro hB
+
+        sorry
 
 
 lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
