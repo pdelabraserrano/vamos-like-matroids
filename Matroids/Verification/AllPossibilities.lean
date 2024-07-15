@@ -1,5 +1,6 @@
 import Matroids.AllPossibilities
 import Matroids.Verification.Basic
+import Matroids.Verification.PartialMatroid
 import Matroids.Verification.Miscellaneous
 
 open PartialMatroid List
@@ -8,7 +9,6 @@ set_option pp.unicode.fun true
 /-! ## Prerequisites -/
 -- to be contributed to the main library
 -- probably an induction
-
 
 
 lemma augmentations_lawful (A : PartialMatroid)
@@ -22,9 +22,14 @@ lemma augmentations_lawful (A : PartialMatroid)
       unfold augmentations
       rw [List.forall_map_iff]
       rw [List.forall_iff_forall_mem]
-      intro l hl
+      intro B hB
+      apply augment_lawful
+      · sorry
+      · sorry
+      · sorry
+      · sorry
+      · sorry
 
-      sorry
 
 
 lemma augmentations_remainingOptions (A : PartialMatroid) :
