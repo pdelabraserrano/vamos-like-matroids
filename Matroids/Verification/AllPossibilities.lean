@@ -55,21 +55,19 @@ lemma augmentations_remainingOptions (A : PartialMatroid) :
 
 
 
-
+/-- For all partial matroids `A` for which no lists in `A.matroid` are `NearlySame` as any list in
+`A.remainingOptions`, for any partial matroid `B`, which belongs to `augmentations A`, no
+lists in `B.matroid` are `NearlySame` as any list in `B.remainingOptions` -/
 lemma augmentations_not_nearlySame (A : PartialMatroid)
     (hA : A.matroid.Forall (fun l₁ ↦ A.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂))):
     (augmentations A).Forall (fun B ↦ B.matroid.Forall
       (fun l₁ ↦ B.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂)))  := by
-        unfold augmentations
-        rw [List.forall_iff_forall_mem] at hA ⊢
-        intro M hM
-        rw [List.forall_iff_forall_mem]
-        intro l1 hl1
-        rw [List.forall_iff_forall_mem]
-        intro l2 hl2
-        intro hB
-
-        sorry
+  unfold augmentations
+  rw [List.forall_iff_forall_mem]
+  simp only [mem_map, forall_exists_index, and_imp, forall_apply_eq_imp_iff₂]
+  intro l _
+  apply augment_not_nearlySame (l := l) at hA
+  apply hA
 
 
 lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
