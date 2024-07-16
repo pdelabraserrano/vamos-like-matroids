@@ -2,17 +2,21 @@ import Matroids.PartialMatroid
 import Matroids.Verification.Basic
 import Matroids.Verification.Miscellaneous
 
-open PartialMatroid
+open PartialMatroid List
+
+-- two ways of phrasing the same thing:
+-- 1) Forall (fun a ↦ a < n) l
+-- 2) ∀ a ∈ l, a < n
 
 lemma augment_lawful (l : List Nat) (A : PartialMatroid)
-  (hA : LawfulSparsePavingMatroid n r A.matroid)
-  (remainingOptions_mem_range : A.remainingOptions.Forall (List.Forall fun j ↦ j < n))
-  (remainingOptions_length_eq_rank : A.remainingOptions.Forall (fun l ↦ l.length = r))
-  (remainingOptions_sorted_of_mem : A.remainingOptions.Forall fun m ↦ m.Sorted (· < ·))
-  (remainingOptions_not_nearlySame :
-      A.matroid.Forall fun l₁ ↦ A.remainingOptions.Forall fun l₂ ↦ ¬ NearlySame l₁ l₂) :
-   LawfulSparsePavingMatroid n r A.matroid := by
-    sorry
+    (hA : LawfulSparsePavingMatroid n r A.matroid)
+    (l_mem_range : Forall (fun a ↦ a < n) l)
+    (l_length_eq_rank : l.length = r)
+    (l_sorted_of_mem : l.Sorted (· < ·))
+    (l_not_nearlySame_as_matroid : A.matroid.Forall fun l₁ ↦ ¬ NearlySame l₁ l) :
+    LawfulSparsePavingMatroid n r (augment l A).matroid := by
+  sorry
+
 
 
 lemma augment_notAdding (l : List Nat) (A : PartialMatroid) :
