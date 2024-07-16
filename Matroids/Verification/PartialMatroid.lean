@@ -23,7 +23,40 @@ lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
       (augment l A).matroid := by
   sorry
 
+lemma elimNearlySame_notAdding (l : List Nat) (A : List (List Nat)) :
+    ∀ k, k ∈ (elimNearlySame l A) → k ∈ A := by
+  unfold elimNearlySame
+  match A with
+  | [] => simp [elimNearlySame]
+  | h1 :: t1 =>
+    simp [elimNearlySame]
+    intro a ha
+    sorry
+
+
+
+
+lemma elimGreater_notAdding (l : List Nat) (A : List (List Nat)) :
+    ∀ k, k ∈ (elimGreater l A) → k ∈ A := by
+  unfold elimGreater
+  match A with
+  | [] => simp [elimGreater]
+  | h1 :: t1 =>
+    simp [elimGreater]
+    intro k hk
+    split_ifs at hk
+    · have IH := elimGreater_notAdding (l := h1) (A := t1)
+      let l : k ∈ elimGreater h1 t1
+      ·sorry
+      sorry
+    sorry
+
 
 lemma augment_notAdding (l : List Nat) (A : PartialMatroid) :
     ∀ k, k ∈ (augment l A).remainingOptions → k ∈ A.remainingOptions := by
-  sorry
+  unfold augment
+  simp
+  intro k hk
+  apply elimGreater_notAdding at hk
+  apply elimNearlySame_notAdding
+  exact hk

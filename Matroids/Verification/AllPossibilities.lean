@@ -47,10 +47,15 @@ lemma augmentations_remainingOptions (A : PartialMatroid) :
   unfold augmentations
   rw [List.forall_iff_forall_mem]
   intro B hB
-  intro l hl
-  apply augment_notAdding
-  · sorry
-  · apply l
+  simp at hB
+  intro k hk
+  obtain ⟨l, hhb⟩ := hB
+  obtain ⟨_, hhhb⟩ := hhb
+  apply augment_notAdding l
+  rw [hhhb]
+  exact hk
+
+
 
 
 
