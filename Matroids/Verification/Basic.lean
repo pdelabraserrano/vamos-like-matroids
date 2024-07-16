@@ -20,5 +20,6 @@ def List.NormalizedVamosLike (l : List (List ℕ)) : Prop :=
   let P := ![[0, 1], [2, 3], [4, 5], [6, 7]]
   ∀ i j : Fin 4, i < j → (P i).append (P j) ∈ l ↔ (i, j) ≠ (2, 3)
 
--- instance : DecidablePred (List.NormalizedVamosLike) :=
---   fun l ↦ decidable_of_decidable_of_iff (List.NormalizedVamosLike_iff l).symm
+instance : DecidablePred (List.NormalizedVamosLike) := by
+  unfold List.NormalizedVamosLike
+  infer_instance

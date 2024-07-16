@@ -20,4 +20,4 @@ lemma vamos_remainingOptions_not_nearlySame :
   decide
 
 
-lemma vamos_normalized : List.NormalizedVamosLike Vamos.matroid := by sorry --decide
+lemma vamos_normalized : List.NormalizedVamosLike Vamos.matroid := by decide
