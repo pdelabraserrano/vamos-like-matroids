@@ -22,9 +22,8 @@ lemma augmentations_lawful (A : PartialMatroid)
       unfold augmentations
       rw [List.forall_map_iff]
       rw [List.forall_iff_forall_mem]
-      intro B hB
-      apply augment_lawful
-      · sorry
+      intro l hl
+      apply augment_lawful l A
       · sorry
       · sorry
       · sorry
@@ -35,12 +34,12 @@ lemma augmentations_lawful (A : PartialMatroid)
 lemma augmentations_remainingOptions (A : PartialMatroid) :
     Forall (fun B ↦ ∀ l, l ∈ B.remainingOptions → l ∈ A.remainingOptions) (augmentations A) := by
   unfold augmentations
-  simp
-  let a := ((fun B ↦ ∀ l ∈ B.remainingOptions, l ∈ A.remainingOptions) ∘ fun x ↦ augment x A)
-
-
-
-  sorry
+  rw [List.forall_iff_forall_mem]
+  intro B hB
+  intro l hl
+  apply augment_notAdding
+  · sorry
+  · apply l
 
 
 
