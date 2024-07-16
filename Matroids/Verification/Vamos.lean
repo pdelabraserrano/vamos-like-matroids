@@ -18,3 +18,6 @@ lemma vamos_remainingOptions_sorted_of_mem :
 lemma vamos_remainingOptions_not_nearlySame :
     Vamos.matroid.Forall fun l₁ ↦ Vamos.remainingOptions.Forall fun l₂ ↦ ¬ NearlySame l₁ l₂ := by
   decide
+
+
+lemma vamos_normalized : List.NormalizedVamosLike Vamos.matroid := by sorry --decide

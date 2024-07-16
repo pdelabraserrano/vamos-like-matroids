@@ -20,8 +20,14 @@ lemma groupByBucket_lawful (A : List PartialMatroid)
   apply List.forall_mergeSort
   apply hA
 
-
-
+lemma groupByBucket_normalized (A : List PartialMatroid)
+    (hA : A.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
+    (groupByBucket A).Forall
+    (fun l ↦ l.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) := by
+  unfold groupByBucket
+  apply forall_groupByValue
+  apply List.forall_mergeSort
+  apply hA
 
 
 

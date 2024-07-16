@@ -19,12 +19,32 @@ lemma augmentedVamos_lawful (i : ℕ) :
   · apply vamos_remainingOptions_sorted_of_mem
   · apply vamos_remainingOptions_not_nearlySame
 
+lemma augmentedVamos_normalized (i : ℕ) :
+    (augmentedVamos i).Forall fun L ↦ L.Forall fun M ↦ List.NormalizedVamosLike M.matroid := by
+  unfold augmentedVamos
+  apply groupByBucket_normalized
+  apply augmentationsFinal_normalized
+  · apply vamos_normalized
+  · apply vamos_remainingOptions_mem_range
+  · apply vamos_remainingOptions_length_eq_rank
+  · apply vamos_remainingOptions_sorted_of_mem
+  · apply vamos_remainingOptions_not_nearlySame
+
+
 lemma prunedVamos_lawful (i : ℕ) :
     (prunedVamos i).Forall fun L ↦ L.Forall fun M ↦ LawfulSparsePavingMatroid 8 4 M.matroid := by
   rw [prunedVamos_def]
   rw [List.forall_map_iff]
   apply List.Forall.imp pruning_lawful
   apply augmentedVamos_lawful
+
+lemma prunedVamos_normalized (i : ℕ) :
+    (prunedVamos i).Forall fun L ↦ L.Forall fun M ↦ List.NormalizedVamosLike M.matroid := by
+  rw [prunedVamos_def]
+  rw [List.forall_map_iff]
+  apply List.Forall.imp pruning_normalized
+  apply augmentedVamos_normalized
+
 
 lemma joinedPrunedVamos_lawful :
     joinedPrunedVamos.Forall fun M ↦ LawfulSparsePavingMatroid 8 4 M.matroid := by
@@ -36,6 +56,16 @@ lemma joinedPrunedVamos_lawful :
   apply List.Forall.join
   apply prunedVamos_lawful
 
+lemma joinedPrunedVamos_normalized :
+    joinedPrunedVamos.Forall fun M ↦ List.NormalizedVamosLike M.matroid := by
+  unfold joinedPrunedVamos
+  apply List.Forall.join
+  rw [List.forall_map_iff]
+  rw [List.forall_iff_forall_mem]
+  intro i _
+  apply List.Forall.join
+  apply prunedVamos_normalized
+
 /-- The main computation produces only `List (List ℕ)` objects which are valid ("lawful") sparse
 paving matroids.
 Informally: Theorem 1 -/
@@ -46,8 +76,11 @@ lemma mainComputation_lawful : mainComputation.Forall (LawfulSparsePavingMatroid
 
 /-- The main computation produces only `List (List ℕ)` objects which are "normalized Vámos-like".
 Informally: Theorem 2 -/
-lemma mainComputation_normalizedVamosLike: mainComputation.Forall List.NormalizedVamosLike :=
-  sorry
+lemma mainComputation_normalizedVamosLike: mainComputation.Forall List.NormalizedVamosLike := by
+  unfold mainComputation
+  rw [List.forall_map_iff]
+  apply joinedPrunedVamos_normalized
+
 
 /-- The list of `List (List ℕ)` objects provided by the main computation are mutually
 non-isomorphic (up to permutation of 0, 1, 2, ... 7).

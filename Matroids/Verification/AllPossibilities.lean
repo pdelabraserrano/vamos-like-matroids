@@ -34,7 +34,17 @@ lemma augmentations_lawful (A : PartialMatroid)
 
 lemma augmentations_remainingOptions (A : PartialMatroid) :
     Forall (fun B ↦ ∀ l, l ∈ B.remainingOptions → l ∈ A.remainingOptions) (augmentations A) := by
+  unfold augmentations
+  simp
+  let a := ((fun B ↦ ∀ l ∈ B.remainingOptions, l ∈ A.remainingOptions) ∘ fun x ↦ augment x A)
+
+
+
   sorry
+
+
+
+
 
 lemma augmentations_not_nearlySame (A : PartialMatroid)
     (hA : A.matroid.Forall (fun l₁ ↦ A.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂))):
@@ -113,3 +123,15 @@ lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
       rw [List.forall_iff_forall_mem] at remainingOptions_not_nearlySame
       apply remainingOptions_not_nearlySame
       apply hB
+
+
+
+lemma augmentationsFinal_normalized (i : ℕ) (M : PartialMatroid)
+    (hM : List.NormalizedVamosLike M.matroid)
+    (remainingOptions_mem_range : M.remainingOptions.Forall (List.Forall fun j ↦ j < n))
+    (remainingOptions_length_eq_rank : M.remainingOptions.Forall (fun l ↦ l.length = r))
+    (remainingOptions_sorted_of_mem : M.remainingOptions.Forall fun m ↦ m.Sorted (· < ·))
+    (remainingOptions_not_nearlySame :
+      M.matroid.Forall fun l₁ ↦ M.remainingOptions.Forall fun l₂ ↦ ¬ NearlySame l₁ l₂) :
+    (augmentationsFinal i M).Forall (fun M' ↦ List.NormalizedVamosLike M'.matroid) := by
+  sorry

@@ -21,6 +21,27 @@ lemma pruning_lawful (A : List PartialMatroid)
       · exact h_ok
       · exact t_ok
 
+
+lemma pruning_normalized (A : List PartialMatroid)
+    (hA : A.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
+    (pruning A).Forall (fun M ↦ List.NormalizedVamosLike M.matroid) := by
+  induction A with
+  | nil => simp
+  | cons h t IH =>
+    simp at hA
+    obtain ⟨h_ok, t_ok⟩ := hA
+    apply IH at t_ok
+    simp [pruning]
+    split_ifs
+    · exact t_ok
+    · simp
+      constructor
+      · exact h_ok
+      · exact t_ok
+
+
+
+
 /-- If `A` is a list of `PartialMatroid`s, then when the `pruning` operation is performed, every
 `PartialMatroid` in `A` is isomorphic (up to permutation of 0, 1, 2, ... n - 1) to one of the
 `PartialMatroid`s in the pruned list. -/
