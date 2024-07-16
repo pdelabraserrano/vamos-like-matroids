@@ -19,16 +19,27 @@ lemma augmentations_lawful (A : PartialMatroid)
     (remainingOptions_not_nearlySame :
       A.matroid.Forall fun l₁ ↦ A.remainingOptions.Forall fun l₂ ↦ ¬ NearlySame l₁ l₂) :
     (augmentations A).Forall (fun M' ↦ LawfulSparsePavingMatroid n r M'.matroid) := by
-      unfold augmentations
-      rw [List.forall_map_iff]
-      rw [List.forall_iff_forall_mem]
-      intro l hl
-      apply augment_lawful l A
-      · sorry
-      · sorry
-      · sorry
-      · sorry
-
+  unfold augmentations
+  rw [List.forall_map_iff]
+  rw [List.forall_iff_forall_mem]
+  intro l hl
+  apply augment_lawful
+  · apply hM
+  · rw [List.forall_iff_forall_mem] at remainingOptions_mem_range
+    apply remainingOptions_mem_range at hl
+    apply hl
+  · rw [List.forall_iff_forall_mem] at remainingOptions_length_eq_rank
+    apply remainingOptions_length_eq_rank at hl
+    apply hl
+  · rw [List.forall_iff_forall_mem] at remainingOptions_sorted_of_mem
+    apply remainingOptions_sorted_of_mem at hl
+    apply hl
+  · rw [List.forall_iff_forall_mem] at remainingOptions_not_nearlySame ⊢
+    intro l₂ hl₂
+    apply remainingOptions_not_nearlySame at hl₂
+    rw [List.forall_iff_forall_mem] at hl₂
+    apply hl₂ at hl
+    apply hl
 
 
 lemma augmentations_remainingOptions (A : PartialMatroid) :
