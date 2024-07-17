@@ -38,18 +38,14 @@ lemma elimNearlySame_notAdding (l : List Nat) (A : List (List Nat)) :
 
 lemma elimGreater_notAdding (l : List Nat) (A : List (List Nat)) :
     ∀ k, k ∈ (elimGreater l A) → k ∈ A := by
-  unfold elimGreater
-  match A with
-  | [] => simp [elimGreater]
-  | h1 :: t1 =>
+  induction A with
+  | nil => simp [elimGreater]
+  | cons h1 t1 IH =>
     simp [elimGreater]
     intro k hk
     split_ifs at hk
-    · have IH := elimGreater_notAdding (l := h1) (A := t1)
-      let l : k ∈ elimGreater h1 t1
-      ·sorry
-      sorry
-    sorry
+    · sorry
+    · sorry
 
 
 lemma augment_notAdding (l : List Nat) (A : PartialMatroid) :
