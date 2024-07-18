@@ -18,7 +18,7 @@ instance : DecidablePred (LawfulSparsePavingMatroid n r) :=
 `[2, 3, 4, 5]`, `[2, 3, 6, 7]`, and not contain `[4, 5, 6, 7]`. -/
 def List.NormalizedVamosLike (l : List (List ℕ)) : Prop :=
   let P := ![[0, 1], [2, 3], [4, 5], [6, 7]]
-  ∀ i j : Fin 4, i < j → (P i).append (P j) ∈ l ↔ (i, j) ≠ (2, 3)
+  ∀ i j : Fin 4, i < j → (((P i).append (P j)) ∈ l ↔ ((i, j) ≠ (2, 3)))
 
 instance : DecidablePred (List.NormalizedVamosLike) := by
   unfold List.NormalizedVamosLike

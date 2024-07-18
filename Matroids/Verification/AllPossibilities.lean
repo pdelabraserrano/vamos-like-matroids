@@ -10,6 +10,12 @@ set_option pp.unicode.fun true
 -- to be contributed to the main library
 -- probably an induction
 
+lemma augmentations_normalized (A : PartialMatroid) :
+    (augmentations A).Forall (fun M' ↦ List.NormalizedVamosLike M'.matroid) := by
+  unfold augmentations
+  simp
+  sorry
+
 
 lemma augmentations_lawful (A : PartialMatroid)
     (hM : LawfulSparsePavingMatroid n r A.matroid)
@@ -139,12 +145,16 @@ lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
 
 
 
-lemma augmentationsFinal_normalized (i : ℕ) (M : PartialMatroid)
-    (hM : List.NormalizedVamosLike M.matroid)
-    (remainingOptions_mem_range : M.remainingOptions.Forall (List.Forall fun j ↦ j < n))
-    (remainingOptions_length_eq_rank : M.remainingOptions.Forall (fun l ↦ l.length = r))
-    (remainingOptions_sorted_of_mem : M.remainingOptions.Forall fun m ↦ m.Sorted (· < ·))
-    (remainingOptions_not_nearlySame :
-      M.matroid.Forall fun l₁ ↦ M.remainingOptions.Forall fun l₂ ↦ ¬ NearlySame l₁ l₂) :
+lemma augmentationsFinal_normalized (i : ℕ) (M : PartialMatroid) :
     (augmentationsFinal i M).Forall (fun M' ↦ List.NormalizedVamosLike M'.matroid) := by
-  sorry
+  match i with
+  | 0 =>
+    sorry
+  | k + 1 =>
+    apply List.Forall.join
+    rw [List.forall_map_iff]
+    rw [List.forall_iff_forall_mem]
+    -- let `B` be a matroid in the augmentations list of `A`
+    intro B hB
+    -- inductive hypothesis: use the same result for `k` in this `k + 1` step
+    apply augmentationsFinal_normalized

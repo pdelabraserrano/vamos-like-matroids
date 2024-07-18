@@ -19,16 +19,14 @@ lemma augmentedVamos_lawful (i : ℕ) :
   · apply vamos_remainingOptions_sorted_of_mem
   · apply vamos_remainingOptions_not_nearlySame
 
-lemma augmentedVamos_normalized (i : ℕ) :
+lemma augmentedVamos_normalized (i : ℕ) (l : List (List ℕ)) :
     (augmentedVamos i).Forall fun L ↦ L.Forall fun M ↦ List.NormalizedVamosLike M.matroid := by
   unfold augmentedVamos
   apply groupByBucket_normalized
   apply augmentationsFinal_normalized
-  · apply vamos_normalized
-  · apply vamos_remainingOptions_mem_range
-  · apply vamos_remainingOptions_length_eq_rank
-  · apply vamos_remainingOptions_sorted_of_mem
-  · apply vamos_remainingOptions_not_nearlySame
+  apply l
+
+
 
 
 lemma prunedVamos_lawful (i : ℕ) :
@@ -44,6 +42,7 @@ lemma prunedVamos_normalized (i : ℕ) :
   rw [List.forall_map_iff]
   apply List.Forall.imp pruning_normalized
   apply augmentedVamos_normalized
+  sorry
 
 
 lemma joinedPrunedVamos_lawful :

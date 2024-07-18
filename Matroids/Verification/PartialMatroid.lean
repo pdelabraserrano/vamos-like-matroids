@@ -8,6 +8,16 @@ open PartialMatroid List
 -- 1) Forall (fun a ↦ a < n) l
 -- 2) ∀ a ∈ l, a < n
 
+lemma augment_normalized (l : List (List ℕ)) :
+    List.NormalizedVamosLike (l : List (List ℕ)) := by
+  unfold NormalizedVamosLike
+  simp
+  intro i j
+  intro hk
+  constructor
+  · sorry
+  · sorry
+
 lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     (hA : LawfulSparsePavingMatroid n r A.matroid)
     (l_mem_range : Forall (fun a ↦ a < n) l)
