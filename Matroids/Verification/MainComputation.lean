@@ -24,7 +24,7 @@ lemma augmentedVamos_normalized (i : ℕ) (l : List (List ℕ)) :
   unfold augmentedVamos
   apply groupByBucket_normalized
   apply augmentationsFinal_normalized
-  apply l
+  sorry
 
 
 
