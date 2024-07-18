@@ -21,7 +21,6 @@ lemma groupByBucket_lawful (A : List PartialMatroid)
   apply hA
 
 
---We know this is wrong. This is just a placeholder
 lemma groupByBucket_normalized (A : List PartialMatroid)
     (hA : A.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
     (groupByBucket A).Forall
