@@ -10,6 +10,7 @@ set_option pp.unicode.fun true
 -- to be contributed to the main library
 -- probably an induction
 
+--We know this is wrong. This is just a placeholder
 lemma augmentations_normalized (A : PartialMatroid) :
     (augmentations A).Forall (fun M' ↦ List.NormalizedVamosLike M'.matroid) := by
   unfold augmentations
@@ -144,7 +145,8 @@ lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
       apply hB
 
 
-
+--We know this is wrong. This is just a placeholder. We need to add and modify the hypotheses.
+--I am personally having trouble with the hypotheses.
 lemma augmentationsFinal_normalized (i : ℕ) (M : PartialMatroid) :
     (augmentationsFinal i M).Forall (fun M' ↦ List.NormalizedVamosLike M'.matroid) := by
   match i with

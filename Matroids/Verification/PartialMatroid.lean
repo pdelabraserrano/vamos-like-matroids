@@ -8,6 +8,8 @@ open PartialMatroid List
 -- 1) Forall (fun a ↦ a < n) l
 -- 2) ∀ a ∈ l, a < n
 
+
+--We know this is wrong. This is just a placeholder
 lemma augment_normalized (l : List (List ℕ)) :
     List.NormalizedVamosLike (l : List (List ℕ)) := by
   unfold NormalizedVamosLike

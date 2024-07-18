@@ -19,6 +19,7 @@ lemma augmentedVamos_lawful (i : ℕ) :
   · apply vamos_remainingOptions_sorted_of_mem
   · apply vamos_remainingOptions_not_nearlySame
 
+--We know this is wrong. This is just a placeholder
 lemma augmentedVamos_normalized (i : ℕ) (l : List (List ℕ)) :
     (augmentedVamos i).Forall fun L ↦ L.Forall fun M ↦ List.NormalizedVamosLike M.matroid := by
   unfold augmentedVamos
