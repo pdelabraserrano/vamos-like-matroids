@@ -10,13 +10,6 @@ set_option pp.unicode.fun true
 -- to be contributed to the main library
 -- probably an induction
 
---We know this is wrong. This is just a placeholder
-lemma augmentations_normalized (A : PartialMatroid) :
-    (augmentations A).Forall (fun M' ↦ List.NormalizedVamosLike M'.matroid) := by
-  unfold augmentations
-  simp
-  sorry
-
 
 lemma augmentations_lawful (A : PartialMatroid)
     (hM : LawfulSparsePavingMatroid n r A.matroid)
@@ -61,10 +54,6 @@ lemma augmentations_remainingOptions (A : PartialMatroid) :
   apply augment_notAdding l
   rw [hhhb]
   exact hk
-
-
-
-
 
 
 /-- For all partial matroids `A` for which no lists in `A.matroid` are `NearlySame` as any list in
@@ -145,23 +134,32 @@ lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
       apply hB
 
 
---We know this is wrong. This is just a placeholder. We need to add and modify the hypotheses.
---I am personally having trouble with the hypotheses.
-lemma augmentationsFinal_normalized (i : ℕ) (M : PartialMatroid)
-    (hM : NormalizedVamosLike M.matroid)
-    (hR : NormalizedVamosLike M.remainingOptions):
-    (augmentationsFinal i M).Forall (fun M' ↦ List.NormalizedVamosLike M'.matroid) := by
+lemma augmentations_normalized (A : PartialMatroid)
+    (hAM : NormalizedVamosLike A.matroid)
+    (hAR : ¬[4, 5, 6, 7] ∈ A.remainingOptions):
+    (augmentations A).Forall (fun A' ↦ NormalizedVamosLike A'.matroid) := by
+  unfold augmentations
+  rw [List.forall_map_iff]
+  rw [List.forall_iff_forall_mem]
+  intro l hl
+  sorry
+
+-- Currently working on this, need to figure out how to phrase the goal
+lemma augmentations_remainingOptions_normalized (A : PartialMatroid)
+    (hAR : ¬[4, 5, 6, 7] ∈ A.remainingOptions):
+    Forall (fun B ↦ ¬[4, 5, 6, 7] ∈ B.remainingOptions) (augmentations A) := by
+  rw [List.forall_iff_forall_mem]
+  intro B intro hB
+
+  sorry
+
+lemma augmentationsFinal_normalized (i : ℕ) (A : PartialMatroid)
+    (hAM : NormalizedVamosLike A.matroid)
+    (hAR : ¬[4, 5, 6, 7] ∈ A.remainingOptions):
+    (augmentationsFinal i A).Forall (fun A' ↦ NormalizedVamosLike A'.matroid) := by
   match i with
-  | 0 =>
-    rw [List.forall_iff_forall_mem]
-    intro PM hPM
-    intro k j
-    constructor
-    intro h
-    intro h1
-    sorry
-    sorry
-  | i + 1 =>
+  | 0 => simp [hAM]
+  | j + 1 =>
     apply List.Forall.join
     rw [List.forall_map_iff]
     rw [List.forall_iff_forall_mem]
@@ -169,5 +167,14 @@ lemma augmentationsFinal_normalized (i : ℕ) (M : PartialMatroid)
     intro B hB
     -- inductive hypothesis: use the same result for `k` in this `k + 1` step
     apply augmentationsFinal_normalized
-    sorry
-    sorry
+    · -- proof that `B` is still a `LawfulSparsePavingMatroid`
+      have hC := augmentations_normalized A
+      apply hC at hAM
+      apply hAM at hAR
+      rw [List.forall_iff_forall_mem] at hAR
+      apply hAR
+      apply hB
+    · have hC := augmentations_remainingOptions_normalized A
+      rw [List.forall_iff_forall_mem] at hC
+      apply hC at hAR
+      sorry
