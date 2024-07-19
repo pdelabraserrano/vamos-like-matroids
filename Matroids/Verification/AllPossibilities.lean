@@ -147,12 +147,21 @@ lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
 
 --We know this is wrong. This is just a placeholder. We need to add and modify the hypotheses.
 --I am personally having trouble with the hypotheses.
-lemma augmentationsFinal_normalized (i : ℕ) (M : PartialMatroid) :
+lemma augmentationsFinal_normalized (i : ℕ) (M : PartialMatroid)
+    (hM : NormalizedVamosLike M.matroid)
+    (hR : NormalizedVamosLike M.remainingOptions):
     (augmentationsFinal i M).Forall (fun M' ↦ List.NormalizedVamosLike M'.matroid) := by
   match i with
   | 0 =>
+    rw [List.forall_iff_forall_mem]
+    intro PM hPM
+    intro k j
+    constructor
+    intro h
+    intro h1
     sorry
-  | k + 1 =>
+    sorry
+  | i + 1 =>
     apply List.Forall.join
     rw [List.forall_map_iff]
     rw [List.forall_iff_forall_mem]
@@ -160,3 +169,5 @@ lemma augmentationsFinal_normalized (i : ℕ) (M : PartialMatroid) :
     intro B hB
     -- inductive hypothesis: use the same result for `k` in this `k + 1` step
     apply augmentationsFinal_normalized
+    sorry
+    sorry
