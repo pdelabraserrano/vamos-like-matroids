@@ -25,6 +25,7 @@ lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     (l_sorted_of_mem : l.Sorted (· < ·))
     (l_not_nearlySame_as_matroid : A.matroid.Forall fun l₁ ↦ ¬ NearlySame l₁ l) :
     LawfulSparsePavingMatroid n r (augment l A).matroid := by
+  unfold augment
   sorry
 
 lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
