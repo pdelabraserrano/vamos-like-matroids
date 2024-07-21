@@ -146,7 +146,6 @@ lemma augmentations_normalized (A : PartialMatroid)
   apply augment_normalized
 
 
--- Currently working on this, need to figure out how to phrase the goal
 lemma augmentations_remainingOptions_normalized (A : PartialMatroid)
     (hAR : ¬[4, 5, 6, 7] ∈ A.remainingOptions):
     Forall (fun B ↦ ¬[4, 5, 6, 7] ∈ B.remainingOptions) (augmentations A) := by
