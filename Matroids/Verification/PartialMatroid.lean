@@ -15,7 +15,10 @@ lemma augment_normalized (l : List (List ℕ)) :
   unfold NormalizedVamosLike
   simp
   intro i j
-  sorry
+  constructor
+  · sorry
+  · sorry
+
 
 
 lemma augment_lawful (l : List Nat) (A : PartialMatroid)
@@ -28,11 +31,13 @@ lemma augment_lawful (l : List Nat) (A : PartialMatroid)
   unfold augment
   sorry
 
-lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
+lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid) (l1 l2 : List Nat)
     (hA : A.matroid.Forall (fun l₁ ↦ A.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂))):
     Forall (fun l₁ ↦ Forall (fun l₂ ↦ ¬NearlySame l₁ l₂) (augment l A).remainingOptions)
       (augment l A).matroid := by
+  unfold NearlySame
   sorry
+
 
 
 

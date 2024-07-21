@@ -142,16 +142,22 @@ lemma augmentations_normalized (A : PartialMatroid)
   rw [List.forall_map_iff]
   rw [List.forall_iff_forall_mem]
   intro l hl
-  sorry
+  simp
+  apply augment_normalized
+
 
 -- Currently working on this, need to figure out how to phrase the goal
 lemma augmentations_remainingOptions_normalized (A : PartialMatroid)
     (hAR : ¬[4, 5, 6, 7] ∈ A.remainingOptions):
     Forall (fun B ↦ ¬[4, 5, 6, 7] ∈ B.remainingOptions) (augmentations A) := by
+  unfold augmentations
+  rw [List.forall_map_iff]
   rw [List.forall_iff_forall_mem]
-  intro B intro hB
-
-  sorry
+  intro B hB hBB
+  simp at hBB
+  have hc : [4, 5, 6, 7] ∉ (augment B A).remainingOptions
+  · sorry
+  contradiction
 
 lemma augmentationsFinal_normalized (i : ℕ) (A : PartialMatroid)
     (hAM : NormalizedVamosLike A.matroid)
