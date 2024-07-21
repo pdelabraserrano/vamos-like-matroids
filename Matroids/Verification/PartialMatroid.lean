@@ -65,6 +65,7 @@ lemma elimNearlySame_notAdding (l : List Nat) (A : List (List Nat)) :
 
 
 
+
 lemma elimGreater_notAdding (l : List Nat) (A : List (List Nat)) :
     ∀ k, k ∈ (elimGreater l A) → k ∈ A := by
   induction A with
