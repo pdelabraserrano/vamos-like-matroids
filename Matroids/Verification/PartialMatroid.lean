@@ -16,8 +16,23 @@ lemma augment_normalized (l : List (List ℕ)) :
   simp
   intro i j
   constructor
-  · sorry
-  · sorry
+  · intro p
+    intro q
+    intro s
+    have v : i < j
+    rw[q]
+    rw[s]
+    norm_num
+    sorry
+    rw [q] at v
+    rw[s] at v
+    norm_num at v
+    sorry
+  · intro p
+    intro q
+    sorry
+
+
 
 
 
@@ -29,6 +44,8 @@ lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     (l_not_nearlySame_as_matroid : A.matroid.Forall fun l₁ ↦ ¬ NearlySame l₁ l) :
     LawfulSparsePavingMatroid n r (augment l A).matroid := by
   unfold augment
+  simp
+
   sorry
 
 lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid) (l1 l2 : List Nat)
@@ -36,6 +53,7 @@ lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid) (l1 l2 : List N
     Forall (fun l₁ ↦ Forall (fun l₂ ↦ ¬NearlySame l₁ l₂) (augment l A).remainingOptions)
       (augment l A).matroid := by
   unfold NearlySame
+
   sorry
 
 
