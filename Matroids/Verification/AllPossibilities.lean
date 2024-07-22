@@ -69,6 +69,8 @@ lemma augmentations_not_nearlySame (A : PartialMatroid)
   intro l _
   apply augment_not_nearlySame (l := l) at hA
   apply hA
+  exact l
+  exact l
 
 lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
     (hM : LawfulSparsePavingMatroid n r M.matroid)
@@ -140,7 +142,7 @@ lemma augmentations_normalized (A : PartialMatroid)
   unfold augmentations
   rw [List.forall_map_iff]
   rw [List.forall_iff_forall_mem]
-  intro l hl
+  intro l _
   simp
   apply augment_normalized
 
@@ -153,9 +155,11 @@ lemma augmentations_remainingOptions_not_mem (A : PartialMatroid)
   rw [List.forall_iff_forall_mem]
   intro B hB hBB
   simp at hBB
-  have hc : [4, 5, 6, 7] ∉ (augment B A).remainingOptions
-  · sorry
+  have hc : [4, 5, 6, 7] ∈ A.remainingOptions
+  apply augment_notAdding B A
+  exact hBB
   contradiction
+
 
 lemma augmentationsFinal_normalized (i : ℕ) (A : PartialMatroid)
     (hAM : NormalizedVamosLike A.matroid)
