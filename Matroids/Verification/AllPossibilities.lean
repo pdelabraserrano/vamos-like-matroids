@@ -145,7 +145,7 @@ lemma augmentations_normalized (A : PartialMatroid)
   apply augment_normalized
 
 
-lemma augmentations_remainingOptions_normalized (A : PartialMatroid)
+lemma augmentations_remainingOptions_not_mem (A : PartialMatroid)
     (hAR : ¬[4, 5, 6, 7] ∈ A.remainingOptions):
     Forall (fun B ↦ ¬[4, 5, 6, 7] ∈ B.remainingOptions) (augmentations A) := by
   unfold augmentations
@@ -179,7 +179,7 @@ lemma augmentationsFinal_normalized (i : ℕ) (A : PartialMatroid)
       apply hAR
       apply hB
     · -- proof that `[4, 5, 6, 7]` is not part of the remainingOptions of `B`
-      have hC := augmentations_remainingOptions_normalized A
+      have hC := augmentations_remainingOptions_not_mem A
       rw [List.forall_iff_forall_mem] at hC
       apply hC at hAR
       sorry
