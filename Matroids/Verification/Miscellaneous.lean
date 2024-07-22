@@ -1,7 +1,12 @@
 import Mathlib.Data.List.Basic
 import Mathlib.Data.List.Sort
+import Mathlib.Data.Matrix.Notation
 
 variable {α β : Type*}
+
+@[simp] theorem Matrix.cons_val_three {α : Type*} {m : ℕ} (x : α) (u : Fin m.succ.succ.succ → α) :
+    vecCons x u 3 = vecHead (vecTail (vecTail u)) :=
+  rfl
 
 /-- Map a partially-defined (i.e. dependent) function `f` over a list, if the dependency is
 satisfied for every element of the list. -/
