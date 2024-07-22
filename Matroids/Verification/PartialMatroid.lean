@@ -48,7 +48,7 @@ lemma augment_lawful (l : List Nat) (A : PartialMatroid)
 
   sorry
 
-lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid) (l1 l2 : List Nat)
+lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
     (hA : A.matroid.Forall (fun l₁ ↦ A.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂))):
     Forall (fun l₁ ↦ Forall (fun l₂ ↦ ¬NearlySame l₁ l₂) (augment l A).remainingOptions)
       (augment l A).matroid := by
