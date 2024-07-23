@@ -153,7 +153,7 @@ lemma augmentations_remainingOptions_not_mem (A : PartialMatroid)
   unfold augmentations
   rw [List.forall_map_iff]
   rw [List.forall_iff_forall_mem]
-  intro B hB hBB
+  intro B _ hBB
   simp at hBB
   have hc : [4, 5, 6, 7] ∈ A.remainingOptions
   apply augment_notAdding B A
@@ -186,4 +186,7 @@ lemma augmentationsFinal_normalized (i : ℕ) (A : PartialMatroid)
       have hC := augmentations_remainingOptions_not_mem A
       rw [List.forall_iff_forall_mem] at hC
       apply hC at hAR
-      sorry
+      apply hC at hB
+      · exact hB
+      · apply hAR
+        sorry
