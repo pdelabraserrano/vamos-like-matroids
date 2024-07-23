@@ -69,8 +69,7 @@ lemma augmentations_not_nearlySame (A : PartialMatroid)
   intro l _
   apply augment_not_nearlySame (l := l) at hA
   apply hA
-  exact l
-  exact l
+
 
 lemma augmentationsFinal_lawful (i : ℕ) (M : PartialMatroid)
     (hM : LawfulSparsePavingMatroid n r M.matroid)
