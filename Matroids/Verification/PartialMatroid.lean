@@ -23,11 +23,9 @@ lemma augment_normalized (l : List (List ℕ))
     have v : i < j
     rw[q]
     rw[s]
-    norm_num
-    sorry
+    decide
     rw [q] at v
     rw[s] at v
-    norm_num at v
     sorry
   · intro p
     intro q
