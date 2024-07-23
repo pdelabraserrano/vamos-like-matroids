@@ -64,6 +64,14 @@ lemma joinedPrunedVamos_normalized :
   apply List.Forall.join
   apply prunedVamos_normalized
 
+-- to prove this, need some lemmas about being non-isomorphic in different situations
+-- * after applying `pruning`, everything in a list is non-isomorphic
+-- * after applying `groupByBucket`, everything in different buckets is non-isomorphic
+-- * augmenting by different numbers of quadrangles cannot be isomorphic
+lemma nonisomorphic_joinedPrunedVamos :
+    joinedPrunedVamos.Pairwise (fun A₁ A₂ ↦ ¬ permutationsComparison 8 A₁.matroid A₂.matroid) := by
+  sorry
+
 /-- The main computation produces only `List (List ℕ)` objects which are valid ("lawful") sparse
 paving matroids.
 Informally: Theorem 1 -/
@@ -84,8 +92,10 @@ lemma mainComputation_normalizedVamosLike: mainComputation.Forall List.Normalize
 non-isomorphic (up to permutation of 0, 1, 2, ... 7).
 Informally: Theorem 3 -/
 theorem nonisomorphic_mainComputation :
-    mainComputation.Pairwise (fun l₁ l₂ ↦ ¬ permutationsComparison 8 l₁ l₂) :=
-  sorry
+    mainComputation.Pairwise (fun l₁ l₂ ↦ ¬ permutationsComparison 8 l₁ l₂) := by
+  unfold mainComputation
+  rw [List.pairwise_map]
+  apply nonisomorphic_joinedPrunedVamos
 
 /-- Any "normalized Vámos-like" `List (List ℕ)` object which is valid as an (8, 4) sparse paving
 matroid is isomorphic to one of the objects on the list provided by the main computation.
