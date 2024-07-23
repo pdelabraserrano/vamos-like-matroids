@@ -12,10 +12,7 @@ open PartialMatroid List
 lemma augment_normalized (l : List Nat) (A : PartialMatroid)
     (hA : List.NormalizedVamosLike A.matroid)
     (hL : ¬ l = [4,5,6,7]):
-    List.NormalizedVamosLike (augment l A).matroid := by
-  unfold NormalizedVamosLike
-  simp
-  sorry
+    List.NormalizedVamosLike (augment l A).matroid := sorry
 
 lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     (hA : LawfulSparsePavingMatroid n r A.matroid)
@@ -33,9 +30,21 @@ lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     · apply l_mem_range
     · exact hA.mem_range
   length_eq_rank := by
-    sorry
+    unfold augment
+    simp
+    apply List.forall_mergeSort
+    simp
+    constructor
+    · apply l_length_eq_rank
+    · exact hA.length_eq_rank
   sorted_of_mem := by
-    sorry
+    unfold augment
+    simp
+    apply List.forall_mergeSort
+    simp
+    constructor
+    · apply l_sorted_of_mem
+    · exact hA.sorted_of_mem
   sorted := by
     sorry
   pairwise_not_nearlySame := by
