@@ -16,24 +16,7 @@ lemma augment_normalized (l : List Nat) (A : PartialMatroid)
     List.NormalizedVamosLike (augment l A).matroid := by
   unfold NormalizedVamosLike
   simp
-  intro i j
-  constructor
-  · intro p
-    intro q
-    intro s
-    have v : i < j
-    rw[q]
-    rw[s]
-    decide
-    rw [q] at v
-    rw[s] at v
-    sorry
-  · intro p
-    intro q
-    unfold Matrix.vecCons
-
-    sorry
-
+  sorry
 
 
 
@@ -47,7 +30,6 @@ lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     LawfulSparsePavingMatroid n r (augment l A).matroid := by
   unfold augment
   simp
-
   sorry
 
 lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
@@ -55,7 +37,6 @@ lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
     Forall (fun l₁ ↦ Forall (fun l₂ ↦ ¬NearlySame l₁ l₂) (augment l A).remainingOptions)
       (augment l A).matroid := by
   unfold NearlySame
-
   sorry
 
 
