@@ -8,11 +8,72 @@ open PartialMatroid List
 -- 1) Forall (fun a ↦ a < n) l
 -- 2) ∀ a ∈ l, a < n
 
+/-
+P₀ is [0, 1]
+P₁ is [2, 3]
+P₂ is [4, 5]
+P₃ is [6, 7]
 
+vamosLike means:
+out of the (i, j) possibilities with i < j, i.e.
+01
+02
+03
+12
+13
+23
+it is true that Pᵢⱼ is in l, except for ij = 23
+
+(the other (i, j) possibilities like
+00
+10
+11
+20
+21
+etc
+are ruled out)
+-/
 lemma augment_normalized (l : List Nat) (A : PartialMatroid)
     (hA : List.NormalizedVamosLike A.matroid)
     (hL : ¬ l = [4,5,6,7]):
-    List.NormalizedVamosLike (augment l A).matroid := sorry
+    List.NormalizedVamosLike (augment l A).matroid := by
+  unfold NormalizedVamosLike
+  intro P i j
+  fin_cases i <;> fin_cases j
+  · simp (config := {decide := true})
+  · -- i = 0, j = 1
+    unfold augment
+    simp (config := {decide := true})
+    have h := hA 0 1
+    simp (config := {decide := true}) at h
+    apply List.mem_mergeSort
+    simp
+    right
+    apply h
+  · -- i = 0, j = 2
+    simp (config := {decide := true})
+    sorry
+  · -- i = 0, j = 3
+    simp (config := {decide := true})
+    sorry
+  · simp (config := {decide := true})
+  · simp (config := {decide := true})
+  · -- i = 1, j = 2
+    simp (config := {decide := true})
+    sorry
+  · -- i = 1, j = 3
+    simp (config := {decide := true})
+    sorry
+  · simp (config := {decide := true})
+  · simp (config := {decide := true})
+  · simp (config := {decide := true})
+  · -- i = 2, j = 3
+    simp (config := {decide := true})
+    sorry
+  · simp (config := {decide := true})
+  · simp (config := {decide := true})
+  · simp (config := {decide := true})
+  · simp (config := {decide := true})
 
 lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     (hA : LawfulSparsePavingMatroid n r A.matroid)
@@ -55,7 +116,7 @@ lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
     (hA : A.matroid.Forall (fun l₁ ↦ A.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂))):
     Forall (fun l₁ ↦ Forall (fun l₂ ↦ ¬NearlySame l₁ l₂) (augment l A).remainingOptions)
       (augment l A).matroid := by
-  unfold NearlySame
+  unfold augment
   sorry
 
 lemma elimNearlySame_notAdding (l : List Nat) (A : List (List Nat)) :

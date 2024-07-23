@@ -67,6 +67,9 @@ lemma List.Forall.join {L : List (List α)} {P : α → Prop} (hl : L.Forall fun
       · exact th1
       · exact h1
 
+lemma List.mem_mergeSort (r : α → α → Prop) [h: DecidableRel r] {l : List α} (h : a ∈ l) :
+    a ∈ l.mergeSort r := by
+  sorry
 
 lemma List.forall_mergeSort (r : α → α → Prop) [h: DecidableRel r] {l : List α} {P : α → Prop }
   (h1 : l.Forall P) : (l.mergeSort (r)).Forall P := by
