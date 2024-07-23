@@ -20,7 +20,7 @@ lemma augmentedVamos_lawful (i : ℕ) :
   · apply vamos_remainingOptions_not_nearlySame
 
 --We know this is wrong. This is just a placeholder
-lemma augmentedVamos_normalized (i : ℕ) (l : List (List ℕ)) :
+lemma augmentedVamos_normalized (i : ℕ) :
     (augmentedVamos i).Forall fun L ↦ L.Forall fun M ↦ List.NormalizedVamosLike M.matroid := by
   unfold augmentedVamos
   apply groupByBucket_normalized
@@ -47,7 +47,7 @@ lemma prunedVamos_normalized (i : ℕ) :
   rw [List.forall_map_iff]
   apply List.Forall.imp pruning_normalized
   apply augmentedVamos_normalized
-  sorry
+
 
 
 lemma joinedPrunedVamos_lawful :
