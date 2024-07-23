@@ -185,8 +185,5 @@ lemma augmentationsFinal_normalized (i : ℕ) (A : PartialMatroid)
       have hC := augmentations_remainingOptions_not_mem A
       rw [List.forall_iff_forall_mem] at hC
       apply hC at hAR
-      apply hC at hB
-      · exact hB
-      · apply hAR
-        --have H : ∃ (k : PartialMatroid) (augment ([] : List) A) in augmentations A
-        sorry
+      apply hAR at hB
+      exact hB
