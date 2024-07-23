@@ -25,14 +25,8 @@ lemma augmentedVamos_normalized (i : ℕ) :
   unfold augmentedVamos
   apply groupByBucket_normalized
   apply augmentationsFinal_normalized
-  · simp
-    sorry
-  · sorry
-
-
-
-
-
+  · apply vamos_normalized
+  · apply vamos_remainingOptions_does_not_contain
 
 lemma prunedVamos_lawful (i : ℕ) :
     (prunedVamos i).Forall fun L ↦ L.Forall fun M ↦ LawfulSparsePavingMatroid 8 4 M.matroid := by
