@@ -141,9 +141,13 @@ lemma augmentations_normalized (A : PartialMatroid)
   unfold augmentations
   rw [List.forall_map_iff]
   rw [List.forall_iff_forall_mem]
-  intro l _
+  intro l hl
   simp
   apply augment_normalized
+  · apply hAM
+  · intro h
+    rw [h] at hl
+    contradiction
 
 
 lemma augmentations_remainingOptions_not_mem (A : PartialMatroid)
