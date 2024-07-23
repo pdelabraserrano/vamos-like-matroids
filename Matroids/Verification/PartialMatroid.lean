@@ -9,7 +9,6 @@ open PartialMatroid List
 -- 2) ∀ a ∈ l, a < n
 
 
---We know this is wrong. This is just a placeholder
 lemma augment_normalized (l : List Nat) (A : PartialMatroid)
     (hA : List.NormalizedVamosLike A.matroid)
     (hL : ¬ l = [4,5,6,7]):
@@ -18,29 +17,37 @@ lemma augment_normalized (l : List Nat) (A : PartialMatroid)
   simp
   sorry
 
-
-
-
 lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     (hA : LawfulSparsePavingMatroid n r A.matroid)
     (l_mem_range : Forall (fun a ↦ a < n) l)
     (l_length_eq_rank : l.length = r)
     (l_sorted_of_mem : l.Sorted (· < ·))
     (l_not_nearlySame_as_matroid : A.matroid.Forall fun l₁ ↦ ¬ NearlySame l₁ l) :
-    LawfulSparsePavingMatroid n r (augment l A).matroid := by
-  unfold augment
-  simp
-  sorry
+    LawfulSparsePavingMatroid n r (augment l A).matroid where
+  mem_range := by
+    unfold augment
+    simp
+    apply List.forall_mergeSort
+    simp
+    constructor
+    · apply l_mem_range
+    · exact hA.mem_range
+  length_eq_rank := by
+    sorry
+  sorted_of_mem := by
+    sorry
+  sorted := by
+    sorry
+  pairwise_not_nearlySame := by
+    sorry
 
+-- Homework
 lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
     (hA : A.matroid.Forall (fun l₁ ↦ A.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂))):
     Forall (fun l₁ ↦ Forall (fun l₂ ↦ ¬NearlySame l₁ l₂) (augment l A).remainingOptions)
       (augment l A).matroid := by
   unfold NearlySame
   sorry
-
-
-
 
 lemma elimNearlySame_notAdding (l : List Nat) (A : List (List Nat)) :
     ∀ k, k ∈ (elimNearlySame l A) → k ∈ A := by
