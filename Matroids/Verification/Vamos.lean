@@ -21,3 +21,5 @@ lemma vamos_remainingOptions_not_nearlySame :
 
 
 lemma vamos_normalized : List.NormalizedVamosLike Vamos.matroid := by decide
+
+lemma vamos_remainingOptions_does_not_contain : [4, 5, 6, 7] ∉ Vamos.remainingOptions := by decide
