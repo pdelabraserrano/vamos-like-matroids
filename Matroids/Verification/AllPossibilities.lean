@@ -189,4 +189,5 @@ lemma augmentationsFinal_normalized (i : ℕ) (A : PartialMatroid)
       apply hC at hB
       · exact hB
       · apply hAR
+        --have H : ∃ (k : PartialMatroid) (augment ([] : List) A) in augmentations A
         sorry
