@@ -10,8 +10,8 @@ open PartialMatroid List
 
 
 --We know this is wrong. This is just a placeholder
-lemma augment_normalized (l : List (List ℕ))
-    (hA : List.NormalizedVamosLike l):
+lemma augment_normalized (l : List (List ℕ)):
+    --(hA : List.NormalizedVamosLike l)
     List.NormalizedVamosLike (l : List (List ℕ)) := by
   unfold NormalizedVamosLike
   simp
