@@ -49,35 +49,37 @@ lemma List.forall_append_iff {L1 L2 : List α} {P : α → Prop} :
 
 lemma List.Forall.join {L : List (List α)} {P : α → Prop} (hl : L.Forall fun l ↦ l.Forall P) :
     L.join.Forall P := by
-    unfold join
-    match L with
-    | []      => simp [join]
-    | a :: as =>
-      simp [join]
-      have IH := List.Forall.join (L := as) (P := P)
-      have h1 : Forall (fun l => Forall P l) as
-      · simp at hl
-        obtain ⟨th1, hh1⟩ := hl
-        exact hh1
-      apply IH at h1
-      simp at hl
+  unfold join
+  match L with
+  | []      => simp [join]
+  | a :: as =>
+    simp [join]
+    have IH := List.Forall.join (L := as) (P := P)
+    have h1 : Forall (fun l => Forall P l) as
+    · simp at hl
       obtain ⟨th1, hh1⟩ := hl
-      rw [forall_append_iff]
-      constructor
-      · exact th1
-      · exact h1
+      exact hh1
+    apply IH at h1
+    simp at hl
+    obtain ⟨th1, hh1⟩ := hl
+    rw [forall_append_iff]
+    constructor
+    · exact th1
+    · exact h1
 
 lemma List.mem_mergeSort (r : α → α → Prop) [h: DecidableRel r] {l : List α} (h : a ∈ l) :
     a ∈ l.mergeSort r := by
-  sorry
+  rw [List.Perm.mem_iff]
+  · apply h
+  · apply List.perm_mergeSort
 
 lemma List.forall_mergeSort (r : α → α → Prop) [h: DecidableRel r] {l : List α} {P : α → Prop }
-  (h1 : l.Forall P) : (l.mergeSort (r)).Forall P := by
-    rw [List.forall_iff_forall_mem]
-    intro i hi
-    rw [List.forall_iff_forall_mem] at h1
-    apply h1
-    rw [List.Perm.mem_iff]
-    apply hi
-    apply List.Perm.symm
-    apply List.perm_mergeSort
+    (h1 : l.Forall P) : (l.mergeSort (r)).Forall P := by
+  rw [List.forall_iff_forall_mem]
+  intro i hi
+  rw [List.forall_iff_forall_mem] at h1
+  apply h1
+  rw [List.Perm.mem_iff]
+  apply hi
+  apply List.Perm.symm
+  apply List.perm_mergeSort
