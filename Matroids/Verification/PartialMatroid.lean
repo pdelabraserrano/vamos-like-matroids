@@ -51,25 +51,58 @@ lemma augment_normalized (l : List Nat) (A : PartialMatroid)
     right
     apply h
   · -- i = 0, j = 2
+    unfold augment
     simp (config := {decide := true})
-    sorry
+    have h := hA 0 2
+    simp (config := {decide := true}) at h
+    apply List.mem_mergeSort
+    simp
+    right
+    apply h
   · -- i = 0, j = 3
+    unfold augment
     simp (config := {decide := true})
-    sorry
+    have h := hA 0 3
+    simp (config := {decide := true}) at h
+    apply List.mem_mergeSort
+    simp
+    right
+    apply h
   · simp (config := {decide := true})
   · simp (config := {decide := true})
   · -- i = 1, j = 2
+    unfold augment
     simp (config := {decide := true})
-    sorry
+    have h := hA 1 2
+    simp (config := {decide := true}) at h
+    apply List.mem_mergeSort
+    simp
+    right
+    apply h
   · -- i = 1, j = 3
+    unfold augment
     simp (config := {decide := true})
-    sorry
+    have h := hA 1 3
+    simp (config := {decide := true}) at h
+    apply List.mem_mergeSort
+    simp
+    right
+    apply h
   · simp (config := {decide := true})
   · simp (config := {decide := true})
   · simp (config := {decide := true})
   · -- i = 2, j = 3
+    unfold augment
     simp (config := {decide := true})
-    sorry
+    have h := hA 2 3
+    simp (config := {decide := true}) at h
+    apply List.not_mem_mergeSort
+    simp
+    push_neg
+    constructor
+    · push_neg at hL
+      sorry
+    · apply h
   · simp (config := {decide := true})
   · simp (config := {decide := true})
   · simp (config := {decide := true})

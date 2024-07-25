@@ -73,6 +73,12 @@ lemma List.mem_mergeSort (r : α → α → Prop) [h: DecidableRel r] {l : List 
   · apply h
   · apply List.perm_mergeSort
 
+lemma List.not_mem_mergeSort (r : α → α → Prop) [h: DecidableRel r] {l : List α} (h : a ∉ l) :
+    a ∉ l.mergeSort r := by
+  rw [List.Perm.mem_iff]
+  · apply h
+  · apply List.perm_mergeSort
+
 lemma List.forall_mergeSort (r : α → α → Prop) [h: DecidableRel r] {l : List α} {P : α → Prop }
     (h1 : l.Forall P) : (l.mergeSort (r)).Forall P := by
   rw [List.forall_iff_forall_mem]
