@@ -35,7 +35,7 @@ are ruled out)
 -/
 lemma augment_normalized (l : List Nat) (A : PartialMatroid)
     (hA : List.NormalizedVamosLike A.matroid)
-    (hL : ¬ ([4,5,6,7]) =  l ) :
+    (hL : ¬ l = ([4,5,6,7])) :
     List.NormalizedVamosLike (augment l A).matroid := by
   unfold NormalizedVamosLike
   intro P i j
@@ -101,7 +101,7 @@ lemma augment_normalized (l : List Nat) (A : PartialMatroid)
     push_neg
     constructor
     · push_neg at hL
-      exact hL
+      sorry
     · apply h
   · simp (config := {decide := true})
   · simp (config := {decide := true})
@@ -142,12 +142,12 @@ lemma augment_lawful (l : List Nat) (A : PartialMatroid)
   sorted := by
     unfold augment
     simp
-
+    unfold sort
     sorry
   pairwise_not_nearlySame := by
     unfold augment
     simp
-
+    unfold sort
     sorry
 
 
@@ -171,8 +171,6 @@ lemma elimNearlySame_notAdding (l : List Nat) (A : List (List Nat)) :
       apply IH at hh
       right
       exact hh
-
-
 
 
 
@@ -205,9 +203,17 @@ lemma augment_notAdding (l : List Nat) (A : PartialMatroid) :
   apply elimNearlySame_notAdding
   exact hk
 
--- lemma elimNearlySame_not_nearlySame (l : List Nat) (L : (List Nat)) :
---     Forall (fun l₂ => NearlySame l₁ l₂ = false) (elimGreater l (elimNearlySame l A.remainingOptions)) := by
---   sorry
+
+-- Need to figure out goal and potential hypothesis
+lemma elimNearlySame_not_nearlySame (l : List Nat) (L : (List Nat)) :
+   ∀ k, k ∈ (elimNearlySame l A) → k ∈ A  := by
+  sorry
+
+
+-- Need to figure out goal and potential hypothesis
+lemma elimGreater_not_nearlySame (l : List Nat) (A : List (List Nat)) :
+    ∀ k, k ∈ (elimGreater l A) → k ∈ A := by
+    sorry
 
 
 -- Homework
