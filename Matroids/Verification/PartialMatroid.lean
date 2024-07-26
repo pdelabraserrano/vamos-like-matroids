@@ -140,17 +140,17 @@ lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     · apply l_sorted_of_mem
     · exact hA.sorted_of_mem
   sorted := by
+    unfold augment
+    simp
+
     sorry
   pairwise_not_nearlySame := by
+    unfold augment
+    simp
+
     sorry
 
--- Homework
-lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
-    (hA : A.matroid.Forall (fun l₁ ↦ A.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂))):
-    Forall (fun l₁ ↦ Forall (fun l₂ ↦ ¬NearlySame l₁ l₂) (augment l A).remainingOptions)
-      (augment l A).matroid := by
-  unfold augment
-  sorry
+
 
 lemma elimNearlySame_notAdding (l : List Nat) (A : List (List Nat)) :
     ∀ k, k ∈ (elimNearlySame l A) → k ∈ A := by
@@ -171,7 +171,6 @@ lemma elimNearlySame_notAdding (l : List Nat) (A : List (List Nat)) :
       apply IH at hh
       right
       exact hh
-
 
 
 
@@ -205,3 +204,18 @@ lemma augment_notAdding (l : List Nat) (A : PartialMatroid) :
   apply elimGreater_notAdding at hk
   apply elimNearlySame_notAdding
   exact hk
+
+
+-- Homework
+lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
+    (hA : A.matroid.Forall (fun l₁ ↦ A.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂))):
+    Forall (fun l₁ ↦ Forall (fun l₂ ↦ ¬NearlySame l₁ l₂) (augment l A).remainingOptions)
+      (augment l A).matroid := by
+  unfold augment
+  simp
+  apply List.forall_mergeSort
+  push_neg at hA
+  simp at hA
+  rw [List.forall_iff_forall_mem]
+  intro p q
+  sorry
