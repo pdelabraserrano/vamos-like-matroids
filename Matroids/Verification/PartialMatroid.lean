@@ -35,7 +35,7 @@ are ruled out)
 -/
 lemma augment_normalized (l : List Nat) (A : PartialMatroid)
     (hA : List.NormalizedVamosLike A.matroid)
-    (hL : ¬ l = [4,5,6,7]):
+    (hL : ¬ ([4,5,6,7]) =  l ) :
     List.NormalizedVamosLike (augment l A).matroid := by
   unfold NormalizedVamosLike
   intro P i j
@@ -101,7 +101,7 @@ lemma augment_normalized (l : List Nat) (A : PartialMatroid)
     push_neg
     constructor
     · push_neg at hL
-      sorry
+      exact hL
     · apply h
   · simp (config := {decide := true})
   · simp (config := {decide := true})
@@ -205,6 +205,10 @@ lemma augment_notAdding (l : List Nat) (A : PartialMatroid) :
   apply elimNearlySame_notAdding
   exact hk
 
+-- lemma elimNearlySame_not_nearlySame (l : List Nat) (L : (List Nat)) :
+--     Forall (fun l₂ => NearlySame l₁ l₂ = false) (elimGreater l (elimNearlySame l A.remainingOptions)) := by
+--   sorry
+
 
 -- Homework
 lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
@@ -217,5 +221,5 @@ lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
   push_neg at hA
   simp at hA
   rw [List.forall_iff_forall_mem]
-  intro p q
+  intro l₁ q
   sorry
