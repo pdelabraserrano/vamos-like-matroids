@@ -218,6 +218,7 @@ lemma elimGreater_not_nearlySame (l : List Nat) (A : List (List Nat)) :
     sorry
 
 
+
 -- Homework
 lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
     (hA : A.matroid.Forall (fun l₁ ↦ A.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂))):
@@ -230,4 +231,9 @@ lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
   simp at hA
   rw [List.forall_iff_forall_mem]
   intro l₁ q
+  rw [List.forall_iff_forall_mem]
+  intro x q
+  apply elimGreater_not_nearlySame at q
+
+
   sorry
