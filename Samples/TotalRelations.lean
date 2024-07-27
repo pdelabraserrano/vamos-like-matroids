@@ -38,3 +38,13 @@ example : ∀ x y : ℕ, x - y ≥ 0 ∨ y - x ≥ 0 := by
     calc
       j - i ≥ j - j := by rel[a]
       _ = 0 := by norm_num
+
+
+example : ∀ x y : ℕ, x ≥ y ∨ y > x := by
+  intro i j
+  by_cases a : i ≥ j
+  · left
+    exact a
+  · push_neg at a
+    right
+    apply a
