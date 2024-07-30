@@ -57,11 +57,11 @@ lemma List.Forall.join {L : List (List α)} {P : α → Prop} (hl : L.Forall fun
     have IH := List.Forall.join (L := as) (P := P)
     have h1 : Forall (fun l => Forall P l) as
     · simp at hl
-      obtain ⟨th1, hh1⟩ := hl
+      obtain ⟨_, hh1⟩ := hl
       exact hh1
     apply IH at h1
     simp at hl
-    obtain ⟨th1, hh1⟩ := hl
+    obtain ⟨th1, _⟩ := hl
     rw [forall_append_iff]
     constructor
     · exact th1
