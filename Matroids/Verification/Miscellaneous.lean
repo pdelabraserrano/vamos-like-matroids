@@ -98,3 +98,7 @@ lemma List.forall_mergeSort (r : α → α → Prop) [h: DecidableRel r] {l : Li
 
 lemma List.mergeSort_lt_eq_mergeSort_le [PartialOrder α] {l : List α} [DecidableRel ((· : α) < ·)]
   [DecidableRel ((· : α) ≤ · )]: mergeSort (· < ·) l = mergeSort (· ≤ ·) l  := by sorry
+
+/--mergeSort with the less than relation has no duplicates-/
+lemma List.mergeSort_no_duplicates [PartialOrder α] {l : List α} [DecidableRel ((· : α) < ·)]:
+  Nodup (mergeSort (· < ·) l) := sorry
