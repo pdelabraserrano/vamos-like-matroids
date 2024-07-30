@@ -89,3 +89,6 @@ lemma List.forall_mergeSort (r : α → α → Prop) [h: DecidableRel r] {l : Li
   apply hi
   apply List.Perm.symm
   apply List.perm_mergeSort
+
+lemma List.mergeSort_lt_eq_mergeSort_le [PartialOrder α] {l : List α} [DecidableRel ((· : α) < ·)]
+  [DecidableRel ((· : α) ≤ · )]: mergeSort (· < ·) l = mergeSort (· ≤ ·) l  := by sorry
