@@ -145,12 +145,15 @@ lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     unfold augment
     simp
     unfold sort
-    -- apply List.sorted_mergeSort
+    apply List.Sorted.lt_of_le
+    --apply List.sorted_mergeSort
+    sorry
     sorry
   pairwise_not_nearlySame := by
     unfold augment
     simp
     unfold sort
+    --apply List.sorted_mergeSort
     sorry
 
 
@@ -234,6 +237,18 @@ lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
   rw [List.forall_iff_forall_mem]
   intro l₂ hl₂
   apply elimGreater_not_nearlySame at hl₂
+  apply elimNearlySame_not_nearlySame at hl₂
+  unfold NearlySame
+  simp
+  unfold NearlySameAux
+  simp
+  match l₁ l₂ with
+  | [], [] => simp [NearlySameAux]
+  | [], [_] => simp [NearlySameAux]
+  | [], _ :: _ :: _ => simp [NearlySameAux]
+  | [_], [] => simp [NearlySameAux]
+  | _ :: _ :: _, [] => simp [NearlySameAux]
+  | h1 :: t1, h2 :: t2 => simp [NearlySameAux]
 
-
+  sorry
   sorry
