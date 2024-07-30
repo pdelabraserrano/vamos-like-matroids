@@ -209,45 +209,43 @@ lemma augment_notAdding (l : List Nat) (A : PartialMatroid) :
   exact hk
 
 
--- Need to figure out goal and potential hypothesis
-lemma elimNearlySame_not_nearlySame (l : List Nat) (L : (List Nat)) :
-   ∀ k, k ∈ (elimNearlySame l A) → k ∈ A  := by
+
+lemma elimNearlySame_not_nearlySame (l₁ l₂ : List Nat) (L : List (List Nat))
+    (h1 : l₂ ∈ elimNearlySame l₁ L):
+    ¬NearlySame l₁ l₂ = true := by
   sorry
 
 
--- Need to figure out goal and potential hypothesis
-lemma elimGreater_not_nearlySame (l : List Nat) (A : List (List Nat)) :
+lemma mem_of_mem_elimGreater (l : List Nat) (A : List (List Nat)) :
     ∀ k, k ∈ (elimGreater l A) → k ∈ A := by
-    sorry
+  sorry
 
 
 
--- Homework
 lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
     (hA : A.matroid.Forall (fun l₁ ↦ A.remainingOptions.Forall (fun l₂ ↦ ¬NearlySame l₁ l₂))):
     Forall (fun l₁ ↦ Forall (fun l₂ ↦ ¬NearlySame l₁ l₂) (augment l A).remainingOptions)
       (augment l A).matroid := by
-  unfold augment
-  simp
-  apply List.forall_mergeSort
-  simp at hA
   rw [List.forall_iff_forall_mem]
   intro l₁ hl₁
   rw [List.forall_iff_forall_mem]
   intro l₂ hl₂
-  apply elimGreater_not_nearlySame at hl₂
-  apply elimNearlySame_not_nearlySame at hl₂
-  unfold NearlySame
-  simp
-  unfold NearlySameAux
-  simp
-  match l₁ l₂ with
-  | [], [] => simp [NearlySameAux]
-  | [], [_] => simp [NearlySameAux]
-  | [], _ :: _ :: _ => simp [NearlySameAux]
-  | [_], [] => simp [NearlySameAux]
-  | _ :: _ :: _, [] => simp [NearlySameAux]
-  | h1 :: t1, h2 :: t2 => simp [NearlySameAux]
-
-  sorry
-  sorry
+  rw [List.forall_iff_forall_mem] at hA
+  unfold augment at hl₁
+  simp at hl₁
+  apply List.reverse_mem_mergeSort at hl₁
+  simp at hl₁
+  obtain hhl₁ | thl₁ := hl₁
+  · rw [← hhl₁] at hl₂
+    clear hhl₁
+    clear l
+    unfold augment at hl₂
+    dsimp at hl₂
+    apply mem_of_mem_elimGreater at hl₂
+    apply elimNearlySame_not_nearlySame
+    · apply hl₂
+  · apply hA at thl₁
+    rw [List.forall_iff_forall_mem] at thl₁
+    apply thl₁
+    apply augment_notAdding
+    apply hl₂
