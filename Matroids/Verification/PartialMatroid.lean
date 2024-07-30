@@ -1,6 +1,7 @@
 import Matroids.PartialMatroid
 import Matroids.Verification.Basic
 import Matroids.Verification.Miscellaneous
+import Matroids.Verification.NearlySame
 
 open PartialMatroid List
 
@@ -110,6 +111,8 @@ lemma augment_normalized (l : List Nat) (A : PartialMatroid)
   · simp (config := {decide := true})
   · simp (config := {decide := true})
 
+
+
 lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     (hA : LawfulSparsePavingMatroid n r A.matroid)
     (l_mem_range : Forall (fun a ↦ a < n) l)
@@ -148,12 +151,26 @@ lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     apply List.Sorted.lt_of_le
     rw [List.mergeSort_lt_eq_mergeSort_le]
     apply List.sorted_mergeSort
-    sorry
+    apply List.mergeSort_no_duplicates
   pairwise_not_nearlySame := by
     unfold augment
-    simp
-    unfold sort
-    sorry
+    dsimp
+    have matroid_pairwise_not_nearlySame:= hA.pairwise_not_nearlySame
+    apply List.Perm.pairwise (l := l::(A.matroid))
+    · apply List.Perm.symm
+      apply List.perm_mergeSort
+    · dsimp
+      constructor
+      · intro l₁ hl₁
+        rw [List.forall_iff_forall_mem] at l_not_nearlySame_as_matroid
+        apply l_not_nearlySame_as_matroid at hl₁
+        rw [NearlySame.comm]
+        apply hl₁
+      · apply matroid_pairwise_not_nearlySame
+    · intro l₁ l₂
+      intro h
+      rw[NearlySame.comm]
+      apply h
 
 
 
