@@ -145,6 +145,7 @@ lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     unfold augment
     simp
     unfold sort
+    -- apply List.sorted_mergeSort
     sorry
   pairwise_not_nearlySame := by
     unfold augment
@@ -227,13 +228,12 @@ lemma augment_not_nearlySame (l : List Nat) (A : PartialMatroid)
   unfold augment
   simp
   apply List.forall_mergeSort
-  push_neg at hA
   simp at hA
   rw [List.forall_iff_forall_mem]
-  intro l₁ q
+  intro l₁ hl₁
   rw [List.forall_iff_forall_mem]
-  intro x q
-  apply elimGreater_not_nearlySame at q
+  intro l₂ hl₂
+  apply elimGreater_not_nearlySame at hl₂
 
 
   sorry
