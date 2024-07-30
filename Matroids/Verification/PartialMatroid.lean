@@ -146,15 +146,13 @@ lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     simp
     unfold sort
     apply List.Sorted.lt_of_le
-    --rw [List.mergeSort_lt_eq_mergeSort_le]
-    --apply List.sorted_mergeSort
-    sorry
+    rw [List.mergeSort_lt_eq_mergeSort_le]
+    apply List.sorted_mergeSort
     sorry
   pairwise_not_nearlySame := by
     unfold augment
     simp
     unfold sort
-    --apply List.sorted_mergeSort
     sorry
 
 

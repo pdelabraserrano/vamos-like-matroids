@@ -1,4 +1,5 @@
 import Mathlib.Data.List.Sort
+import Mathlib.Data.List.Lex
 
 variable {X : Type*} [LT X] [DecidableRel ((·:X) < · )] [BEq X ]
 
