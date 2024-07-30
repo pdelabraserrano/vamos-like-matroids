@@ -146,6 +146,7 @@ lemma augment_lawful (l : List Nat) (A : PartialMatroid)
     simp
     unfold sort
     apply List.Sorted.lt_of_le
+    --rw [List.mergeSort_lt_eq_mergeSort_le]
     --apply List.sorted_mergeSort
     sorry
     sorry
