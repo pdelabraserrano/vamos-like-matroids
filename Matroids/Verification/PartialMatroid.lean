@@ -226,11 +226,38 @@ lemma augment_notAdding (l : List Nat) (A : PartialMatroid) :
   exact hk
 
 
+lemma NearlySameAux_not_nearlySame (l₁ l₂ : List Nat) (L : List (List Nat))
+    (h1 : l₂ ∈ elimNearlySame l₁ L):
+    (NearlySameAux l₁ l₂).1 = false := by
+  match l₁, l₂ with
+  | [], [] =>
+    simp [NearlySameAux]
+    sorry
+  | [], [_] =>
+    simp [NearlySameAux]
+    sorry
+  | [], _ :: _ :: _ => simp [NearlySameAux]
+  | [_], [] =>
+    simp [NearlySameAux]
+    sorry
+  | _ :: _ :: _, [] =>
+    simp [NearlySameAux]
+  | h1 :: t1, h2 :: t2 =>
+    simp [NearlySameAux]
+    sorry
+
+
 
 lemma elimNearlySame_not_nearlySame (l₁ l₂ : List Nat) (L : List (List Nat))
     (h1 : l₂ ∈ elimNearlySame l₁ L):
     ¬NearlySame l₁ l₂ = true := by
-  sorry
+  push_neg
+  simp
+  unfold NearlySame
+  simp
+  apply NearlySameAux_not_nearlySame
+  exact h1
+
 
 
 lemma mem_of_mem_elimGreater (l : List Nat) (A : List (List Nat)) :
