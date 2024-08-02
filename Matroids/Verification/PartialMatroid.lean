@@ -226,26 +226,6 @@ lemma augment_notAdding (l : List Nat) (A : PartialMatroid) :
   exact hk
 
 
-lemma NearlySameAux_not_nearlySame (l₁ l₂ : List Nat) (L : List (List Nat))
-    (h1 : l₂ ∈ elimNearlySame l₁ L):
-    (NearlySameAux l₁ l₂).1 = false := by
-  match l₁, l₂ with
-  | [], [] =>
-    simp [NearlySameAux]
-    sorry
-  | [], [_] =>
-    simp [NearlySameAux]
-    sorry
-  | [], _ :: _ :: _ => simp [NearlySameAux]
-  | [_], [] =>
-    simp [NearlySameAux]
-    sorry
-  | _ :: _ :: _, [] =>
-    simp [NearlySameAux]
-  | h1 :: t1, h2 :: t2 =>
-    simp [NearlySameAux]
-    sorry
-
 
 
 lemma elimNearlySame_not_nearlySame (l₁ l₂ : List Nat) (L : List (List Nat))
@@ -255,18 +235,18 @@ lemma elimNearlySame_not_nearlySame (l₁ l₂ : List Nat) (L : List (List Nat))
   | nil =>
     simp [elimNearlySame] at h1
   | cons h t IH =>
-    rw [List.Perm.mem_iff] at h1
-    · simp [elimNearlySame]
-      simp [elimNearlySame] at IH
-      apply IH at h1
+    simp [elimNearlySame] at h1
+    split_ifs at h1
+    · apply IH at h1
       exact h1
-    · simp [elimNearlySame] at h1
-      simp [elimNearlySame]
-      rw [List.Perm.mem_iff] at IH
-      sorry
-      apply List.Perm.symm
-      sorry
-      sorry
+    · simp at h1
+      obtain th1 | hh1 := h1
+      · rw[th1]
+        intro x
+        contradiction
+      · apply IH at hh1
+        exact hh1
+
 
 
 lemma mem_of_mem_elimGreater (l : List Nat) (A : List (List Nat)) :
