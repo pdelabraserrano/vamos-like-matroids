@@ -57,11 +57,11 @@ lemma List.Forall.join {L : List (List α)} {P : α → Prop} (hl : L.Forall fun
     have IH := List.Forall.join (L := as) (P := P)
     have h1 : Forall (fun l => Forall P l) as
     · simp at hl
-      obtain ⟨_, hh1⟩ := hl
+      obtain ⟨th1, hh1⟩ := hl
       exact hh1
     apply IH at h1
     simp at hl
-    obtain ⟨th1, _⟩ := hl
+    obtain ⟨th1, hh1⟩ := hl
     rw [forall_append_iff]
     constructor
     · exact th1
@@ -77,7 +77,8 @@ lemma List.reverse_mem_mergeSort (r : α → α → Prop) [h: DecidableRel r] {l
     a ∈ l := by
   rw [List.Perm.mem_iff]
   · apply h
-  · sorry
+  · apply List.Perm.symm
+    apply List.perm_mergeSort
 
 lemma List.not_mem_mergeSort (r : α → α → Prop) [h: DecidableRel r] {l : List α} (h : a ∉ l) :
     a ∉ l.mergeSort r := by
