@@ -14,7 +14,10 @@ lists in the list of lists that has at most one different element between them a
 from the list of lists that have a most one different element between it and the new list.
 -/
 
-/-- Check if two ordered lists of the same length differ by at most one entry-/
+/-- Check if two ordered lists of the same length differ by at most one entry. Bool₁ indicates
+if a list can be consider to be NearlySame (aka. the answer we care about). Bool₂ keeps track of if
+the first list hass used its "free pass" to have something different when compared to the second list.
+Finally Bool₃ indicates the same relation but now between the second list and the first list.-/
 def NearlySameAux : List Nat → List Nat → (Bool × Bool × Bool)
   | [], [] => (true, false, false)
   | [], [_] => (true, false, true)
@@ -42,10 +45,9 @@ def NearlySameAux : List Nat → List Nat → (Bool × Bool × Bool)
           (b, leftFreePassUsed,  true)
 
 
-def NearlySame : List Nat → List Nat → Bool
-  | l1, l2 =>
-    let (a, _, _) := NearlySameAux l1 l2
-    a
+def NearlySame (l1 : List Nat) (l2 : List Nat) : Bool :=
+  let (a, _, _) := NearlySameAux l1 l2
+  a
 
 def elimNearlySame (l : List Nat) : List (List Nat) → List (List Nat)
   | [] => []
