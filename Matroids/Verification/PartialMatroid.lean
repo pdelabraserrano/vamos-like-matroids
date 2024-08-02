@@ -251,13 +251,22 @@ lemma NearlySameAux_not_nearlySame (l₁ l₂ : List Nat) (L : List (List Nat))
 lemma elimNearlySame_not_nearlySame (l₁ l₂ : List Nat) (L : List (List Nat))
     (h1 : l₂ ∈ elimNearlySame l₁ L):
     ¬NearlySame l₁ l₂ = true := by
-  push_neg
-  simp
-  unfold NearlySame
-  simp
-  apply NearlySameAux_not_nearlySame
-  exact h1
-
+  induction L with
+  | nil =>
+    simp [elimNearlySame] at h1
+  | cons h t IH =>
+    rw [List.Perm.mem_iff] at h1
+    · simp [elimNearlySame]
+      simp [elimNearlySame] at IH
+      apply IH at h1
+      exact h1
+    · simp [elimNearlySame] at h1
+      simp [elimNearlySame]
+      rw [List.Perm.mem_iff] at IH
+      sorry
+      apply List.Perm.symm
+      sorry
+      sorry
 
 
 lemma mem_of_mem_elimGreater (l : List Nat) (A : List (List Nat)) :
