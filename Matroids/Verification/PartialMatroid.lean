@@ -262,7 +262,10 @@ lemma elimNearlySame_not_nearlySame (l₁ l₂ : List Nat) (L : List (List Nat))
 
 lemma mem_of_mem_elimGreater (l : List Nat) (A : List (List Nat)) :
     ∀ k, k ∈ (elimGreater l A) → k ∈ A := by
-  sorry
+  intro k p
+  apply elimGreater_notAdding
+  exact p
+
 
 
 
