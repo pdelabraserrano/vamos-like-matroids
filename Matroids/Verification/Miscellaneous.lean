@@ -2,6 +2,7 @@ import Mathlib.Data.List.Basic
 import Mathlib.Data.List.Sort
 import Mathlib.Data.Matrix.Notation
 
+open List
 variable {α β : Type*}
 
 @[simp] theorem Matrix.cons_val_three {α : Type*} {m : ℕ} (x : α) (u : Fin m.succ.succ.succ → α) :
@@ -97,9 +98,38 @@ lemma List.forall_mergeSort (r : α → α → Prop) [h: DecidableRel r] {l : Li
   apply List.Perm.symm
   apply List.perm_mergeSort
 
+/- Paused for the moment, we will focus on proving sorted_mergeSort for the less than relationship-/
 lemma List.mergeSort_lt_eq_mergeSort_le [PartialOrder α] {l : List α} [DecidableRel ((· : α) < ·)]
-  [DecidableRel ((· : α) ≤ · )]: mergeSort (· < ·) l = mergeSort (· ≤ ·) l  := by sorry
+    [DecidableRel ((· : α) ≤ · )]: mergeSort (· < ·) l = mergeSort (· ≤ ·) l  := by
+  sorry
 
 /--mergeSort with the less than relation has no duplicates-/
 lemma List.mergeSort_no_duplicates [PartialOrder α] {l : List α} [DecidableRel ((· : α) < ·)]:
-  Nodup (mergeSort (· < ·) l) := sorry
+   Nodup (mergeSort (· < ·) l) :=
+  sorry
+
+
+
+/- PENDING theorem: If you have two different sorted lists and you run merge on them,
+then the result has to be sorted. Take a look at theorem Sorted.merge-/
+
+
+theorem sorted_mergeSort_lt [PartialOrder α] {l : List α} [DecidableRel ((· : α) < ·)] :
+    ∀ l : List α, Sorted (· < ·) (mergeSort (· < ·) l)
+  | [] => by simp [mergeSort]
+  | [a] => by simp [mergeSort]
+  | a :: b :: l => by
+    simp [mergeSort]
+
+    sorry
+
+
+/- [3, 1, 2, 7, 8, 6, 5, 4]
+[3, 1, 2, 7] [8, 6, 5, 4]
+[3, 1] [2, 7] [8, 6] [5, 4]
+[3] [1] [2] [7] [8] [6] [5] [4]
+[1, 3] [2, 7] [6, 8] [4, 5]
+[1, 2, 3, 7] [4, 5, 6, 8]
+[1, 2, 3, 4, 5, 6, 7, 8]-/
+
+#eval List.split [1, 2, 3, 4, 5, 6, 7, 8]
