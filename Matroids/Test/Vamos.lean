@@ -30,7 +30,7 @@ abbrev Vamos8 := groupByBucket (augmentationsFinal 8 Vamos)
 #check Vamos0
 
 #time
-#eval List.sum (Vamos1.map sizeOfPrunedBucket) -- returns [1] -- + 1 = 2
+#eval List.sum (Vamos3.map sizeOfPrunedBucket)
 
 #exit
 

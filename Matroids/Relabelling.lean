@@ -32,7 +32,9 @@ def permutation : Nat → List (Nat → Nat)
 open Equiv in
 def specialPermutation : List (Nat → Nat) :=
   let c (l1 l2 : List (Nat → Nat)) : List (Nat → Nat) := (l1.product l2).map (fun (a, b) ↦ a ∘ b)
-  c (c (c [id, swap 0 1] [id, swap 2 3]) [id, swap 4 5]) [id, swap 6 7]
+  c (c (c (c (c [id, swap 0 1] [id, swap 2 3]) [id, swap 4 5]) [id, swap 6 7]) [id, swap 0 2 ∘ swap 1 3]) [id, swap 4 6 ∘ swap 5 7]
+
+#eval specialPermutation.map (fun f ↦ (List.range 8).map (fun i ↦ f i)) |>.length
 
 /-- This allows us to relabel individual elements in a list of list of natural numbers. We have to
 specify the function for relabellinging the original elements to new elements. We have to specify
