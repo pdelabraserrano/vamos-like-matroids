@@ -1,6 +1,7 @@
 import Matroids.Buckets
 import Matroids.Vamos
 import Matroids.AllPossibilities
+import Matroids.Relabelling
 
 open PartialMatroid
 
@@ -27,6 +28,9 @@ abbrev Vamos7 := groupByBucket (augmentationsFinal 7 Vamos)
 abbrev Vamos8 := groupByBucket (augmentationsFinal 8 Vamos)
 
 #check Vamos0
+
+#time
+#eval List.sum (Vamos1.map sizeOfPrunedBucket) -- returns [1] -- + 1 = 2
 
 #exit
 

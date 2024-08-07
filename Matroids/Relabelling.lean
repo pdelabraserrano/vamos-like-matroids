@@ -29,16 +29,16 @@ def permutation : Nat → List (Nat → Nat)
   | 0 => [id]
   | n + 1 => ((List.range (n + 1)).map (fun i => (permutation n).map (Function.comp (Equiv.swapCore i n)))).join
 
-
-variable  (A : List (List Nat))
-#check List.map _ A
+open Equiv in
+def specialPermutation : List (Nat → Nat) :=
+  let c (l1 l2 : List (Nat → Nat)) : List (Nat → Nat) := (l1.product l2).map (fun (a, b) ↦ a ∘ b)
+  c (c (c [id, swap 0 1] [id, swap 2 3]) [id, swap 4 5]) [id, swap 6 7]
 
 /-- This allows us to relabel individual elements in a list of list of natural numbers. We have to
 specify the function for relabellinging the original elements to new elements. We have to specify
 the function that defines how to relabel. --/
 def relabelling (A : List (List Nat)) (g : Nat → Nat) : List (List Nat) :=
   (A.map) ( fun (B : List Nat) ↦ (B.map) g)
-
 
 /-- Takes in two partial matroids. The output produces a boolean. True if there are repeats.
 False if not the same. When getting relabelled, the function also sorts the list and the elements of
@@ -59,6 +59,9 @@ def any : List α -> (α → Bool) -> Bool
   | [], _ => false
   | h :: t, p => p h || any t p
 
+def specialPermutationsComparison (A B : List (List Nat)) : Bool :=
+  any specialPermutation (sameUpToRelabelling A B)
+
 /--Takes the magnitude of permutations we want to apply. Takes the partial matroids we want to apply
 the permutations to. We use the any function to see if there are any repeat partial matroids. If
 there are repeats, that means that thse are the same partial matroid. It compares two partial
@@ -78,7 +81,9 @@ def pruning : List PartialMatroid → List PartialMatroid
   | [] => []
   | h :: t =>
   let T := pruning t
-  if (any (T.map PartialMatroid.matroid) (permutationsComparison 8 h.matroid)) then
+  if (any (T.map PartialMatroid.matroid) (specialPermutationsComparison h.matroid)) then
+    T
+  else if (any (T.map PartialMatroid.matroid) (permutationsComparison 8 h.matroid)) then
     T
   else
     h :: T
