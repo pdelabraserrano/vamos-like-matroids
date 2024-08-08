@@ -64,9 +64,6 @@ def any : List α -> (α → Bool) -> Bool
   | [], _ => false
   | h :: t, p => p h || any t p
 
-def specialPermutationsComparison (A B : List (List Nat)) : Bool :=
-  any specialPermutation (sameUpToRelabelling A B)
-
 /--Takes the magnitude of permutations we want to apply. Takes the partial matroids we want to apply
 the permutations to. We use the any function to see if there are any repeat partial matroids. If
 there are repeats, that means that thse are the same partial matroid. It compares two partial
@@ -75,13 +72,16 @@ first. --/
 def permutationsComparison (n : Nat) (A B : List (List Nat)) : Bool :=
   any (permutation n) (sameUpToRelabelling A B)
 
-/-- checks for any repeat partial matroids in a list of partial matroids. Repeat partial matroids
-referring to partial matroids that are same after evaluating permutations. We start from the end of
-the list of partial matroids. If the second to last partial matroid is a permutation of the last
-partial matroid, we eliminate the second to last partial matroid. If it is different, we keep it.
-Then we move on to the third to last partial matroid and compare it with the partial matroids that
-were just analyzed and kept. We repeat this process until we have reached the first partial
-matroid-/
+def specialPermutationsComparison (A B : List (List Nat)) : Bool :=
+  any specialPermutation (sameUpToRelabelling A B)
+
+/-- Checks for any repeat partial matroids in a list of partial matroids starting with the list
+of special permutations. Repeat partial matroids referring to partial matroids that are same after
+evaluating permutations. We start from the end of the list of partial matroids.
+If the second to last partial matroid is a permutation of the last partial matroid, we eliminate
+the second to last partial matroid. If it is different, we keep it. Then we move on to the third to
+last partial matroid and compare it with the partial matroids that were just analyzed and kept.
+We repeat this process until we have reached the first partial matroid-/
 def pruning : List PartialMatroid → List PartialMatroid
   | [] => []
   | h :: t =>
@@ -93,10 +93,10 @@ def pruning : List PartialMatroid → List PartialMatroid
   else
     h :: T
 
-/--we begin with the list of partial matroids separated into a list of lists and the lists are
-categorized by buckets. We apply the pruning to each of the buckets based on the idea that different
-buckets cannot contain the same matroid because the set of paths/connections are different. As a
-result, Lean would only have to check for similarities in the buckets (reducing computational power)
-and prune from there. We only care about the number of partial matroids so we want to see the length
-of each bucket-/
+/--NOT USED IN FINAL COMPUTATION. We begin with the list of partial matroids separated into a list
+of lists and the lists are categorized by buckets. We apply the pruning to each of the buckets
+based on the idea that different buckets cannot contain the same matroid because the set of
+paths/connections are different. As a result, Lean would only have to check for similarities in
+the buckets (reducing computational power)and prune from there. We only care about the number of
+partial matroids so we want to see the length of each bucket-/
 def sizeOfPrunedBucket (l : List PartialMatroid) : Nat := (pruning l).length
