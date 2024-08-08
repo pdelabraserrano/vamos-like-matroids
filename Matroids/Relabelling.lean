@@ -29,12 +29,14 @@ def permutation : Nat → List (Nat → Nat)
   | 0 => [id]
   | n + 1 => ((List.range (n + 1)).map (fun i => (permutation n).map (Function.comp (Equiv.swapCore i n)))).join
 
-open Equiv in
-def specialPermutation : List (Nat → Nat) :=
-  let c (l1 l2 : List (Nat → Nat)) : List (Nat → Nat) := (l1.product l2).map (fun (a, b) ↦ a ∘ b)
-  c (c (c (c (c [id, swap 0 1] [id, swap 2 3]) [id, swap 4 5]) [id, swap 6 7]) [id, swap 0 2 ∘ swap 1 3]) [id, swap 4 6 ∘ swap 5 7]
+instance : Mul (List (Nat → Nat)) where
+  mul (l1 l2) := (l1.product l2).map (Function.uncurry Function.comp)
 
-#eval specialPermutation.map (fun f ↦ (List.range 8).map (fun i ↦ f i)) |>.length
+open Equiv in
+/-- The 64 permutations of {0, 1, ... 7} which are automorphisms of the Vamos matroid. -/
+def specialPermutation : List (Nat → Nat) :=
+  [id, swapCore 0 1] * [id, swapCore 2 3] * [id, swapCore 4 5] * [id, swapCore 6 7]
+    * [id, swapCore 0 2 ∘ swapCore 1 3] * [id, swapCore 4 6 ∘ swapCore 5 7]
 
 /-- This allows us to relabel individual elements in a list of list of natural numbers. We have to
 specify the function for relabellinging the original elements to new elements. We have to specify
