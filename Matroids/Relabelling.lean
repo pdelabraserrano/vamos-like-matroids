@@ -14,23 +14,24 @@ buckets indicate a different partial matroid.
 * `relabelling`: allows us to apply conditions to the partial matroids (minus remaining options)
 * `sameUpToRelabelling`: check if a permutation of B is the same as A based on relabelling; utilizes
   `relabelling`
-* `Any`: applies a condition to each lement in a list and returns true if there is at least one true
+* `any`: applies a condition to each lement in a list and returns true if there is at least one true
 * `permutationsComparison`: checks if two partial matroids are the same; utilizes `any`,
   `permutation`, and `sameUpToRelabelling`
-* `Pruning`: sees if there are any repeats in a list of partial matroids and eliminates repeat
+* `pruning`: sees if there are any repeats in a list of partial matroids and eliminates repeat
   partial matroids; utilizes `permutationsComparison`
 * `sizeOfPrunedBucket`: gives us the length of each pruned bucket. We input matroids already
 already separated by bucket to save computational power; utilizes `Pruning`
 -/
 
 
+instance : Mul (List (Nat → Nat)) where
+  mul (l1 l2) := (l1.product l2).map (Function.uncurry Function.comp)
+
+open Equiv in
 /-- Function that generates permutations of a given magnitude (in the input)-/
 def permutation : Nat → List (Nat → Nat)
   | 0 => [id]
-  | n + 1 => ((List.range (n + 1)).map (fun i => (permutation n).map (Function.comp (Equiv.swapCore i n)))).join
-
-instance : Mul (List (Nat → Nat)) where
-  mul (l1 l2) := (l1.product l2).map (Function.uncurry Function.comp)
+  | n + 1 => (List.range (n + 1)).map (swapCore n) * permutation n
 
 open Equiv in
 /-- The 64 permutations of {0, 1, ... 7} which are automorphisms of the Vamos matroid. -/
