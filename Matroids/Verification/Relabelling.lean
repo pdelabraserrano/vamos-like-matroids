@@ -16,6 +16,7 @@ lemma pruning_lawful (A : List PartialMatroid)
     simp [pruning]
     split_ifs
     · exact t_ok
+    · exact t_ok
     · simp
       constructor
       · exact h_ok
@@ -33,6 +34,7 @@ lemma pruning_normalized (A : List PartialMatroid)
     apply IH at t_ok
     simp [pruning]
     split_ifs
+    · exact t_ok
     · exact t_ok
     · simp
       constructor
