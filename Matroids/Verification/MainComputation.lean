@@ -42,8 +42,6 @@ lemma prunedVamos_normalized (i : ℕ) :
   apply List.Forall.imp pruning_normalized
   apply augmentedVamos_normalized
 
-
-
 lemma joinedPrunedVamos_lawful :
     joinedPrunedVamos.Forall fun M ↦ LawfulSparsePavingMatroid 8 4 M.matroid := by
   unfold joinedPrunedVamos
@@ -75,18 +73,17 @@ lemma nonisomorphic_joinedPrunedVamos :
 /-- The main computation produces only `List (List ℕ)` objects which are valid ("lawful") sparse
 paving matroids.
 Informally: Theorem 1 -/
-lemma mainComputation_lawful : mainComputation.Forall (LawfulSparsePavingMatroid 8 4) := by
+theorem mainComputation_lawful : mainComputation.Forall (LawfulSparsePavingMatroid 8 4) := by
   unfold mainComputation
   rw [List.forall_map_iff]
   apply joinedPrunedVamos_lawful
 
 /-- The main computation produces only `List (List ℕ)` objects which are "normalized Vámos-like".
 Informally: Theorem 2 -/
-lemma mainComputation_normalizedVamosLike: mainComputation.Forall List.NormalizedVamosLike := by
+theorem mainComputation_normalizedVamosLike: mainComputation.Forall List.NormalizedVamosLike := by
   unfold mainComputation
   rw [List.forall_map_iff]
   apply joinedPrunedVamos_normalized
-
 
 /-- The list of `List (List ℕ)` objects provided by the main computation are mutually
 non-isomorphic (up to permutation of 0, 1, 2, ... 7).
