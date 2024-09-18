@@ -55,3 +55,5 @@ abbrev A63BucketSorted := A63Bucket.sort
 #eval groupByBucket (augmentationsFinal 4 A63) -- returns (to long to comment)
 
 abbrev FourTrianglesOnSixPoints := groupByBucket (augmentationsFinal 4 A63)
+
+#eval List.pairs [1, 2, 3, 4]

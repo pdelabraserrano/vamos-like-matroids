@@ -31,3 +31,10 @@ def groupByBucket (A: List PartialMatroid) : List (List PartialMatroid) :=
 /-- NOT USED IN FINAL COMPUTATION. Shows us the number of each distinct bucket. -/
 def countBuckets (A: List PartialMatroid) : List Nat :=
    count ((A.map findBucket).sort)
+
+def List.pairs : List α → List (List α)
+  /- All elements of the empty list are vacuously pairwise related. -/
+  | [] => []
+  /- `a :: l` is `Pairwise R` if `a` `R`-relates to every element of `l`,
+  and `l` is `Pairwise R`. -/
+  | a :: l => (l.map fun b ↦ [a, b]) ++ pairs l
