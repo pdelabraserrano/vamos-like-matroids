@@ -26,6 +26,6 @@ abbrev l := [0,1,2,3,4,5,6,7]
 --   l.map(out[(pairCounts A)[·][l.map(· + 1)]] )
 
 
-/--I am unsure how to tell it to return nothing if i is in L-/
+--/--I am unsure how to tell it to return nothing if i is in L-/
 -- def compl : (A : List Nat) → Nat :=
 --   l.map (if !(list.mem · A) then i)
