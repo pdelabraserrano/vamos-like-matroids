@@ -5,9 +5,9 @@ import Matroids.MainComputation
 This file runs the main computation of the project, producing a list of the "Vámos-like" matroids.
 (There should be 39 of them, and the `#guard_msgs` command will fail if this is not the case.)
 
-This file takes a *long* time to run, about 2 hours.  It is deliberately not included in a standard
-build of the project. -/
+ -/
 
+-- New time (Invariant 1 & 2): 22.8 seconds
 /-- info: 39 -/
 #guard_msgs in
 #eval mainComputation.length
