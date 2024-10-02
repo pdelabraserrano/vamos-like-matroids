@@ -24,22 +24,24 @@ def List.pairs : List α → List (List α)
   and `l` is `Pairwise R`. -/
   | a :: l => (l.map fun b ↦ [a, b]) ++ pairs l
 
-/-- Function that shows us the bucket each partial matroid belongs to.
-sort allows the bucket to be sorted, so that [1,2,3] is the same as [1,3,2]
-count allows us to look at the number of figures each point touches-/
+/-- The use of sort allows the bucket to be sorted, so that [1,2,3] is the same as [1,3,2]
+count allows us to look at the number of figures each point touches -/
 def invariant1 (A: PartialMatroid) : List Nat := count A.matroid.join.sort
 
 /-- Takes in the matroid part of a partial matroid and gives out a list of all the possible pairs
  of natural numbers in it-/
 def invariant2 (A: PartialMatroid) : List Nat := count ((((A.matroid.map) (List.pairs)).join).sort)
 
-/-- NEED TO REWRITE -/
+/-- NEED TO WRITE -/
 def groupByFirstInvariant (A: List PartialMatroid) : List (List PartialMatroid) :=
    groupByValue (A.mergeSort (fun l1 l2 => invariant1 l1 < invariant1 l2)) invariant1
 
+/-- NEED TO WRITE -/
 def groupBySecondInvariant (A: List PartialMatroid) : List (List PartialMatroid) :=
    groupByValue (A.mergeSort (fun l1 l2 => invariant2 l1 < invariant2 l2)) invariant2
 
+/-Function that shows us the bucket each partial matroid belongs to by applying `invariant1`
+followed by `invariant2`-/
 def groupByBucket (A: List PartialMatroid) : List (List PartialMatroid) :=
    (((groupByFirstInvariant A).map) (groupBySecondInvariant)).join
 
