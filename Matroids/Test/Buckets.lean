@@ -57,3 +57,9 @@ abbrev A63BucketSorted := A63Bucket.sort
 abbrev FourTrianglesOnSixPoints := groupByBucket (augmentationsFinal 4 A63)
 
 #eval List.pairs [1, 2, 3, 4]
+
+#eval complementAux [1,2,3,4] [0,1,2,3,4,5,6,7]
+
+#eval complement [[0,1,2,3],[0,1,6,7],[1,2,6,7]]
+
+#eval isMember 2 [1,3,4]

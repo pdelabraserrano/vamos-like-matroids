@@ -102,22 +102,13 @@ partial matroids so we want to see the length of each bucket-/
 def sizeOfPrunedBucket (l : List PartialMatroid) : Nat := (pruning l).length
 
 
-def complimentToOriginal (A B : List (List Nat)) : Bool :=
-  ((relabelling B ( 7 - · ) ).map List.sort).sort = (A.map List.sort).sort
+
 
 -- def ComplimentComparison (A B : List (List Nat)) : Bool :=
 --   any (complimentToOriginal A B)
 --   sorry
 
-def prePruning : List PartialMatroid → List PartialMatroid
-  | [] => []
-  | h :: t =>
-  let T := prePruning t
-  if (any (T.map PartialMatroid.matroid) (complimentToOriginal h.matroid)) then
-    T
-  else
-    h :: T
 
 
-#eval complimentToOriginal [[1,2,3,4],[2,4,5,7]] [[3,4,5,6],[0,2,3,5]] --true
-#eval complimentToOriginal [[1,2,3,4],[2,4,5,7]] [[3,4,5,6],[0,1,3,5]] --false
+--#eval complementToOriginal [[1,2,3,4],[2,4,5,7]] [[3,4,5,6],[0,2,3,5]] --true
+--#eval complementToOriginal [[1,2,3,4],[2,4,5,7]] [[3,4,5,6],[0,1,3,5]] --false
