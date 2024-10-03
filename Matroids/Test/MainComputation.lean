@@ -7,7 +7,7 @@ This file runs the main computation of the project, producing a list of the "Vá
 
  -/
 
--- New time (Invariant 1 & 2): 22.8 seconds
-/-- info: 39 -/
-#guard_msgs in
+-- Invariant 1 & 2: 23.8 seconds
+-- New time (Invariant 1, 2, 3):
+#time
 #eval mainComputation.length
