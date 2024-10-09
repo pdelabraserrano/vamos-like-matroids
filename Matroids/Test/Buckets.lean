@@ -5,7 +5,7 @@ import Matroids.Test.PartialMatroid
 open PartialMatroid
 
 
-abbrev A73Bucket := (augmentationsFinal 4 A73).map findBucket
+abbrev A73Bucket := (augmentationsFinal 4 A73).map invariant1
 
 #eval A73Bucket -- returns (to long to comment)
 
@@ -17,7 +17,7 @@ abbrev A73BucketSorted := A73Bucket.sort
 
 #eval A73BucketSorted -- returns (to long to comment)
 
-#eval ((augmentationsFinal 4 A73).map findBucket) -- returns (to long to comment)
+#eval ((augmentationsFinal 4 A73).map invariant1) -- returns (to long to comment)
 
 /-- info: [35, 560, 1260] -/
 #guard_msgs in
@@ -26,21 +26,21 @@ abbrev A73BucketSorted := A73Bucket.sort
 -- (augmentationsFinal 4 A73) -> How many combinations of 4 triangles (3) can we make with seven points
 /-- info: [210, 840, 1260] -/
 #guard_msgs in
-#eval countBuckets (augmentationsFinal 4 A73)
+#eval (countBuckets (augmentationsFinal 4 A73)).sort
 
 /-- info: [420, 630] -/
 #guard_msgs in
-#eval countBuckets (augmentationsFinal 5 A73)
+#eval (countBuckets (augmentationsFinal 5 A73)).sort
 
 #eval groupByBucket (augmentationsFinal 4 A73) -- returns (to long to comment)
 
-#eval groupByValue ((augmentationsFinal 4 A73).mergeSort (fun l1 l2 => findBucket l1 < findBucket l2)) findBucket -- returns (to long to comment)
+#eval groupByValue ((augmentationsFinal 4 A73).mergeSort (fun l1 l2 => invariant1 l1 < invariant1 l2)) invariant1 -- returns (to long to comment)
 
 -- To find where a list begins and ends simply cmd + f "}]"
 #eval groupByBucket (augmentationsFinal 4 A73) -- returns (to long to comment)
 
 -- Test with six points, 4 triangles
-abbrev A63Bucket := (augmentationsFinal 4 A63).map findBucket
+abbrev A63Bucket := (augmentationsFinal 4 A63).map invariant1
 
 #eval A63Bucket -- returns (to long to comment)
 
