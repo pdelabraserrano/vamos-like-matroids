@@ -66,16 +66,62 @@ lemma groupByBucket_lawful (A : List PartialMatroid)
 
     sorry
 
-
-lemma groupByBucket_normalized (A : List PartialMatroid)
+lemma groupByFirstInvariant_normalized (A : List PartialMatroid)
     (hA : A.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
-    (groupByBucket A).Forall
+    (groupByFirstInvariant A).Forall
     (fun l ↦ l.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) := by
-  unfold groupByBucket
-  sorry
-  -- apply forall_groupByValue
-  -- apply List.forall_mergeSort
-  -- apply hA
+      unfold groupByFirstInvariant
+      apply forall_groupByValue
+      apply List.forall_mergeSort
+      apply hA
+
+lemma groupBySecondInvariant_normalized (A : List PartialMatroid)
+    (hA : A.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
+    (groupBySecondInvariant A).Forall
+    (fun l ↦ l.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) := by
+      unfold groupBySecondInvariant
+      apply forall_groupByValue
+      apply List.forall_mergeSort
+      apply hA
+
+lemma groupByThirdInvariant_normalized (A : List PartialMatroid)
+    (hA : A.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
+    (groupByThirdInvariant A).Forall
+    (fun l ↦ l.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) := by
+      unfold groupByThirdInvariant
+      apply forall_groupByValue
+      apply List.forall_mergeSort
+      apply hA
+
+lemma groupByBucket_normalized (lA : List PartialMatroid)
+    (hlA : lA.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
+    (groupByBucket lA).Forall
+    (fun l ↦ l.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) := by
+    unfold groupByBucket
+    apply List.Forall.join
+    rw [List.forall_map_iff]
+    rw [List.forall_iff_forall_mem]
+    intro lB hB
+    apply groupByThirdInvariant_normalized
+    rw [List.forall_iff_forall_mem]
+    intro C hC
+    rw [List.mem_join] at hB
+    obtain ⟨L, hL⟩ := hB
+    obtain ⟨hL, LB⟩ := hL
+    dsimp at hL
+    rw [List.mem_map] at hL
+    obtain ⟨l, hl⟩ := hL
+    obtain ⟨hl, hL⟩ := hl
+    rw [←hL] at LB
+    clear hL L
+    have := groupBySecondInvariant_normalized l
+    simp_rw [List.forall_iff_forall_mem] at this
+    apply this
+    intro D hD
+    clear this
+    · sorry
+    · apply LB
+    · apply hC
 
 
 
