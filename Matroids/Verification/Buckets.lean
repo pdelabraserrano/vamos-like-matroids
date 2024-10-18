@@ -125,8 +125,7 @@ lemma groupByBucket_normalized (lA : List PartialMatroid)
       intro E hE
       · sorry
       · sorry
-      · sorry
-      · sorry
+      · apply hD
     · apply LB
     · apply hC
 
