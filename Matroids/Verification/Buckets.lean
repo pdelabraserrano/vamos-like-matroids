@@ -119,7 +119,14 @@ lemma groupByBucket_normalized (lA : List PartialMatroid)
     apply this
     intro D hD
     clear this
-    · sorry
+    · have := groupByFirstInvariant_normalized l
+      simp_rw [List.forall_iff_forall_mem] at this
+      apply this
+      intro E hE
+      · sorry
+      · sorry
+      · sorry
+      · sorry
     · apply LB
     · apply hC
 
