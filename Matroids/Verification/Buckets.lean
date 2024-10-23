@@ -66,26 +66,43 @@ lemma groupByBucket_lawful (A : List PartialMatroid)
 
     sorry
 
-lemma groupByFirstInvariant_normalized (lA : List PartialMatroid)
-    (hlA : lA.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
-    (groupByFirstInvariant lA).join.Forall
-    (fun M ↦ List.NormalizedVamosLike M.matroid) := by
-      unfold groupByFirstInvariant
-      sorry
+lemma groupByFirstInvariant_normalized (A : List PartialMatroid)
+    (hA : A.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
+    (groupByFirstInvariant A).Forall
+    (fun l ↦ l.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) := by
+   unfold groupByFirstInvariant
+   apply forall_groupByValue
+   apply List.forall_mergeSort
+   apply hA
+
 
 lemma groupBySecondInvariant_normalized (lA : List PartialMatroid)
     (hlA : lA.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
     (groupBySecondInvariant lA).join.Forall
     (fun M ↦ List.NormalizedVamosLike M.matroid) := by
-      unfold groupBySecondInvariant
-      sorry
+   unfold groupBySecondInvariant
+   apply List.Forall.join
+   apply forall_groupByValue
+   rw [List.forall_iff_forall_mem]
+   intro B hB
+   apply List.reverse_mem_mergeSort at hB
+   rw [List.forall_iff_forall_mem] at hlA
+   apply hlA at hB
+   apply hB
 
 lemma groupByThirdInvariant_normalized (lA : List PartialMatroid)
     (hlA : lA.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
     (groupByThirdInvariant lA).join.Forall
     (fun M ↦ List.NormalizedVamosLike M.matroid) := by
-      unfold groupByThirdInvariant
-      sorry
+   unfold groupByThirdInvariant
+   apply List.Forall.join
+   apply forall_groupByValue
+   rw [List.forall_iff_forall_mem]
+   intro B hB
+   apply List.reverse_mem_mergeSort at hB
+   rw [List.forall_iff_forall_mem] at hlA
+   apply hlA at hB
+   apply hB
 
 lemma groupByBucket_normalized (lA : List PartialMatroid)
     (hlA : lA.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
