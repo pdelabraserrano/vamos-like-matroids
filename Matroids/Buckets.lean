@@ -73,7 +73,7 @@ def groupByThirdInvariant (A: List PartialMatroid) : List (List PartialMatroid) 
 /-Function that shows us the bucket each partial matroid belongs to by applying `invariant1`
 followed by `invariant2`-/
 def groupByBucket (A: List PartialMatroid) : List (List PartialMatroid) :=
-  (groupByFirstInvariant A).map fun l ↦ (groupByThirdInvariant (groupBySecondInvariant l).join).join
+   (((((groupByFirstInvariant A).map) (groupBySecondInvariant)).join).map (groupByThirdInvariant)).join
 
 /-- NOT USED IN FINAL COMPUTATION. Shows us the number of each distinct bucket. -/
 def countBuckets (A: List PartialMatroid) : List Nat :=
