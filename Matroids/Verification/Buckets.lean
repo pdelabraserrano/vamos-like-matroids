@@ -109,8 +109,19 @@ lemma groupByBucket_normalized (lA : List PartialMatroid)
     (groupByBucket lA).Forall
     (fun l ↦ l.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) := by
     unfold groupByBucket
-
-    sorry
+    rw [List.forall_map_iff]
+    rw [List.forall_iff_forall_mem]
+    intro lB hlB
+    apply groupByThirdInvariant_normalized
+    apply groupBySecondInvariant_normalized
+    rw [List.forall_iff_forall_mem]
+    intro B hB
+    have := groupByFirstInvariant_normalized lA
+    simp_rw [List.forall_iff_forall_mem] at *
+    apply this
+    apply hlA
+    apply hlB
+    apply hB
 
 
 
