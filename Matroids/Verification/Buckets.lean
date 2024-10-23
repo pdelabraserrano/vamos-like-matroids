@@ -46,8 +46,39 @@ lemma groupByBucket_lawful (A : List PartialMatroid)
   apply List.Forall.join
   rw [List.forall_map_iff]
   rw [List.forall_iff_forall_mem]
-  intro q hq
+  intro lq hlq
   apply groupByThirdInvariant_lawful
+  rw [List.mem_join] at hlq
+  rw [List.forall_iff_forall_mem]
+  intro p hp
+  obtain ⟨ llp, llq, hllz ⟩ := hlq
+  dsimp at llq
+  --apply List.exists_of_mem_join at hq
+  --simp at lq
+  rw [List.mem_map] at llq
+  obtain ⟨ lqa, hlqb, lqc ⟩ := llq
+  --apply lz at hp
+  rw[← lqc] at hllz
+  clear lqc
+  have := groupBySecondInvariant_lawful (n := n) (r := r) lqa
+  rw [List.forall_iff_forall_mem] at this
+  rw [List.forall_iff_forall_mem] at this
+  simp_rw [List.forall_iff_forall_mem] at this
+  apply this
+  intro q hq
+  have := groupByFirstInvariant_lawful (n := n) (r := r) lqa
+  rw [List.forall_iff_forall_mem] at this
+  rw [List.forall_iff_forall_mem] at this
+  simp_rw [List.forall_iff_forall_mem] at this
+  apply this
+  intro z hz
+  let hzz := ∀ x ∈ lqa, LawfulSparsePavingMatroid n r x.matroid
+  apply hz at hzz
+
+
+  --apply groupBySecondInvariant_lawful at lqc
+
+  --apply List.Forall.join
   simp at hq
   obtain hhq | qhq := hq
   · rw [List.forall_iff_forall_mem]
