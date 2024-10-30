@@ -82,33 +82,52 @@ lemma groupBySecondInvariant_normalized (llA : List (List PartialMatroid))
     fun l ↦ l.Forall (fun M ↦ List.NormalizedVamosLike M.matroid) := by
   unfold groupBySecondInvariant
   apply List.Forall.join
-  sorry
+  rw [List.forall_iff_forall_mem]
+  intro llB hllB
+  rw[List.mem_map] at hllB
+  obtain ⟨lB, hlB⟩ := hllB
+  obtain ⟨hlB1, hlB2⟩ := hlB
+  rw [←hlB2] at *
+  apply forall_groupByValue
+  rw [List.forall_iff_forall_mem]
+  intro C hC
+  apply List.reverse_mem_mergeSort at hC
+  rw [List.forall_iff_forall_mem] at *
+  apply hllA at hlB1
+  rw [List.forall_iff_forall_mem] at hlB1
+  apply hlB1 at hC
+  apply hC
 
 lemma groupByThirdInvariant_normalized (llA : List (List PartialMatroid))
     (hllA : llA.Forall fun l ↦ l.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
     (llA.map groupByThirdInvariant).join.Forall
     fun l ↦ l.Forall (fun M ↦ List.NormalizedVamosLike M.matroid) := by
   unfold groupByThirdInvariant
-  sorry
+  apply List.Forall.join
+  rw [List.forall_iff_forall_mem]
+  intro llB hllB
+  rw[List.mem_map] at hllB
+  obtain ⟨lB, hlB⟩ := hllB
+  obtain ⟨hlB1, hlB2⟩ := hlB
+  rw [←hlB2] at *
+  apply forall_groupByValue
+  rw [List.forall_iff_forall_mem]
+  intro C hC
+  apply List.reverse_mem_mergeSort at hC
+  rw [List.forall_iff_forall_mem] at *
+  apply hllA at hlB1
+  rw [List.forall_iff_forall_mem] at hlB1
+  apply hlB1 at hC
+  apply hC
 
 lemma groupByBucket_normalized (lA : List PartialMatroid)
     (hlA : lA.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
     (groupByBucket lA).Forall
     (fun l ↦ l.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) := by
     unfold groupByBucket
-    rw [List.forall_map_iff]
-    rw [List.forall_iff_forall_mem]
+    rw [List.forall_iff_forall_mem] at *
     intro lB hlB
-    apply groupByThirdInvariant_normalized
-    apply groupBySecondInvariant_normalized
-    rw [List.forall_iff_forall_mem]
-    intro B hB
-    have := groupByFirstInvariant_normalized lA
-    simp_rw [List.forall_iff_forall_mem] at *
-    apply this
-    apply hlA
-    apply hlB
-    apply hB
+    sorry
 
 
 
