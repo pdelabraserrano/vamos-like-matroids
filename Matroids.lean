@@ -15,3 +15,4 @@ import Matroids.Verification.MainComputationFinset
 import Matroids.Verification.Miscellaneous
 import Matroids.Verification.Relabelling
 import Matroids.Verification.Vamos
+import Matroids.Test.MainComputation
