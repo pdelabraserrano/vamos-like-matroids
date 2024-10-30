@@ -11,69 +11,77 @@ lemma groupByFirstInvariant_lawful (A : List PartialMatroid)
     (hA : A.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) :
     (groupByFirstInvariant A).Forall
     (fun l ↦ l.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) := by
-      unfold groupByFirstInvariant
-      apply forall_groupByValue
-      apply List.forall_mergeSort
-      apply hA
+  unfold groupByFirstInvariant
+  apply forall_groupByValue
+  apply List.forall_mergeSort
+  apply hA
 
-lemma groupBySecondInvariant_lawful (A : List PartialMatroid)
-    (hA : A.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) :
-    (groupBySecondInvariant A).Forall
-    (fun l ↦ l.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) := by
-      unfold groupBySecondInvariant
-      apply forall_groupByValue
-      apply List.forall_mergeSort
-      apply hA
+lemma groupBySecondInvariant_lawful (llA : List (List PartialMatroid))
+    (hllA : llA.Forall fun l ↦ l.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) :
+    (llA.map groupBySecondInvariant).join.Forall
+    fun l ↦ l.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid) := by
+  unfold groupBySecondInvariant
+  apply List.Forall.join
+  rw [List.forall_iff_forall_mem]
+  intro llB hllB
+  rw[List.mem_map] at hllB
+  obtain ⟨lB, hlB⟩ := hllB
+  obtain ⟨hlB1, hlB2⟩ := hlB
+  rw [←hlB2] at *
+  apply forall_groupByValue
+  rw [List.forall_iff_forall_mem]
+  intro C hC
+  apply List.reverse_mem_mergeSort at hC
+  rw [List.forall_iff_forall_mem] at *
+  apply hllA at hlB1
+  rw [List.forall_iff_forall_mem] at hlB1
+  apply hlB1 at hC
+  apply hC
 
-lemma groupByThirdInvariant_lawful (A : List PartialMatroid)
-    (hA : A.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) :
-    (groupByThirdInvariant A).Forall
-    (fun l ↦ l.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) := by
-      unfold groupByThirdInvariant
-      apply forall_groupByValue
-      apply List.forall_mergeSort
-      apply hA
+lemma groupByThirdInvariant_lawful (llA : List (List PartialMatroid))
+    (hllA : llA.Forall fun l ↦ l.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) :
+    (llA.map groupByThirdInvariant).join.Forall
+    fun l ↦ l.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid) := by
+  unfold groupByThirdInvariant
+  apply List.Forall.join
+  rw [List.forall_iff_forall_mem]
+  intro llB hllB
+  rw[List.mem_map] at hllB
+  obtain ⟨lB, hlB⟩ := hllB
+  obtain ⟨hlB1, hlB2⟩ := hlB
+  rw [←hlB2] at *
+  apply forall_groupByValue
+  rw [List.forall_iff_forall_mem]
+  intro C hC
+  apply List.reverse_mem_mergeSort at hC
+  rw [List.forall_iff_forall_mem] at *
+  apply hllA at hlB1
+  rw [List.forall_iff_forall_mem] at hlB1
+  apply hlB1 at hC
+  apply hC
 
 
 /-- If `A` is a list of `PartialMatroid`s, all of which are valid (n, r)-sparse paving matroids,
 then when the `groupByBucket` operation is performed, every `PartialMatroid` in the the resulting
 list of list of partial matroids is still a valid (n, r)-sparse paving matroids. -/
-lemma groupByBucket_lawful (A : List PartialMatroid)
-    (hA : A.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) :
-    (groupByBucket A).Forall
+lemma groupByBucket_lawful (lA : List PartialMatroid)
+    (hA : lA.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) :
+    (groupByBucket lA).Forall
     (fun l ↦ l.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) := by
   unfold groupByBucket
-  apply List.Forall.join
-  rw [List.forall_map_iff]
-  rw [List.forall_iff_forall_mem]
-  intro q hq
   apply groupByThirdInvariant_lawful
-  simp at hq
-  obtain hhq | qhq := hq
-  · rw [List.forall_iff_forall_mem]
-    intro w hw
-    unfold groupBySecondInvariant at hhq
-    simp[groupByValue] at hhq
-    obtain hhqh | hhqq := hhq
-    · sorry
-    --apply groupByFirstInvariant_lawful at hhq
-    --apply hw at hhq
-    --rw [pruning_lawful] at hhq
-    sorry
-  · rw [List.forall_iff_forall_mem]
-    obtain ⟨ qqhq, qhqq, qhqqq ⟩ := qhq
-    intro p hp
+  apply groupBySecondInvariant_lawful
+  apply groupByFirstInvariant_lawful
+  apply hA
 
-    sorry
-
-lemma groupByFirstInvariant_normalized (A : List PartialMatroid)
-    (hA : A.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
-    (groupByFirstInvariant A).Forall
+lemma groupByFirstInvariant_normalized (lA : List PartialMatroid)
+    (hlA : lA.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) :
+    (groupByFirstInvariant lA).Forall
     (fun l ↦ l.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) := by
    unfold groupByFirstInvariant
    apply forall_groupByValue
    apply List.forall_mergeSort
-   apply hA
+   apply hlA
 
 
 lemma groupBySecondInvariant_normalized (llA : List (List PartialMatroid))
@@ -125,9 +133,11 @@ lemma groupByBucket_normalized (lA : List PartialMatroid)
     (groupByBucket lA).Forall
     (fun l ↦ l.Forall (fun M ↦ List.NormalizedVamosLike M.matroid)) := by
     unfold groupByBucket
-    rw [List.forall_iff_forall_mem] at *
-    intro lB hlB
-    sorry
+    apply groupByThirdInvariant_normalized
+    apply groupBySecondInvariant_normalized
+    apply groupByFirstInvariant_normalized
+    apply hlA
+
 
 
 
