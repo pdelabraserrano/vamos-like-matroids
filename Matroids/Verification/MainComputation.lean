@@ -62,13 +62,69 @@ lemma joinedPrunedVamos_normalized :
   apply List.Forall.join
   apply prunedVamos_normalized
 
+-- now?
+theorem List.pairwise_range {R : ℕ → ℕ → Prop} (H : ∀ i j, i < j → R i j) :
+    List.Pairwise R (List.range n) :=
+  sorry
+
+/-- In each of the pruned "buckets", `l`, in the list of `i`-augmentations of the Vamos matroid,
+all the partial matroids in `l` are different.
+
+Note: we expect that `l` has only one entry, so one possible method of proof is to notice this,
+then point out to Lean that a list of length 1 has no repeats.
+
+But another method of proof is to notice that the pruning process removes repeats. -/
+theorem forall_nonisomorphic_prunedVamos (i : ℕ) :
+    (prunedVamos i).Forall fun l ↦ l.Pairwise fun A₁ A₂ ↦ ¬permutationsComparison 8 A₁.matroid A₂.matroid :=
+  sorry
+
+/-- For a natural number `i`, partial matroids `A` and `B` drawn from *different* pruned
+buckets of the `i`-augmentations of the Vamos matroid, then they are different. -/
+theorem forall_forall_nonisomorphic_prunedVamos (i : ℕ) :
+    (prunedVamos i).Pairwise fun l₁ l₂ ↦
+    l₁.Forall fun A ↦ l₂.Forall fun B ↦ ¬permutationsComparison 8 A.matroid B.matroid := by
+  sorry
+
+-- now????
+theorem length_prunedVamos {i : ℕ} {A : PartialMatroid} {lA' : List PartialMatroid}
+    (hlA' : lA' ∈ prunedVamos i)
+    (hA : A ∈ lA') :
+    A.matroid.length = 5 + i :=
+  sorry
+
+-- now?
+theorem nonisomorphic_of_length {A B : PartialMatroid} (h : A.matroid.length ≠ B.matroid.length) :
+    ¬ permutationsComparison 8 A.matroid B.matroid :=
+  sorry
+
 -- to prove this, need some lemmas about being non-isomorphic in different situations
 -- * after applying `pruning`, everything in a list is non-isomorphic
 -- * after applying `groupByBucket`, everything in different buckets is non-isomorphic
 -- * augmenting by different numbers of quadrangles cannot be isomorphic
 lemma nonisomorphic_joinedPrunedVamos :
     joinedPrunedVamos.Pairwise (fun A₁ A₂ ↦ ¬ permutationsComparison 8 A₁.matroid A₂.matroid) := by
-  sorry
+  unfold joinedPrunedVamos
+  rw [List.pairwise_join]
+  constructor
+  · intro lA hlA
+    rw[List.mem_map] at hlA
+    obtain ⟨ i, hi1, hi2⟩ := hlA
+    rw [←hi2]
+    clear hi2 lA
+    rw [List.pairwise_join]
+    constructor
+    · rw [← List.forall_iff_forall_mem]
+      apply forall_nonisomorphic_prunedVamos
+    · simp_rw [← List.forall_iff_forall_mem]
+      apply forall_forall_nonisomorphic_prunedVamos
+  · rw [List.pairwise_map]
+    apply List.pairwise_range
+    intro i j hij A hA B hB
+    rw [List.mem_join] at hA hB
+    obtain ⟨ lA', hlA', hA⟩ := hA
+    obtain ⟨ lB', hlB', hB⟩ := hB
+    -- now?
+    sorry
 
 /-- The main computation produces only `List (List ℕ)` objects which are valid ("lawful") sparse
 paving matroids.
