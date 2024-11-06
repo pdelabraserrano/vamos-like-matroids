@@ -19,6 +19,14 @@ abbrev A73BucketSorted := A73Bucket.sort
 
 #eval ((augmentationsFinal 4 A73).map invariant1) -- returns (to long to comment)
 
+#eval pairing [[1,2,3,5,6],[7,3,4,5,6]]
+
+
+
+#exit
+
+
+
 /-- info: [35, 560, 1260] -/
 #guard_msgs in
 #eval countBuckets (augmentationsFinal 2 A84)

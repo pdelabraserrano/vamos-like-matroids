@@ -28,13 +28,13 @@ def List.pairs : List α → List (List α)
 count allows us to look at the number of figures each point touches -/
 def invariant1 (A: PartialMatroid) : List Nat := count A.matroid.join.sort
 
-/-- Takes in ****** and gives out a list of all the possible pairs
+/-- Takes in a list of lists and gives out a list of all the possible pairs
  of natural numbers in it-/
-def renameMe (A: List (List Nat)) : List Nat := count (((((A.map)) (List.pairs)).join).sort)
+def pairing (A: List (List Nat)) : List Nat := count (((((A.map)) (List.pairs)).join).sort)
 
 /-- Takes in the matroid part of a partial matroid and gives out a list of all the possible pairs
  of natural numbers in it-/
-def invariant2 (A: PartialMatroid) : List Nat := renameMe A.matroid
+def invariant2 (A: PartialMatroid) : List Nat := pairing A.matroid
 
 def isMember (i : Nat) : (List Nat) → Bool
   | [] => false
@@ -57,7 +57,7 @@ def complement ( A : List (List Nat) ) : List (List Nat) :=
 
 /-- Takes in the matroid part of a partial matroid and gives out a list of all the possible pairs
  of natural numbers in it-/
-def invariant3 (A: PartialMatroid) : List Nat := renameMe (complement A.matroid)
+def invariant3 (A: PartialMatroid) : List Nat := pairing (complement A.matroid)
 
 /-- NEED TO WRITE -/
 def groupByFirstInvariant (A: List PartialMatroid) : List (List PartialMatroid) :=
