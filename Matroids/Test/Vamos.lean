@@ -5,6 +5,9 @@ import Matroids.Relabelling
 
 open PartialMatroid
 
+
+#eval Vamos
+
 #eval groupByBucket (augmentationsFinal 5 Vamos) -- returns (to long to comment)
 
 #eval countBuckets (augmentationsFinal 8 Vamos)--2

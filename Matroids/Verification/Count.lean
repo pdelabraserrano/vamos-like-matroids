@@ -7,9 +7,6 @@ import Matroids.PartialMatroid
 the output will be a list of natural numbers that counts the single ocurrences of lawful sparse
 paving matroids-/
 
-#eval count ([[0, 1], [0, 1], [1, 0], [0, 1, 3,2], [0, 1, 9], [0, 1], [0,2]]) /- Note, this is not
-a list of partial matroids-/
-
 lemma forall_groupByValueAux (f : α → List ℕ) (A : List α) (hA : A.Forall P) :
     (groupByValueAux f A).1.Forall P ∧ (groupByValueAux f A).2.Forall (fun l ↦ l.Forall P) := by
   match A with

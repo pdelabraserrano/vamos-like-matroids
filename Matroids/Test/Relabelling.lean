@@ -59,6 +59,8 @@ def swapSixAndSeven (N : Nat) : Nat :=
 --#eval (pruning (Vamos1.head!)).length
 
 
+--#eval complementToOriginal [[1,2,3,4],[2,4,5,7]] [[3,4,5,6],[0,2,3,5]] --true
+--#eval complementToOriginal [[1,2,3,4],[2,4,5,7]] [[3,4,5,6],[0,1,3,5]] --false
 
 #exit
 #time

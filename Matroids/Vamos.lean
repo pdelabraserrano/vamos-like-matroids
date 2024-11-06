@@ -85,5 +85,3 @@ abbrev Vamos : PartialMatroid where
                        --[3, 5, 6, 7],
                        --[4, 5, 6, 7]
                        ]
-
-#eval Vamos
