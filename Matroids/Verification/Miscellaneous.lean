@@ -109,6 +109,9 @@ lemma List.mergeSort_no_duplicates [PartialOrder α] {l : List α} [DecidableRel
   sorry
 
 
+theorem List.pairwise_range {R : ℕ → ℕ → Prop} (H : ∀ i j, i < j → R i j) :
+    List.Pairwise R (List.range n) := by
+  sorry
 
 /- PENDING theorem: If you have two different sorted lists and you run merge on them,
 then the result has to be sorted. Take a look at theorem Sorted.merge-/

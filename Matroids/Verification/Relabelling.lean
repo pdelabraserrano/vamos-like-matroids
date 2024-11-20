@@ -50,3 +50,28 @@ lemma pruning_normalized (A : List PartialMatroid)
 theorem permutationsComparison_mem_pruning_of_mem (A : List PartialMatroid) :
     A.Forall fun M ↦ ∃ M' ∈ pruning A, permutationsComparison n M.matroid M'.matroid := by
   sorry
+
+
+theorem foo_sameUpToRelabelling {A B : List (List Nat)} {g : Nat → Nat}
+    {h : sameUpToRelabelling A B g} : A.length = B.length := by
+  unfold sameUpToRelabelling at h
+  sorry
+
+
+theorem foo_any {A : List (Nat → Nat)} { P : (Nat → Nat) → Bool} (h : any A P) : ∃ g ∈ A, P g := by
+  sorry
+
+theorem length_eq_of_permutationsComparison {A B : List (List Nat)}
+    {h : permutationsComparison 8 A B} : A.length = B.length := by
+  unfold permutationsComparison at h
+  apply foo_any at h
+  sorry
+
+-- now?
+theorem nonisomorphic_of_length {A B : List (List Nat)} (h : A.length ≠ B.length) :
+    ¬ permutationsComparison 8 A B := by
+  intro h₁
+  apply h
+  clear h
+  apply length_eq_of_permutationsComparison
+  apply h₁
