@@ -80,12 +80,31 @@ theorem forall_forall_nonisomorphic_prunedVamos (i : ℕ) :
     l₁.Forall fun A ↦ l₂.Forall fun B ↦ ¬permutationsComparison 8 A.matroid B.matroid := by
   sorry
 
--- now????
+
+
+
+theorem length_augmentedVamos {i : ℕ} {A : PartialMatroid} {lA' : List PartialMatroid}
+    (hlA' : lA' ∈ augmentedVamos i)
+    (hA : A ∈ lA') :
+    A.matroid.length = 5 + i := by
+  rw [augmentedVamos] at hlA'
+
+  sorry
+
+
 theorem length_prunedVamos {i : ℕ} {A : PartialMatroid} {lA' : List PartialMatroid}
     (hlA' : lA' ∈ prunedVamos i)
     (hA : A ∈ lA') :
     A.matroid.length = 5 + i := by
-  sorry
+  rw [prunedVamos_def] at hlA'
+  simp at hlA'
+  obtain ⟨lp, q⟩ := hlA'
+  obtain ⟨ q1, q2⟩ := q
+  subst q2
+  apply length_augmentedVamos
+  apply q1
+  apply mem_of_mem_pruning
+  apply hA
 
 /- to prove this, need some lemmas about being non-isomorphic in different situations
   * after applying `pruning`, everything in a list is non-isomorphic

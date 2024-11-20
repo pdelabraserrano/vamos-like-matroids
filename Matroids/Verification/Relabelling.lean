@@ -1,13 +1,40 @@
 import Matroids.Verification.Basic
 import Matroids.Relabelling
 
+
+
+lemma mem_of_mem_pruning {lA : List (PartialMatroid)} {A : PartialMatroid}
+    (hA : A ∈ pruning lA) :
+    A ∈ lA := by
+  induction lA with
+  | nil =>
+    rw[pruning] at hA
+    apply hA
+  | cons h t IH =>
+    simp[pruning] at hA
+    split_ifs at hA
+    · simp
+      apply IH at hA
+      right
+      apply hA
+    · simp
+      apply IH at hA
+      right
+      apply hA
+    · simp
+      simp at hA
+      obtain hAA | hAAA := hA
+      left
+      apply hAA
+      sorry
+
 /-- If `A` is a list of `PartialMatroid`s, all of which are valid (n, r)-sparse paving matroids,
 then when the `pruning` operation is performed, every `PartialMatroid` in the the resulting
 list of partial matroids is still a valid (n, r)-sparse paving matroids. -/
-lemma pruning_lawful (A : List PartialMatroid)
-    (hA : A.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) :
-    (pruning A).Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid) := by
-  induction A with
+lemma pruning_lawful (lA : List PartialMatroid)
+    (hA : lA.Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid)) :
+    (pruning lA).Forall (fun M ↦ LawfulSparsePavingMatroid n r M.matroid) := by
+  induction lA with
   | nil => simp
   | cons h t IH =>
     simp at hA
