@@ -90,6 +90,14 @@ theorem permutationsComparison_mem_pruning_of_mem (A : List PartialMatroid) :
       clear IH
       simp
       split_ifs with h
+      obtain ⟨ q, hq ⟩ := h
+      obtain ⟨ a, ha ⟩ := hq
+      unfold specialPermutationsComparison at ha
+      use q
+      constructor
+      apply a
+      unfold permutationsComparison
+
       sorry
       sorry
       sorry
