@@ -82,6 +82,8 @@ theorem permutationsComparison_mem_pruning_of_mem (A : List PartialMatroid) :
 theorem foo_sameUpToRelabelling {A B : List (List Nat)} {g : Nat → Nat}
     {h : sameUpToRelabelling A B g} : A.length = B.length := by
   unfold sameUpToRelabelling at h
+  simp at h
+  -- unfold List.sort at h
   sorry
 
 theorem length_eq_of_permutationsComparison {A B : List (List Nat)}
