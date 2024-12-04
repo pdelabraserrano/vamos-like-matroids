@@ -86,13 +86,13 @@ theorem foo_sameUpToRelabelling {A B : List (List Nat)} {g : Nat → Nat}
   sorry
 
 
-theorem foo_any {A : List (Nat → Nat)} { P : (Nat → Nat) → Bool} (h : any A P) : ∃ g ∈ A, P g := by
+theorem foo_any {A : List (Nat → Nat)} { P : (Nat → Nat) → Bool} (h : List.any A P) : ∃ g ∈ A, P g := by
   sorry
 
 theorem length_eq_of_permutationsComparison {A B : List (List Nat)}
     {h : permutationsComparison 8 A B} : A.length = B.length := by
   unfold permutationsComparison at h
-  apply foo_any at h
+  rw [List.any_eq_true] at h
   obtain ⟨g, hg⟩ := h
   obtain ⟨_, h⟩ := hg
   apply foo_sameUpToRelabelling at h
