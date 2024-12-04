@@ -76,7 +76,25 @@ lemma pruning_normalized (A : List PartialMatroid)
 `PartialMatroid`s in the pruned list. -/
 theorem permutationsComparison_mem_pruning_of_mem (A : List PartialMatroid) :
     A.Forall fun M ↦ ∃ M' ∈ pruning A, permutationsComparison n M.matroid M'.matroid := by
-  sorry
+  induction A with
+  | nil => simp[pruning]
+  | cons h t IH =>
+    rw [List.forall_iff_forall_mem]
+    intro p hp
+    rw [List.forall_iff_forall_mem] at IH
+    simp at hp
+
+    obtain hp1 | hp2 := hp
+    · subst hp1
+      unfold pruning
+      clear IH
+      simp
+      split_ifs with h
+      sorry
+      sorry
+      sorry
+    sorry
+
 
 
 theorem foo_sameUpToRelabelling {A B : List (List Nat)} {g : Nat → Nat}
