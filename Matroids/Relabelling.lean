@@ -56,13 +56,6 @@ within the function. --/
 def sameUpToRelabelling (A B : List (List Nat)) (g : Nat → Nat) : Bool :=
   ((relabelling B g).map List.sort).sort = (A.map List.sort).sort
 
-/--Takes a list of elements. Evaluates the list of elements and compares each element to a
-condition and creates a list of booleans. Fulfilling the condition would give a true, not fulfilling
-would give a false. If any of the elements contains a true boolean, then it returns true. If there
-are no true booleans, then it returns false--/
-def any : List α -> (α → Bool) -> Bool
-  | [], _ => false
-  | h :: t, p => p h || any t p
 
 /--Takes the magnitude of permutations we want to apply. Takes the partial matroids we want to apply
 the permutations to. We use the any function to see if there are any repeat partial matroids. If
@@ -70,10 +63,10 @@ there are repeats, that means that thse are the same partial matroid. It compare
 matroids but evaluates every single permutation of the second partial matroid and compares it to the
 first. --/
 def permutationsComparison (n : Nat) (A B : List (List Nat)) : Bool :=
-  any (permutation n) (sameUpToRelabelling A B)
+  List.any (permutation n) (sameUpToRelabelling A B)
 
 def specialPermutationsComparison (A B : List (List Nat)) : Bool :=
-  any specialPermutation (sameUpToRelabelling A B)
+  List.any specialPermutation (sameUpToRelabelling A B)
 
 /-- Checks for any repeat partial matroids in a list of partial matroids starting with the list
 of special permutations. Repeat partial matroids referring to partial matroids that are same after
@@ -86,9 +79,9 @@ def pruning : List PartialMatroid → List PartialMatroid
   | [] => []
   | h :: t =>
   let T := pruning t
-  if (any (T.map PartialMatroid.matroid) (specialPermutationsComparison h.matroid)) then
+  if (List.any (T.map PartialMatroid.matroid) (specialPermutationsComparison h.matroid)) then
     T
-  else if (any (T.map PartialMatroid.matroid) (permutationsComparison 8 h.matroid)) then
+  else if (List.any (T.map PartialMatroid.matroid) (permutationsComparison 8 h.matroid)) then
     T
   else
     h :: T
@@ -100,10 +93,3 @@ paths/connections are different. As a result, Lean would only have to check for 
 the buckets (reducing computational power)and prune from there. We only care about the number of
 partial matroids so we want to see the length of each bucket-/
 def sizeOfPrunedBucket (l : List PartialMatroid) : Nat := (pruning l).length
-
-
-
-
--- def ComplimentComparison (A B : List (List Nat)) : Bool :=
---   any (complimentToOriginal A B)
---   sorry
